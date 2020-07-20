@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <PreferenceCategory android:title="General">
+        <EditTextPreference
+            android:defaultValue="3"
+            android:inputType="number"
+            android:key="NUMBER_OF_TABS"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="Set number of pages for stats. Minimum number is 3. There is no upper limit but... Don't be silly."
+            android:title="Number of stat pages" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Help">
+
+        <Preference
+            app:isPreferenceVisible="false"
+            app:key="consent"
+            app:summary="Reset preferences for AD consent."
+            app:title="Reset consent" />
+
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features."
+            app:title="Send feedback" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

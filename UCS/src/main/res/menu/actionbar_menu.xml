@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_addPreset"
+        android:title="@string/add_to_presets"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_createTab"
+        android:title="@string/create_new_tab"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_removeTab"
+        android:title="@string/remove_tab"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_changeTabName"
+        android:title="@string/change_tab_name"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/about"
+        app:showAsAction="never" />
+</menu>

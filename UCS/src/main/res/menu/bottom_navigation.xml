@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/statsFragment"
+        android:icon="@drawable/ic_import_contacts_white_24dp"
+        android:title="@string/bottom_nav_stats" />
+
+    <item
+        android:id="@+id/inventoryFragment"
+        android:icon="@drawable/ic_business_center_white_24dp"
+        android:title="@string/bottom_nav_inventory" />
+
+    <item
+        android:id="@+id/spellsFragment"
+        android:icon="@drawable/ic_whatshot_white_24dp"
+        android:title="@string/bottom_nav_abilities" />
+
+</menu>
