@@ -5,12 +5,13 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 public final class ImageContract {
     //Character's images
     public final static class Character {
-        public final static int COWLED_ID = R.drawable.cowled_hex_gradient;
-        public final static int CULTIST_ID = R.drawable.cultist_hex_gradient;
-        public final static int VIKING_ID = R.drawable.viking_hex_gradient;
-        public final static int WIZARD_ID = R.drawable.wizard_face_hex_gradient;
-        public final static int VISORED_ID = R.drawable.visored_helm_hex_gradient;
-        public final static int KENAKU_ID = R.drawable.kenku_head_hex_gradient;
+        //120dp in Android Asset Studio
+        public final static int COWLED_ID = R.drawable.ic_cowled_hex_gradient;
+        public final static int CULTIST_ID = R.drawable.ic_cultist_hex_gradient;
+        public final static int VIKING_ID = R.drawable.ic_viking_hex_gradient;
+        public final static int WIZARD_ID = R.drawable.ic_wizard_face_hex_gradient;
+        public final static int VISORED_ID = R.drawable.ic_visored_helm_hex_gradient;
+        public final static int KENAKU_ID = R.drawable.ic_kenku_head_hex_gradient;
 
         public final static String COWLED = "cowled";
         public final static String CULTIST = "cultist";
