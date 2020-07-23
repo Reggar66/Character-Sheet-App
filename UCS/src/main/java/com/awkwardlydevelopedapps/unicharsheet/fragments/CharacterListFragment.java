@@ -2,7 +2,6 @@ package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -23,14 +23,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.awkwardlydevelopedapps.unicharsheet.AdSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.character.Character;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.character.CharacterListAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.MainActivityViewModel;
-import com.google.ads.consent.ConsentInformation;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -48,6 +48,9 @@ public class CharacterListFragment extends Fragment
 
     private RecyclerView recyclerView;
     private CharacterListAdapter adapter;
+
+    private BottomSheetBehavior bottomSheetBehavior;
+    private ConstraintLayout bottomSheetCharacterCreationLayout;
 
     public CharacterListFragment() {
 
@@ -85,6 +88,13 @@ public class CharacterListFragment extends Fragment
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new FABOnScrollListener());
         recyclerView.setAdapter(adapter);
+
+
+        //Bottom sheet
+//        bottomSheetCharacterCreationLayout = rootView.findViewById(R.id.bottomSheet_characterCreation);
+        //       bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetCharacterCreationLayout);
+//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
 
         // ViewModel
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
@@ -197,6 +207,10 @@ public class CharacterListFragment extends Fragment
     private class FABOnClickListenerAdd implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            navigateToCharacterCreation();
+        }
+
+        private void navigateToCharacterCreation() {
             NavHostFragment
                     .findNavController(CharacterListFragment.this)
                     .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToCharacterCreationFragment());
