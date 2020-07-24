@@ -11,11 +11,11 @@ class Icon(val iconId: Int,
 
             // TODO change to normal icons
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
-            icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
-            icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
-            icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
-            icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
-            icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
+            icons.add(Icon(ImageContract.Character.CULTIST_ID, ImageContract.Character.CULTIST))
+            icons.add(Icon(ImageContract.Character.VIKING_ID, ImageContract.Character.VIKING))
+            icons.add(Icon(ImageContract.Character.WIZARD_ID, ImageContract.Character.WIZARD))
+            icons.add(Icon(ImageContract.Character.VISORED_ID, ImageContract.Character.VISORED))
+            icons.add(Icon(ImageContract.Character.KENAKU_ID, ImageContract.Character.KENAKU))
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))

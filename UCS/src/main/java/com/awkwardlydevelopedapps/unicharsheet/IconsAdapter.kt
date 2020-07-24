@@ -5,12 +5,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-class IconsAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<IconsAdapter.ViewHolder>() {
+class IconsAdapter(private val mIcons: List<Icon>,
+                   private val imageToSet: ImageView,
+                   private val bottomSheetBehavior: BottomSheetBehavior<View>) : RecyclerView.Adapter<IconsAdapter.ViewHolder>() {
 
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val iconImage = itemView.findViewById<ImageView>(R.id.icon)
+
+        init {
+            iconImage.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val position = adapterPosition
+            imageToSet.setImageResource(mIcons[position].iconId)
+            imageToSet.contentDescription = mIcons[position].iconName
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
 
     }
 

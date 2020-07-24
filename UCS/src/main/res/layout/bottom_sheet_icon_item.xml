@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:background="@drawable/equipment_details_background_drawable"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_cowled_circle" />
+            tools:srcCompat="@drawable/ic_cowled_hex_gradient" />
     </FrameLayout>
 
 

@@ -34,6 +34,8 @@ import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
 import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,15 +78,16 @@ public class CharacterCreationFragment extends Fragment {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetIcons);
 
         icon = rootView.findViewById(R.id.icon_characterCreation);
+        icon.setImageResource(ImageContract.Character.COWLED_ID);
+        icon.setContentDescription(ImageContract.Character.COWLED);
         icon.setOnClickListener(view -> {
-            // TODO open BottomSheet with icons to choose
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         });
 
 
         RecyclerView recyclerViewBottomSheet = rootView.findViewById(R.id.recyclerView_icons_grid);
         icons = Icon.Companion.populateIcons();
-        IconsAdapter iconsAdapter = new IconsAdapter(icons);
+        IconsAdapter iconsAdapter = new IconsAdapter(icons, icon, bottomSheetBehavior);
         recyclerViewBottomSheet.setAdapter(iconsAdapter);
         recyclerViewBottomSheet.setLayoutManager(new GridLayoutManager(requireContext(), 3));
 
@@ -144,7 +147,7 @@ public class CharacterCreationFragment extends Fragment {
 
         //create and add new character
         //Check if given character already exist, if so - quit adding
-        Character newCharacter = new Character(name, className, race, imageIdValue());
+        Character newCharacter = new Character(name, className, race, imageResourceTag());
 
         //Insert new character to DB and store its ID.
         charId = (int) characterDao.insert(newCharacter);
@@ -183,13 +186,8 @@ public class CharacterCreationFragment extends Fragment {
 
     }
 
-    private String imageIdValue() {
-        String iconIdTemp = ImageContract.Character.COWLED;
-        ;
-
-        // TODO returning image value. Right now it's constant
-
-        return iconIdTemp;
+    private String imageResourceTag() {
+        return icon.getContentDescription().toString();
     }
 
     private void showToast(String msg) {
@@ -209,6 +207,14 @@ public class CharacterCreationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             ExecSingleton.getInstance().execute(taskCreateAndAddCharacter());
+        }
+    }
+
+    private class OnIconChooserClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            Snackbar.make(rootView, "Icon click!", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 }

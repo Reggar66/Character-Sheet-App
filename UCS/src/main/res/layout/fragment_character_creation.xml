@@ -126,10 +126,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/pocket_fragment_value_ripple"
-                android:src="@drawable/ic_cowled_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/parent_classBasics" />
+                app:layout_constraintTop_toBottomOf="@+id/parent_classBasics"
+                tools:src="@drawable/ic_cowled_hex_gradient" />
         </FrameLayout>
 
 
