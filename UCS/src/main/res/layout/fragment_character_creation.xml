@@ -170,6 +170,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include
+        android:id="@+id/bottomSheet_iconSelection"
+        layout="@layout/bottom_sheet_character_icon_selection" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"
         android:layout_width="wrap_content"

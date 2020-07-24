@@ -6,12 +6,10 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.Spinner;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,9 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
+import com.awkwardlydevelopedapps.unicharsheet.Icon;
+import com.awkwardlydevelopedapps.unicharsheet.IconsAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.character.Character;
 import com.awkwardlydevelopedapps.unicharsheet.data.CharacterDao;
@@ -31,9 +32,8 @@ import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
 import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,8 @@ public class CharacterCreationFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     private ImageView icon;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private ArrayList<Icon> icons;
 
     private CharacterDao characterDao;
     private StatDao statDao;
@@ -69,14 +71,22 @@ public class CharacterCreationFragment extends Fragment {
         floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
         floatingActionButton.setOnClickListener(new FABOnClick());
 
+
+        View bottomSheetIcons = rootView.findViewById(R.id.bottomSheet_iconSelection);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetIcons);
+
         icon = rootView.findViewById(R.id.icon_characterCreation);
-        icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO open BottomSheet with icons to choose
-                Snackbar.make(rootView, R.string.accept, BaseTransientBottomBar.LENGTH_SHORT).show();
-            }
+        icon.setOnClickListener(view -> {
+            // TODO open BottomSheet with icons to choose
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         });
+
+
+        RecyclerView recyclerViewBottomSheet = rootView.findViewById(R.id.recyclerView_icons_grid);
+        icons = Icon.Companion.populateIcons();
+        IconsAdapter iconsAdapter = new IconsAdapter(icons);
+        recyclerViewBottomSheet.setAdapter(iconsAdapter);
+        recyclerViewBottomSheet.setLayoutManager(new GridLayoutManager(requireContext(), 3));
 
         return rootView;
     }

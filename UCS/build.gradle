@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-android'
 
 // Define API key properties
 def apiKeyPropertiesFile = rootProject.file("apikey.properties")
@@ -59,6 +60,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:2.2.5"
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
     annotationProcessor "androidx.room:room-compiler:2.2.5"
     testImplementation "androidx.room:room-testing:2.2.5"
 
