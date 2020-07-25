@@ -155,11 +155,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView_preset_characterCreation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="5"
+                android:background="@drawable/pocket_fragment_value_ripple"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/none"
                 android:textAlignment="textStart"
@@ -170,9 +172,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- BottomSheet with icons -->
     <include
         android:id="@+id/bottomSheet_iconSelection"
-        layout="@layout/bottom_sheet_character_icon_selection" />
+        layout="@layout/bottom_sheet_character_icon_selection"
+        tools:visibility="gone" />
+
+    <!-- BottomSheet with presets -->
+    <include
+        android:id="@+id/bottomSheet_presetSelection"
+        layout="@layout/bottom_sheet_character_preset_selection"
+        tools:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"

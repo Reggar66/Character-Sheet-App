@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class CharacterCreationFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     private ImageView icon;
-    private BottomSheetBehavior bottomSheetBehavior;
+    private BottomSheetBehavior<View> bottomSheetBehaviorIcons;
     private ArrayList<Icon> icons;
 
     private CharacterDao characterDao;
@@ -73,23 +74,40 @@ public class CharacterCreationFragment extends Fragment {
         floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
         floatingActionButton.setOnClickListener(new FABOnClick());
 
-
+        // Bottom Sheet with Icons
         View bottomSheetIcons = rootView.findViewById(R.id.bottomSheet_iconSelection);
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetIcons);
+        bottomSheetBehaviorIcons = BottomSheetBehavior.from(bottomSheetIcons);
+        bottomSheetBehaviorIcons.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         icon = rootView.findViewById(R.id.icon_characterCreation);
         icon.setImageResource(ImageContract.Character.COWLED_ID);
         icon.setContentDescription(ImageContract.Character.COWLED);
-        icon.setOnClickListener(view -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-        });
-
 
         RecyclerView recyclerViewBottomSheet = rootView.findViewById(R.id.recyclerView_icons_grid);
         icons = Icon.Companion.populateIcons();
-        IconsAdapter iconsAdapter = new IconsAdapter(icons, icon, bottomSheetBehavior);
+        IconsAdapter iconsAdapter = new IconsAdapter(icons, icon, bottomSheetBehaviorIcons);
         recyclerViewBottomSheet.setAdapter(iconsAdapter);
         recyclerViewBottomSheet.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+
+
+        // Bottom Sheet with presets
+        View bottomSheetPreset = rootView.findViewById(R.id.bottomSheet_presetSelection);
+        BottomSheetBehavior<View> bottomSheetBehaviorPreset = BottomSheetBehavior.from(bottomSheetPreset);
+        bottomSheetBehaviorPreset.setState(BottomSheetBehavior.STATE_HIDDEN);
+        TextView textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
+
+
+        // Taking care of showing bottom sheets
+        icon.setOnClickListener(view -> {
+            bottomSheetBehaviorPreset.setState(BottomSheetBehavior.STATE_HIDDEN);
+            bottomSheetBehaviorIcons.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        });
+
+        textViewPreset.setOnClickListener(view -> {
+            bottomSheetBehaviorIcons.setState(BottomSheetBehavior.STATE_HIDDEN);
+            bottomSheetBehaviorPreset.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        });
+
 
         return rootView;
     }
@@ -105,15 +123,12 @@ public class CharacterCreationFragment extends Fragment {
     }
 
     private Runnable taskLoadPresetList(Handler handler) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                Message msg = handler.obtainMessage();
-                List<String> tempPresetList = getPresetList();
-                msg.what = 1;
-                msg.obj = tempPresetList;
-                handler.sendMessage(msg);
-            }
+        return () -> {
+            Message msg = handler.obtainMessage();
+            List<String> tempPresetList = getPresetList();
+            msg.what = 1;
+            msg.obj = tempPresetList;
+            handler.sendMessage(msg);
         };
     }
 
@@ -127,12 +142,7 @@ public class CharacterCreationFragment extends Fragment {
     }
 
     private Runnable taskCreateAndAddCharacter() {
-        return new Runnable() {
-            @Override
-            public void run() {
-                createAndAddCharacter();
-            }
-        };
+        return () -> createAndAddCharacter();
     }
 
     private void createAndAddCharacter() {
