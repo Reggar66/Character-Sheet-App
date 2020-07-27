@@ -18,7 +18,10 @@ public interface PresetDao {
     void insertPresetStats(Preset... presets);
 
     @Query("SELECT name FROM presetList")
-    List<String> getPresetList();
+    List<String> getPresetListNames();
+
+    @Query("SELECT * FROM presetList")
+    List<PresetList> getPresetList();
 
     @Query("SELECT * FROM Preset WHERE presetName = :preName")
     List<Preset> getPresetStats(String preName);

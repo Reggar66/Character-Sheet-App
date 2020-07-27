@@ -103,6 +103,10 @@ public class CharacterCreationFragment extends Fragment {
         recyclerViewPresetList.setAdapter(presetListAdapter);
         recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        ExecSingleton.getInstance().execute(() -> {
+            presetList.addAll(presetDao.getPresetList());
+            presetListAdapter.notifyDataSetChanged();
+        });
 
         // Taking care of showing bottom sheets
         icon.setOnClickListener(view -> {
@@ -162,6 +166,9 @@ public class CharacterCreationFragment extends Fragment {
 
     private void checkPresetToAdd() {
         String presetName = textViewPreset.getText().toString();
+        if (!presetName.equals("Blade") && !presetName.equals("None")) {
+            presetName = "Custom";
+        }
         switch (presetName) {
             case "None":
                 showToast("Character created without Blade preset.");
@@ -170,10 +177,11 @@ public class CharacterCreationFragment extends Fragment {
                 Snackbar.make(rootView, "Character created with Blade preset.", BaseTransientBottomBar.LENGTH_SHORT).show();
                 bladePreset();
             case "Custom":
-                loadCustomPreset(presetName);
+                showToast("Custom preset.");
+                loadCustomPreset(textViewPreset.getText().toString());
                 break;
             default:
-                Snackbar.make(rootView, "Something went wrong with presets.", BaseTransientBottomBar.LENGTH_SHORT).show();
+                showToast("Something wrong with preset.");
                 break;
         }
     }
