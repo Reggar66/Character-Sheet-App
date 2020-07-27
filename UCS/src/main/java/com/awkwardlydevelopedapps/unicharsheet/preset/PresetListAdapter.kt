@@ -6,26 +6,51 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton
 import com.awkwardlydevelopedapps.unicharsheet.R
+import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton
+import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.ArrayList
 
 class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
                         private val textViewPresetToSet: TextView,
-                        private val bottomSheetBehavior: BottomSheetBehavior<View>) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
+                        private val bottomSheetBehavior: BottomSheetBehavior<View>,
+                        private val presetDao: PresetDao) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+            View.OnClickListener,
+            View.OnLongClickListener {
         val textViewPresetName: TextView = itemView.findViewById(R.id.textView_presetList_name)
         val frameLayout: FrameLayout = itemView.findViewById(R.id.frameLayout_presetListName_container)
 
         init {
             frameLayout.setOnClickListener(this)
+            frameLayout.setOnLongClickListener(this)
         }
 
         override fun onClick(p0: View?) {
             textViewPresetToSet.text = textViewPresetName.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        override fun onLongClick(p0: View?): Boolean {
+            return if (textViewPresetName.text != "Blade" && textViewPresetName.text != "None") {
+
+                // TODO dialog notifier about deletion.
+                val position = adapterPosition
+                mPresetList.removeAt(position)
+                notifyItemRemoved(position)
+
+                // Delete preset from database
+                ExecSingleton.getInstance().execute {
+                    presetDao.deletePresetListItem(textViewPresetName.text.toString())
+                    presetDao.deletePresetStats(textViewPresetName.text.toString())
+                }
+                true
+            } else
+                false
         }
     }
 
