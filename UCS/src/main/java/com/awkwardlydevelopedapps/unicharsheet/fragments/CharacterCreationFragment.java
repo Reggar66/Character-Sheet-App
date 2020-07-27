@@ -48,11 +48,9 @@ public class CharacterCreationFragment extends Fragment {
 
     private View rootView;
 
-    private FloatingActionButton floatingActionButton;
-
     private ImageView icon;
     private BottomSheetBehavior<View> bottomSheetBehaviorIcons;
-    private ArrayList<Icon> icons;
+    TextView textViewPreset;
 
     private CharacterDao characterDao;
     private StatDao statDao;
@@ -73,7 +71,7 @@ public class CharacterCreationFragment extends Fragment {
         presetDao = DbSingleton.Instance(requireContext()).getPresetDao();
 
 
-        floatingActionButton = rootView.findViewById(R.id.add_button);
+        FloatingActionButton floatingActionButton = rootView.findViewById(R.id.add_button);
         floatingActionButton.setImageResource(R.drawable.ic_done_black_24dp);
         floatingActionButton.setOnClickListener(new FABOnClick());
 
@@ -87,7 +85,7 @@ public class CharacterCreationFragment extends Fragment {
         icon.setContentDescription(ImageContract.Character.COWLED);
 
         RecyclerView recyclerViewBottomSheet = rootView.findViewById(R.id.recyclerView_icons_grid);
-        icons = Icon.Companion.populateIcons();
+        ArrayList<Icon> icons = Icon.Companion.populateIcons();
         IconsAdapter iconsAdapter = new IconsAdapter(icons, icon, bottomSheetBehaviorIcons);
         recyclerViewBottomSheet.setAdapter(iconsAdapter);
         recyclerViewBottomSheet.setLayoutManager(new GridLayoutManager(requireContext(), 3));
@@ -97,13 +95,14 @@ public class CharacterCreationFragment extends Fragment {
         View bottomSheetPreset = rootView.findViewById(R.id.bottomSheet_presetSelection);
         BottomSheetBehavior<View> bottomSheetBehaviorPreset = BottomSheetBehavior.from(bottomSheetPreset);
         bottomSheetBehaviorPreset.setState(BottomSheetBehavior.STATE_HIDDEN);
-        TextView textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
+        textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
 
         RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
         ArrayList<PresetList> presetList = PresetList.presetList();
-        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList);
+        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList, textViewPreset, bottomSheetBehaviorPreset);
         recyclerViewPresetList.setAdapter(presetListAdapter);
         recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
+
 
         // Taking care of showing bottom sheets
         icon.setOnClickListener(view -> {
@@ -130,24 +129,6 @@ public class CharacterCreationFragment extends Fragment {
         super.onPause();
     }
 
-    private Runnable taskLoadPresetList(Handler handler) {
-        return () -> {
-            Message msg = handler.obtainMessage();
-            List<String> tempPresetList = getPresetList();
-            msg.what = 1;
-            msg.obj = tempPresetList;
-            handler.sendMessage(msg);
-        };
-    }
-
-    private List<String> getPresetList() {
-        List<String> presets = new ArrayList<>();
-        presets.add("None");
-        presets.add("Blade");
-        presets.addAll(presetDao.getPresetList());
-
-        return presets;
-    }
 
     private Runnable taskCreateAndAddCharacter() {
         return () -> createAndAddCharacter();
@@ -163,12 +144,15 @@ public class CharacterCreationFragment extends Fragment {
         String race = editTextRace.getText().toString();
 
 
-        //create and add new character
-        //Check if given character already exist, if so - quit adding
+        // Create and add new character
         Character newCharacter = new Character(name, className, race, imageResourceTag());
 
-        //Insert new character to DB and store its ID.
+        // Insert new character to DB and store its ID.
         charId = (int) characterDao.insert(newCharacter);
+
+        // Preset check
+        checkPresetToAdd();
+
 
         //Go back to CharacterList
         NavHostFragment
@@ -176,7 +160,25 @@ public class CharacterCreationFragment extends Fragment {
                 .navigate(CharacterCreationFragmentDirections.actionCharacterCreationFragmentToCharacterListFragment());
     }
 
-    private void bladePreset(String charName) {
+    private void checkPresetToAdd() {
+        String presetName = textViewPreset.getText().toString();
+        switch (presetName) {
+            case "None":
+                showToast("Character created without Blade preset.");
+                break;
+            case "Blade":
+                Snackbar.make(rootView, "Character created with Blade preset.", BaseTransientBottomBar.LENGTH_SHORT).show();
+                bladePreset();
+            case "Custom":
+                loadCustomPreset(presetName);
+                break;
+            default:
+                Snackbar.make(rootView, "Something went wrong with presets.", BaseTransientBottomBar.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void bladePreset() {
         statDao.insert(
                 new Stat(getString(R.string.strength), "0", charId, 1),
                 new Stat(getString(R.string.agility), "0", charId, 1),
@@ -195,10 +197,10 @@ public class CharacterCreationFragment extends Fragment {
         );
     }
 
-    private void loadCustomPreset(String presetName, String charName) {
-        List<Preset> statList = new ArrayList<>(presetDao.getPresetStats(presetName));
+    private void loadCustomPreset(String presetName) {
+        List<Preset> presetStatList = new ArrayList<>(presetDao.getPresetStats(presetName));
 
-        for (Preset preset : statList) {
+        for (Preset preset : presetStatList) {
             statDao.insert(new Stat(preset.getName(), "0", charId, preset.getPage()));
         }
 
@@ -209,12 +211,11 @@ public class CharacterCreationFragment extends Fragment {
     }
 
     private void showToast(String msg) {
-        ((AppCompatActivity) requireActivity()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
-            }
-        });
+        requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show());
+    }
+
+    private void showSnackbar(String msg) {
+        requireActivity().runOnUiThread(() -> Snackbar.make(rootView, msg, BaseTransientBottomBar.LENGTH_SHORT).show());
     }
 
     /**
@@ -225,14 +226,6 @@ public class CharacterCreationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             ExecSingleton.getInstance().execute(taskCreateAndAddCharacter());
-        }
-    }
-
-    private class OnIconChooserClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(rootView, "Icon click!", BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 }
