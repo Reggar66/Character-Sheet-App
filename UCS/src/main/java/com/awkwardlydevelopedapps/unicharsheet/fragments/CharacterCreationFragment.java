@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
@@ -32,6 +33,8 @@ import com.awkwardlydevelopedapps.unicharsheet.data.ImageContract;
 import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
+import com.awkwardlydevelopedapps.unicharsheet.preset.PresetList;
+import com.awkwardlydevelopedapps.unicharsheet.preset.PresetListAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -96,6 +99,11 @@ public class CharacterCreationFragment extends Fragment {
         bottomSheetBehaviorPreset.setState(BottomSheetBehavior.STATE_HIDDEN);
         TextView textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
 
+        RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
+        ArrayList<PresetList> presetList = PresetList.presetList();
+        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList);
+        recyclerViewPresetList.setAdapter(presetListAdapter);
+        recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // Taking care of showing bottom sheets
         icon.setOnClickListener(view -> {
