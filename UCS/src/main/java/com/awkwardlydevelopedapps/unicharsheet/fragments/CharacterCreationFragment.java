@@ -99,7 +99,11 @@ public class CharacterCreationFragment extends Fragment {
 
         RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
         ArrayList<PresetList> presetList = PresetList.presetList();
-        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList, textViewPreset, bottomSheetBehaviorPreset, presetDao);
+        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList,
+                textViewPreset,
+                bottomSheetBehaviorPreset,
+                presetDao,
+                requireActivity());
         recyclerViewPresetList.setAdapter(presetListAdapter);
         recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
 

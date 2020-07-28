@@ -1,5 +1,8 @@
 package com.awkwardlydevelopedapps.unicharsheet.preset
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +19,8 @@ import java.util.ArrayList
 class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
                         private val textViewPresetToSet: TextView,
                         private val bottomSheetBehavior: BottomSheetBehavior<View>,
-                        private val presetDao: PresetDao) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
+                        private val presetDao: PresetDao,
+                        private val activity: Activity) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -37,20 +41,42 @@ class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
 
         override fun onLongClick(p0: View?): Boolean {
             return if (textViewPresetName.text != "Blade" && textViewPresetName.text != "None") {
-
-                // TODO dialog notifier about deletion.
-                val position = adapterPosition
-                mPresetList.removeAt(position)
-                notifyItemRemoved(position)
-
-                // Delete preset from database
-                ExecSingleton.getInstance().execute {
-                    presetDao.deletePresetListItem(textViewPresetName.text.toString())
-                    presetDao.deletePresetStats(textViewPresetName.text.toString())
-                }
+                deleteDialog()
                 true
             } else
                 false
+        }
+
+        private fun deleteDialog() {
+            val builder: AlertDialog.Builder = activity.let {
+                AlertDialog.Builder(it)
+            }
+
+            builder.setMessage("Would you like to delete \'" + textViewPresetName.text + "\' preset?")
+                    .setTitle("Delete preset")
+
+            builder.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
+                deletePreset()
+            })
+
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, i ->
+                dialogInterface.dismiss()
+            })
+
+            val dialog: AlertDialog? = builder.create()
+            dialog?.show()
+        }
+
+        private fun deletePreset() {
+            val position = adapterPosition
+            mPresetList.removeAt(position)
+            notifyItemRemoved(position)
+
+            // Delete preset from database
+            ExecSingleton.getInstance().execute {
+                presetDao.deletePresetListItem(textViewPresetName.text.toString())
+                presetDao.deletePresetStats(textViewPresetName.text.toString())
+            }
         }
     }
 
