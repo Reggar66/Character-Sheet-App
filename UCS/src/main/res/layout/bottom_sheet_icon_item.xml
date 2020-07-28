@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:padding="4dp"
         android:background="@drawable/equipment_details_background_drawable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +20,14 @@
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ic_background_hex"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_cowled_hex_gradient" />
+            tools:srcCompat="@drawable/ic_cowled" />
     </FrameLayout>
 
 

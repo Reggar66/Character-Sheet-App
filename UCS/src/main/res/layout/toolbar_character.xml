@@ -26,7 +26,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_cowled_hex_gradient" />
+            android:padding="8dp"
+            android:background="@drawable/ic_background_hex"
+            android:backgroundTint="@color/colorPrimaryDark"
+            tools:srcCompat="@drawable/ic_kenku_head" />
 
         <LinearLayout
             android:id="@+id/toolbar_textContainer"
