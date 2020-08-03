@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     .setMinimumDaysToShowAgain(10)
                     .setRatingThreshold(RatingThreshold.FOUR)
                     .setMailSettingsForFeedbackDialog(mailSettings)
+                    //.showNow();
                     .showIfMeetsConditions();
         }
     }

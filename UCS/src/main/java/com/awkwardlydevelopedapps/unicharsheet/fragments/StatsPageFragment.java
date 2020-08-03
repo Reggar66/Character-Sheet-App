@@ -20,6 +20,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.stat.StatAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.stat.StatAddBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stat.StatAddDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stat.StatDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
@@ -195,6 +196,16 @@ public class StatsPageFragment extends Fragment
     private class FABAddOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            showAddStatBottomSheet();
+        }
+
+        private void showAddStatBottomSheet() {
+            StatAddBottomSheetDialog bottomSheetDialog =
+                    new StatAddBottomSheetDialog(viewModel, charId, pageNumber);
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
+        }
+
+        private void showAddStatDialog() {
             StatAddDialog statAddDialog = new StatAddDialog();
             statAddDialog.setTargetFragment(StatsPageFragment.this, 0);
             statAddDialog.show(getParentFragmentManager(), "dialog_stat_add");

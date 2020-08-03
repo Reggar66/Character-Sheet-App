@@ -27,6 +27,19 @@
         <item name="android:windowBackground">@color/colorSecondary</item>
     </style>
 
+
+    <style name="BottomSheetBase" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/equipment_details_background_drawable</item>
+    </style>
+
+    <style name="BottomDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
+        <item name="bottomSheetStyle">@style/BottomSheetBase</item>
+    </style>
+
     <!-- Splash screen theme -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/splash_screen_drawable</item>
