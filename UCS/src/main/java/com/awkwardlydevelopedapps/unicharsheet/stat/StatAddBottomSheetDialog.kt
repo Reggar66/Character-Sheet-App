@@ -7,22 +7,18 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import com.awkwardlydevelopedapps.unicharsheet.R
+import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
                                val charId: Int,
-                               val pageNumber: Int) : BottomSheetDialogFragment() {
+                               val pageNumber: Int) : BottomSheetDialogModel() {
 
     lateinit var editTextName: EditText
     lateinit var editTextValue: EditText
 
     val DEFAULT_VALUE = "0"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomDialogStyle)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView: View = inflater.inflate(R.layout.dialog_stat_add, container, false)
@@ -30,12 +26,15 @@ class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
         editTextName = rootView.findViewById(R.id.stat_name_dialog_editText)
         editTextValue = rootView.findViewById(R.id.stat_value_dialog_editText)
 
-        val addButton: View = rootView.findViewById(R.id.stat_dialog_add_button)
+        val addButton: View = rootView.findViewById(R.id.floatingActionButton_add_stat)
         addButton.setOnClickListener(OnAddClickListener())
-        val dismissButton: View = rootView.findViewById(R.id.stat_dialog_dismiss_button)
-        dismissButton.setOnClickListener(OnDismissClickListener())
 
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        editTextName.requestFocus()
     }
 
     /**
@@ -57,6 +56,13 @@ class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
 
             viewModel.insert(Stat(name, value, charId, pageNumber))
 
+            resetFields()
+        }
+
+        private fun resetFields() {
+            editTextName.text.clear()
+            editTextValue.text.clear()
+            editTextName.requestFocus()
         }
 
     }

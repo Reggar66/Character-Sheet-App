@@ -1,10 +1,12 @@
-package com.awkwardlydevelopedapps.unicharsheet
+package com.awkwardlydevelopedapps.unicharsheet.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.awkwardlydevelopedapps.unicharsheet.R
+import com.awkwardlydevelopedapps.unicharsheet.models.Icon
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class IconsAdapter(private val mIcons: List<Icon>,

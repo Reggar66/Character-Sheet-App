@@ -1,4 +1,4 @@
-package com.awkwardlydevelopedapps.unicharsheet
+package com.awkwardlydevelopedapps.unicharsheet.models
 
 import com.awkwardlydevelopedapps.unicharsheet.data.ImageContract
 
