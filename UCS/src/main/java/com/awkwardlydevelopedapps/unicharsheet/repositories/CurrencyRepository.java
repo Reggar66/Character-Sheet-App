@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.CurrencyDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Currency;
+import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
 
 import java.util.List;
 

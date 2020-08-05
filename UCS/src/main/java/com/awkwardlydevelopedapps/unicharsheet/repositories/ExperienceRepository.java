@@ -1,16 +1,13 @@
 package com.awkwardlydevelopedapps.unicharsheet.repositories;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.ExperienceDao;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Experience;
-
-import java.util.List;
+import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
 
 public class ExperienceRepository {
 

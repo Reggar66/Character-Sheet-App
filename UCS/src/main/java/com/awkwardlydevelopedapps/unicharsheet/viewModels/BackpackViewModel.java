@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.BackpackAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.models.Item;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.BackpackRepository;
 
 import java.util.ArrayList;

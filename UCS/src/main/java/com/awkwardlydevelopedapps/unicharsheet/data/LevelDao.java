@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Level;
+import com.awkwardlydevelopedapps.unicharsheet.models.Level;
 
 import java.util.List;
 

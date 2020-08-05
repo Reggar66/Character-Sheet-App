@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Experience;
+import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
 
 import java.util.List;
 

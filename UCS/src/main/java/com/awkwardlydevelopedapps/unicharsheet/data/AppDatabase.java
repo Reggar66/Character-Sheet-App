@@ -6,16 +6,16 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.awkwardlydevelopedapps.unicharsheet.character.Character;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Currency;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Equipment;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Experience;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Level;
-import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
-import com.awkwardlydevelopedapps.unicharsheet.preset.PresetList;
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.models.Character;
+import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
+import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
+import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
+import com.awkwardlydevelopedapps.unicharsheet.models.Item;
+import com.awkwardlydevelopedapps.unicharsheet.models.Level;
+import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
+import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 
 @Database(entities = {
         Character.class,

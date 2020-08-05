@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
-import com.awkwardlydevelopedapps.unicharsheet.spell.SpellAdapter;
-import com.awkwardlydevelopedapps.unicharsheet.spell.SpellsDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellsDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,12 +19,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.awkwardlydevelopedapps.unicharsheet.DeleteDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 
 import java.util.List;

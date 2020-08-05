@@ -7,8 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Equipment;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
+import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.EquipmentRepository;
 
 import java.util.List;

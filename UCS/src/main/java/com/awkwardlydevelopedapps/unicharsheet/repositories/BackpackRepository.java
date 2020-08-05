@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.ItemDao;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
+import com.awkwardlydevelopedapps.unicharsheet.models.Item;
 
 import java.util.List;
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Currency;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Experience;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Level;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.PocketDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
+import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
+import com.awkwardlydevelopedapps.unicharsheet.models.Level;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PocketDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.PocketViewModel;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 
 import java.util.List;
 

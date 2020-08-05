@@ -2,13 +2,12 @@ package com.awkwardlydevelopedapps.unicharsheet.repositories;
 
 import android.app.Application;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LiveData;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 
 import java.util.List;
 

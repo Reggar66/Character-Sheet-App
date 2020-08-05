@@ -1,7 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.viewModels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -9,8 +8,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.repositories.StatRepository;
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

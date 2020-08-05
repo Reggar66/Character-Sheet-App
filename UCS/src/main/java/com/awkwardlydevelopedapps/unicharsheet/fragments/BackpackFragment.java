@@ -1,7 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.awkwardlydevelopedapps.unicharsheet.DeleteDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.BackpackAdapter;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.ItemAddDialog;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.ItemEditDialog;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.models.Item;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemAddDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemEditDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.BackpackViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

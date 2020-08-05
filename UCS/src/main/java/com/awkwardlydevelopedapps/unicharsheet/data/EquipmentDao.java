@@ -5,7 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Equipment;
+import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 
 import java.util.List;
 

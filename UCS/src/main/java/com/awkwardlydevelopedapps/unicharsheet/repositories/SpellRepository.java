@@ -6,9 +6,8 @@ import androidx.lifecycle.LiveData;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.data.ImageContract;
 import com.awkwardlydevelopedapps.unicharsheet.data.SpellDao;
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 
 import java.util.List;
 

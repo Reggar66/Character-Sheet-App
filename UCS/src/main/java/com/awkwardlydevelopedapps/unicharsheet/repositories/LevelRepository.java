@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.LevelDao;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Level;
+import com.awkwardlydevelopedapps.unicharsheet.models.Level;
 
 public class LevelRepository {
 

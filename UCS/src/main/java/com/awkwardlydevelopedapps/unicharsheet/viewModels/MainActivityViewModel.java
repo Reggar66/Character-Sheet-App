@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.awkwardlydevelopedapps.unicharsheet.character.Character;
-import com.awkwardlydevelopedapps.unicharsheet.character.CharacterListAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.models.Character;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.CharacterListAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.CharacterRepository;
 
 import java.util.List;

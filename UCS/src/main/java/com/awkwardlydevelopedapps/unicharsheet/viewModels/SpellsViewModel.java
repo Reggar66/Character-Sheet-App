@@ -7,11 +7,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.data.SpellDao;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.SpellRepository;
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
-import com.awkwardlydevelopedapps.unicharsheet.spell.SpellAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

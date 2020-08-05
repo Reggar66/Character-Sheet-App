@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 
 import java.util.List;
 

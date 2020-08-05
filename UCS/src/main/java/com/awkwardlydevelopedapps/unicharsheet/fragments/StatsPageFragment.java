@@ -15,14 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.awkwardlydevelopedapps.unicharsheet.DeleteDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatAdapter;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatAddBottomSheetDialog;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatAddDialog;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatAddBottomSheetDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatAddDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

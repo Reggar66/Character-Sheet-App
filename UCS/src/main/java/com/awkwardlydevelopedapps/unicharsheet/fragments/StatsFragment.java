@@ -1,10 +1,8 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -30,13 +27,12 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
-import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
-import com.awkwardlydevelopedapps.unicharsheet.preset.PresetDialog;
-import com.awkwardlydevelopedapps.unicharsheet.preset.PresetList;
-import com.awkwardlydevelopedapps.unicharsheet.stat.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatTabNameChangeDialog;
-import com.awkwardlydevelopedapps.unicharsheet.stat.StatTabsAdapter;
-import com.google.ads.consent.ConsentInformation;
+import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PresetDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
+import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatTabNameChangeDialog;
+import com.awkwardlydevelopedapps.unicharsheet.adapters.StatTabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

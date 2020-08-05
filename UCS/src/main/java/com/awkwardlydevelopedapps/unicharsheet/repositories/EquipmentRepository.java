@@ -5,13 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.data.CurrencyDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.EquipmentDao;
-import com.awkwardlydevelopedapps.unicharsheet.data.ItemDao;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Currency;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Equipment;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Item;
+import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 
 import java.util.List;
 

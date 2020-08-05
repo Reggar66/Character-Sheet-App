@@ -1,16 +1,15 @@
 package com.awkwardlydevelopedapps.unicharsheet.viewModels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Currency;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Experience;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Level;
+import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
+import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
+import com.awkwardlydevelopedapps.unicharsheet.models.Level;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.CurrencyRepository;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.ExperienceRepository;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.LevelRepository;

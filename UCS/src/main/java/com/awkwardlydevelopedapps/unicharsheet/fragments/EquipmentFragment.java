@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,8 @@ import android.widget.TextView;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.CharEqDialog;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.Equipment;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.CharEqDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.EquipmentViewModel;
 
 import java.util.List;

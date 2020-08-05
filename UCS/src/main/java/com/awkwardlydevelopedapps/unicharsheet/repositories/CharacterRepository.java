@@ -5,11 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.character.Character;
+import com.awkwardlydevelopedapps.unicharsheet.models.Character;
 import com.awkwardlydevelopedapps.unicharsheet.data.CharacterDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 
-import java.security.PublicKey;
 import java.util.List;
 
 public class CharacterRepository {

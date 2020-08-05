@@ -1,7 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.spell.Spell;
-import com.awkwardlydevelopedapps.unicharsheet.spell.SpellEditorDialog;
+import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellEditorDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 
 public class SpellsFragmentDisplay extends Fragment

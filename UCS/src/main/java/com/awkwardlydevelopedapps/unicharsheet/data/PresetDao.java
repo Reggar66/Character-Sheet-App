@@ -4,8 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.awkwardlydevelopedapps.unicharsheet.preset.PresetList;
-import com.awkwardlydevelopedapps.unicharsheet.preset.Preset;
+import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
+import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
 
 import java.util.List;
 
