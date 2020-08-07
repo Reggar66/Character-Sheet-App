@@ -29,8 +29,8 @@ public class StatsViewModel extends ViewModel {
         return allStatsOfPage;
     }
 
-    public void updateStatValue(String statName, String newValue, int charId, int statId) {
-        statRepository.updateStatValue(statName, newValue, charId, statId);
+    public void updateStatValues(String statName, String newValue, int charId, int statId) {
+        statRepository.updateStatValues(statName, newValue, charId, statId);
     }
 
     public void checkStatsAndDelete(StatAdapter adapter, List<Stat> stats) {

@@ -11,18 +11,22 @@ import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel
 
-class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
-                               val charId: Int,
-                               val pageNumber: Int) : BottomSheetDialogModel() {
+class StatBottomSheetDialog(val viewModel: StatsViewModel,
+                            val charId: Int,
+                            val pageNumber: Int) : BottomSheetDialogModel() {
 
     private lateinit var editTextName: EditText
     private lateinit var editTextValue: EditText
     private lateinit var titleTextView: TextView
 
+    var option = 0
     var title: String = ""
+    lateinit var oldStat: Stat
 
     companion object {
         private const val DEFAULT_VALUE = "0"
+        const val OPTION_ADD = 0
+        const val OPTION_EDIT = 1
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,6 +36,10 @@ class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
         editTextValue = rootView.findViewById(R.id.stat_value_dialog_editText)
         titleTextView = rootView.findViewById(R.id.title)
         checkForTitle()
+
+        if (option == OPTION_EDIT) {
+            setOldValues()
+        }
 
         val addButton: View = rootView.findViewById(R.id.floatingActionButton_add_stat)
         addButton.setOnClickListener(OnAddClickListener())
@@ -51,13 +59,26 @@ class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
         }
     }
 
+    private fun setOldValues() {
+        editTextName.setText(oldStat.name)
+        editTextValue.setText(oldStat.value)
+    }
+
+
     /**
      * Inner Classes
      */
 
     inner class OnAddClickListener : View.OnClickListener {
         override fun onClick(v: View?) {
-            addStat()
+            when (option) {
+                OPTION_ADD -> {
+                    addStat()
+                }
+                OPTION_EDIT -> {
+                    editStat()
+                }
+            }
         }
 
         private fun addStat() {
@@ -71,6 +92,14 @@ class StatAddBottomSheetDialog(val viewModel: StatsViewModel,
             viewModel.insert(Stat(name, value, charId, pageNumber))
 
             resetFields()
+        }
+
+        private fun editStat() {
+            viewModel.updateStatValues(editTextName.text.toString(),
+                    editTextValue.text.toString(),
+                    oldStat.charId,
+                    oldStat.id)
+            dialog?.dismiss()
         }
 
         private fun resetFields() {

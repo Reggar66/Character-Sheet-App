@@ -34,7 +34,7 @@ public interface StatDao {
     @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page")
     LiveData<List<Stat>> getLiveDataAllPageStats(int id, int page);
 
-    @Query("UPDATE stats SET value = :newValue WHERE name = :statName AND char_id = :charId AND id = :statId")
+    @Query("UPDATE stats SET value = :newValue, name=:statName WHERE char_id = :charId AND id = :statId")
     void updateStatValue(String statName, String newValue, int charId, int statId);
 
     @Query("DELETE FROM stats WHERE char_id = :id AND name = :statName")

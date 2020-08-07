@@ -70,7 +70,7 @@ public class StatRepository {
         });
     }
 
-    public void updateStatValue(String statName, String newValue, int charId, int statId) {
+    public void updateStatValues(String statName, String newValue, int charId, int statId) {
         ExecSingleton.getInstance().execute(new Runnable() {
             @Override
             public void run() {

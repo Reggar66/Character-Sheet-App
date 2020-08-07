@@ -1,11 +1,9 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,8 +19,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatAddBottomSheetDialog;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,7 +28,6 @@ import java.util.Objects;
 
 public class StatsPageFragment extends Fragment
         implements StatAdapter.StatUpdateListener,
-        StatDialog.NoticeDialogListener,
         DeleteDialog.NoticeDialogListener {
 
     private View rootView;
@@ -108,19 +104,22 @@ public class StatsPageFragment extends Fragment
     }
 
     @Override
-    public void IncAndDecStatValue(Stat stat, int value) {
-        viewModel.updateStatValue(stat.getName(),
+    public void incAndDecStatValue(Stat stat, int value) {
+        viewModel.updateStatValues(stat.getName(),
                 String.valueOf(value),
                 stat.getCharId(),
                 stat.id);
     }
 
     @Override
-    public void updateStatValue(int position) {
-        this.position = position;
-        StatDialog statDialog = new StatDialog();
-        statDialog.setTargetFragment(this, 0);
-        statDialog.show(getParentFragmentManager(), "stat edit dialog");
+    public void openStatEditDialog(int position) {
+        Stat stat = statList.get(position);
+        StatBottomSheetDialog bottomSheetDialog =
+                new StatBottomSheetDialog(viewModel, charId, pageNumber);
+        bottomSheetDialog.setTitle("Stat Edit");
+        bottomSheetDialog.setOption(StatBottomSheetDialog.OPTION_EDIT);
+        bottomSheetDialog.setOldStat(stat);
+        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EDIT");
     }
 
     @Override
@@ -128,17 +127,6 @@ public class StatsPageFragment extends Fragment
         recyclerView.scheduleLayoutAnimation();
     }
 
-    // StatDialog - to edit values by clicking on number
-    @Override
-    public void onStatDialogPositiveClick(DialogFragment dialog, String value) {
-        Stat stat = statList.get(position);
-        viewModel.updateStatValue(stat.getName(), value, stat.getCharId(), stat.id);
-    }
-
-    @Override
-    public void onStatDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
 
     // DeleteDialog
     @Override
@@ -183,9 +171,9 @@ public class StatsPageFragment extends Fragment
         }
 
         private void showAddStatBottomSheet() {
-            StatAddBottomSheetDialog bottomSheetDialog =
-                    new StatAddBottomSheetDialog(viewModel, charId, pageNumber);
-            bottomSheetDialog.setTitle("Stat creation");
+            StatBottomSheetDialog bottomSheetDialog =
+                    new StatBottomSheetDialog(viewModel, charId, pageNumber);
+            bottomSheetDialog.setTitle("Stat Creation");
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
         }
     }

@@ -55,9 +55,9 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
     }
 
     public interface StatUpdateListener {
-        void IncAndDecStatValue(Stat stat, int value);
+        void incAndDecStatValue(Stat stat, int value);
 
-        void updateStatValue(int position);
+        void openStatEditDialog(int position);
 
         void playAnim();
     }
@@ -172,7 +172,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     Stat stat = stats.get(getAdapterPosition());
                     int temp = Integer.parseInt(stat.getValue());
                     temp = temp + 1;
-                    statUpdateListener.IncAndDecStatValue(stat, temp);
+                    statUpdateListener.incAndDecStatValue(stat, temp);
                 }
             });
 
@@ -186,7 +186,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     Stat stat = stats.get(getAdapterPosition());
                     int temp = Integer.parseInt(stat.getValue());
                     temp = temp - 1;
-                    statUpdateListener.IncAndDecStatValue(stat, temp);
+                    statUpdateListener.incAndDecStatValue(stat, temp);
                 }
             });
 
@@ -197,7 +197,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     if (isShowingChecks())
                         return;
 
-                    statUpdateListener.updateStatValue(getAdapterPosition());
+                    statUpdateListener.openStatEditDialog(getAdapterPosition());
                 }
             });
 
