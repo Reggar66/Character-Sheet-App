@@ -27,9 +27,9 @@
         <item name="android:windowBackground">@color/colorSecondary</item>
     </style>
 
-
+    <!-- Bottom Sheet Dialog styles -->
     <style name="BottomSheetBase" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/equipment_details_background_drawable</item>
+        <item name="android:background">@drawable/bottom_sheet_background_drawable</item>
     </style>
 
     <style name="BottomDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +22,6 @@ import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatAddBottomSheetDialog;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatAddDialog;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +32,6 @@ import java.util.Objects;
 public class StatsPageFragment extends Fragment
         implements StatAdapter.StatUpdateListener,
         StatDialog.NoticeDialogListener,
-        StatAddDialog.NoticeDialogListener,
         DeleteDialog.NoticeDialogListener {
 
     private View rootView;
@@ -54,11 +53,7 @@ public class StatsPageFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_stats_page, container, false);
-
         charId = ((MainActivity) requireActivity()).characterId;
-
-        Log.v("CHAR_TEST", "Character name: " + charId);
-
 
         floatingActionButtonAdd = rootView.findViewById(R.id.add_button);
         floatingActionButtonAdd.setImageResource(R.drawable.ic_add_black_24);
@@ -158,18 +153,6 @@ public class StatsPageFragment extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    //StatAddDialog
-    @Override
-    public void onStatAddDialogPositiveClick(DialogFragment dialog, String name, String value) {
-        Stat stat = new Stat(name, value, charId, pageNumber);
-        viewModel.insert(stat);
-    }
-
-    @Override
-    public void onStatAddDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
     /**
      * Inner classes
      */
@@ -202,13 +185,8 @@ public class StatsPageFragment extends Fragment
         private void showAddStatBottomSheet() {
             StatAddBottomSheetDialog bottomSheetDialog =
                     new StatAddBottomSheetDialog(viewModel, charId, pageNumber);
+            bottomSheetDialog.setTitle("Stat creation");
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
-        }
-
-        private void showAddStatDialog() {
-            StatAddDialog statAddDialog = new StatAddDialog();
-            statAddDialog.setTargetFragment(StatsPageFragment.this, 0);
-            statAddDialog.show(getParentFragmentManager(), "dialog_stat_add");
         }
     }
 
