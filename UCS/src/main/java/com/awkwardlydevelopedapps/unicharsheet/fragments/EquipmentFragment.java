@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,15 +16,13 @@ import android.widget.TextView;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.CharEqDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.EquipmentBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.EquipmentViewModel;
 
 import java.util.List;
-import java.util.Objects;
 
-public class EquipmentFragment extends Fragment
-        implements CharEqDialog.NoticeDialogListener {
+public class EquipmentFragment extends Fragment {
 
     private View rootView;
     private int charId;
@@ -263,17 +260,6 @@ public class EquipmentFragment extends Fragment
         }
     }
 
-    @Override
-    public void onEqDialogPositiveClick(DialogFragment dialog, String name, String type, String value, String additionalEffects) {
-        viewModel.updateEquipment(name, type, value, additionalEffects, slotCurrentlySelected, charId);
-    }
-
-    @Override
-    public void onEqDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
-
     /**
      * Inner classes
      */
@@ -322,13 +308,21 @@ public class EquipmentFragment extends Fragment
     private class ItemDetailOnClick implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            CharEqDialog dialog = new CharEqDialog();
-            dialog.setTargetFragment(EquipmentFragment.this, 0);
-            dialog.setOldNameAndValue(textViewItemName.getText().toString(),
+            showEditBottomDialog();
+        }
+
+
+        private void showEditBottomDialog() {
+            EquipmentBottomSheetDialog bottomSheetDialog =
+                    new EquipmentBottomSheetDialog(viewModel, slotCurrentlySelected, charId);
+
+            bottomSheetDialog.setOldValues(textViewItemName.getText().toString(),
                     textViewItemArmorType.getText().toString(),
                     textViewItemArmorValue.getText().toString(),
                     textViewItemAdditionalEffectsValue.getText().toString());
-            dialog.show(getParentFragmentManager(), "ITEM_DETAIL_EDIT_DIALOG");
+
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EQ_EDIT");
+
         }
     }
 }
