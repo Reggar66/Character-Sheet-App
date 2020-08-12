@@ -4,98 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout5"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
 
     <EditText
-        android:id="@+id/spell_name_dialog"
+        android:id="@+id/dialogSpells_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:hint="@string/spell_name_hint_dialog"
         android:inputType="textCapSentences"
         android:maxLength="35"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fab_spellCreation_bottomDialog"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/dialogSpells_recyclerView" />
 
-
-    <RadioButton
-        android:id="@+id/radioButton1_fire"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:button="@drawable/spell_radio1_fire_selector"
-        android:checked="true"
-        app:layout_constraintBaseline_toBaselineOf="@+id/radioButton2_air"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton2_air"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/radioButton2_air"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:button="@drawable/spell_radio2_air_selector"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton3_water"
-        app:layout_constraintStart_toEndOf="@+id/radioButton1_fire"
-        app:layout_constraintTop_toTopOf="@+id/radioButton3_water" />
-
-    <RadioButton
-        android:id="@+id/radioButton3_water"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:button="@drawable/spell_radio3_water_selector"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton4_earth"
-        app:layout_constraintStart_toEndOf="@+id/radioButton2_air"
-        app:layout_constraintTop_toBottomOf="@+id/spell_name_dialog" />
-
-    <RadioButton
-        android:id="@+id/radioButton4_earth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/spell_radio4_earth_selector"
-        app:layout_constraintBaseline_toBaselineOf="@+id/radioButton3_water"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioButton3_water" />
-
-
-    <RadioButton
-        android:id="@+id/radioButton5_nature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:button="@drawable/spell_radio5_nature_selector"
-        app:layout_constraintBaseline_toBaselineOf="@+id/radioButton6_essence"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton6_essence"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/radioButton6_essence"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_spellCreation_bottomDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:button="@drawable/spell_radio6_essence_selector"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton7_mind"
-        app:layout_constraintStart_toEndOf="@+id/radioButton5_nature"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton3_water" />
-
-    <RadioButton
-        android:id="@+id/radioButton7_mind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/spell_radio7_mind_selector"
-        app:layout_constraintBaseline_toBaselineOf="@+id/radioButton6_essence"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioButton6_essence" />
+        app:layout_constraintTop_toBottomOf="@+id/dialogSpells_recyclerView"
+        app:srcCompat="@drawable/ic_done_black_24dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dialogSpells_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

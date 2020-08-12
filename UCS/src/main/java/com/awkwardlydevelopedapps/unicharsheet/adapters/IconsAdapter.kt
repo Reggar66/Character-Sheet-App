@@ -14,7 +14,7 @@ class IconsAdapter(private val mIcons: List<Icon>,
                    private val bottomSheetBehavior: BottomSheetBehavior<View>) : RecyclerView.Adapter<IconsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val iconImage = itemView.findViewById<ImageView>(R.id.icon)
+        val iconImage = itemView.findViewById<ImageView>(R.id.bottomSheetIconItem_icon)
 
         init {
             iconImage.setOnClickListener(this)

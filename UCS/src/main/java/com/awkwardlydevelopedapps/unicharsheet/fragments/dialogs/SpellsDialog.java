@@ -61,14 +61,6 @@ public class SpellsDialog extends DialogFragment {
 
         final View view = inflater.inflate(R.layout.dialog_spells, null);
 
-        radioButtonFire = view.findViewById(R.id.radioButton1_fire);
-        radioButtonAir = view.findViewById(R.id.radioButton2_air);
-        radioButtonWater = view.findViewById(R.id.radioButton3_water);
-        radioButtonEarth = view.findViewById(R.id.radioButton4_earth);
-        radioButtonNature = view.findViewById(R.id.radioButton5_nature);
-        radioButtonEssence = view.findViewById(R.id.radioButton6_essence);
-        radioButtonMind = view.findViewById(R.id.radioButton7_mind);
-
         radioCheckHandler();
 
         // Inflate and set the layout for the dialog
@@ -79,7 +71,7 @@ public class SpellsDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // On ACCEPT click
-                        EditText spellName = view.findViewById(R.id.spell_name_dialog);
+                        EditText spellName = view.findViewById(R.id.dialogSpells_name);
                         mSpellName = spellName.getText().toString();
                         //If no name entered then abort (return)
                         if (mSpellName.isEmpty()) {

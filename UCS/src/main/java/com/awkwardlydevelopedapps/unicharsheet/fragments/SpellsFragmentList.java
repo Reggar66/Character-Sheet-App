@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellCreateBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellsDialog;
@@ -157,6 +158,17 @@ public class SpellsFragmentList extends Fragment
 
         @Override
         public void onClick(View view) {
+            showCreationBottomDialog();
+        }
+
+        private void showCreationBottomDialog() {
+            SpellCreateBottomSheetDialog bottomSheetDialog =
+                    new SpellCreateBottomSheetDialog(viewModel, charId);
+
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
+        }
+
+        private void showCreationDialog() {
             SpellsDialog dialog = new SpellsDialog();
             dialog.setTargetFragment(SpellsFragmentList.this, 0);
             dialog.show(getParentFragmentManager(), "CREATE_SPELL_DIALOG");

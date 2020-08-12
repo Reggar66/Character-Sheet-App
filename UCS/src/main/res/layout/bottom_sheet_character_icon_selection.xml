@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_16dp"
     android:background="@drawable/equipment_details_background_drawable"
-    android:backgroundTint="@color/colorPrimaryDark"
+    android:backgroundTint="@color/colorPrimary"
     android:elevation="8dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="auto"

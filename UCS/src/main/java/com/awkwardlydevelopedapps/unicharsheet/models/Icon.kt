@@ -3,10 +3,11 @@ package com.awkwardlydevelopedapps.unicharsheet.models
 import com.awkwardlydevelopedapps.unicharsheet.data.ImageContract
 
 class Icon(val iconId: Int,
-           val iconName: String) {
+           val iconName: String,
+           var selected: Boolean = false) {
 
     companion object {
-        fun populateIcons(): ArrayList<Icon> {
+        fun populateCharacterIcons(): ArrayList<Icon> {
             val icons = ArrayList<Icon>()
 
             // TODO change to normal icons
@@ -34,6 +35,19 @@ class Icon(val iconId: Int,
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
+
+            return icons
+        }
+
+        fun populateSpellIcons(): ArrayList<Icon> {
+            val icons = ArrayList<Icon>()
+            icons.add(Icon(ImageContract.Spell.FIRE_ID, ImageContract.Spell.FIRE))
+            icons.add(Icon(ImageContract.Spell.AIR_ID, ImageContract.Spell.AIR))
+            icons.add(Icon(ImageContract.Spell.WATER_ID, ImageContract.Spell.WATER))
+            icons.add(Icon(ImageContract.Spell.EARTH_ID, ImageContract.Spell.EARTH))
+            icons.add(Icon(ImageContract.Spell.NATURE_ID, ImageContract.Spell.NATURE))
+            icons.add(Icon(ImageContract.Spell.ESSENCE_ID, ImageContract.Spell.ESSENCE))
+            icons.add(Icon(ImageContract.Spell.MIND_ID, ImageContract.Spell.MIND))
 
             return icons
         }

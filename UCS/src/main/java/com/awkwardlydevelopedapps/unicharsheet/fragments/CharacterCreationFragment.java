@@ -82,7 +82,7 @@ public class CharacterCreationFragment extends Fragment {
         icon.setContentDescription(ImageContract.Character.COWLED);
 
         RecyclerView recyclerViewBottomSheet = rootView.findViewById(R.id.recyclerView_icons_grid);
-        ArrayList<Icon> icons = Icon.Companion.populateIcons();
+        ArrayList<Icon> icons = Icon.Companion.populateCharacterIcons();
         IconsAdapter iconsAdapter = new IconsAdapter(icons, icon, bottomSheetBehaviorIcons);
         recyclerViewBottomSheet.setAdapter(iconsAdapter);
         recyclerViewBottomSheet.setLayoutManager(new GridLayoutManager(requireContext(), 3));

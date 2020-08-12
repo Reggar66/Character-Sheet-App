@@ -22,13 +22,13 @@ public final class ImageContract {
     }
 
     public final static class Spell {
-        public final static int FIRE_ID = R.drawable.fire_zone_hex;
-        public final static int AIR_ID = R.drawable.fluffy_cloud_hex;
-        public final static int WATER_ID = R.drawable.splashy_stream_hex;
-        public final static int EARTH_ID = R.drawable.stone_pile_hex;
-        public final static int NATURE_ID = R.drawable.three_leaves_hex;
-        public final static int ESSENCE_ID = R.drawable.jawbone_hex;
-        public final static int MIND_ID = R.drawable.sunken_eye_hex;
+        public final static int FIRE_ID = R.drawable.ic_fire_zone;
+        public final static int AIR_ID = R.drawable.ic_fluffy_cloud;
+        public final static int WATER_ID = R.drawable.ic_splashy_stream;
+        public final static int EARTH_ID = R.drawable.ic_stone_pile;
+        public final static int NATURE_ID = R.drawable.ic_three_leaves;
+        public final static int ESSENCE_ID = R.drawable.ic_jawbone;
+        public final static int MIND_ID = R.drawable.ic_sunken_eye;
 
         public final static String FIRE = "fire";
         public final static String AIR = "air";

@@ -22,10 +22,12 @@
         android:id="@+id/spell_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:background="@drawable/ic_background_hex"
+        android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/splashy_stream_hex" />
+        tools:srcCompat="@drawable/ic_splashy_stream" />
 
     <TextView
         android:id="@+id/spell_name"
