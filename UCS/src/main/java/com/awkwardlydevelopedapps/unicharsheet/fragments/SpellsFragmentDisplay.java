@@ -9,19 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellEditorBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellEditorDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 
-public class SpellsFragmentDisplay extends Fragment
-        implements SpellEditorDialog.NoticeDialogListener {
+public class SpellsFragmentDisplay extends Fragment {
 
     private View rootView;
 
@@ -57,25 +55,38 @@ public class SpellsFragmentDisplay extends Fragment
         spellTitle = rootView.findViewById(R.id.textView_spell_title);
 
         spellDescription = rootView.findViewById(R.id.textView_spell_description);
-        spellDescription.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.DESCRIPTION, spellDescription));
+        spellDescription.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.DESCRIPTION,
+                        spellDescription));
 
         damageValue = rootView.findViewById(R.id.textView_spell_damage_value);
-        damageValue.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.DAMAGE_VALUE, damageValue));
+        damageValue.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.DAMAGE_VALUE,
+                        damageValue));
 
         additionalEffect = rootView.findViewById(R.id.textView_spell_additional_effect);
-        additionalEffect.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.DAMAGE_ADD_EFFECT, additionalEffect));
+        additionalEffect.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.DAMAGE_ADD_EFFECT,
+                        additionalEffect));
 
         costValue = rootView.findViewById(R.id.textView_spell_cost_value);
-        costValue.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.COST_VALUE, costValue));
+        costValue.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.COST_VALUE,
+                        costValue));
 
         additionalCost = rootView.findViewById(R.id.textView_spell_additional_cost);
-        additionalCost.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.COST_ADD_VALUE, additionalCost));
+        additionalCost.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.COST_ADD_VALUE,
+                        additionalCost));
 
         specialNotes = rootView.findViewById(R.id.textView_spell_special_notes);
-        specialNotes.setOnClickListener(new SpellEditValuesListener(SpellEditorDialog.SPECIAL_NOTES, specialNotes));
+        specialNotes.setOnClickListener(
+                new SpellEditValuesListener(SpellEditorBottomSheetDialog.SPECIAL_NOTES,
+                        specialNotes));
 
         viewModel = new ViewModelProvider(requireActivity(),
-                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), charId))
+                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(),
+                        charId))
                 .get(SpellsViewModel.class);
 
         return rootView;
@@ -155,36 +166,6 @@ public class SpellsFragmentDisplay extends Fragment
         this.spellId = spellId;
     }
 
-    @Override
-    public void onDialogPositiveClickDescription(DialogFragment dialog, String description) {
-        viewModel.updateDescription(description, charId, spellId);
-    }
-
-    @Override
-    public void onDialogPositiveClickDamageValue(DialogFragment dialog, String dmgValue) {
-        viewModel.updateDmgValue(dmgValue, charId, spellId);
-    }
-
-    @Override
-    public void onDialogPositiveClickAdditionalEffect(DialogFragment dialog, String addEffectValue) {
-        viewModel.updateAddEffectValue(addEffectValue, charId, spellId);
-    }
-
-    @Override
-    public void onDialogPositiveClickCostValue(DialogFragment dialog, String costValue) {
-        viewModel.updateCostValue(costValue, charId, spellId);
-    }
-
-    @Override
-    public void onDialogPositiveClickAdditionalCost(DialogFragment dialog, String addCostValue) {
-        viewModel.updateAddCostValue(addCostValue, charId, spellId);
-    }
-
-    @Override
-    public void onDialogPositiveClickSpecialNotes(DialogFragment dialog, String specialNotes) {
-        viewModel.updateSpecialNotes(specialNotes, charId, spellId);
-    }
-
     /**
      * Interfaces
      */
@@ -207,22 +188,27 @@ public class SpellsFragmentDisplay extends Fragment
 
     private class SpellEditValuesListener implements View.OnClickListener {
 
-        int contentView;
+        int option;
         TextView textView;
 
         SpellEditValuesListener(int contentView, TextView textView) {
-            this.contentView = contentView;
+            this.option = contentView;
             this.textView = textView;
         }
 
         @Override
         public void onClick(View view) {
-            SpellEditorDialog editorDialog = new SpellEditorDialog();
-            editorDialog.setTargetFragment(SpellsFragmentDisplay.this, 0);
-            editorDialog.setChangeContentView(contentView);
-            editorDialog.setOldValues(getOldValue());
-            editorDialog.show(getParentFragmentManager(), "SPELL_EDIT_DIALOG");
+            showBottomEditDialog();
         }
+
+        private void showBottomEditDialog() {
+            SpellEditorBottomSheetDialog bottomSheetDialog =
+                    new SpellEditorBottomSheetDialog(viewModel, charId, spellId);
+            bottomSheetDialog.setOption(option);
+            bottomSheetDialog.setOldValue(getOldValue());
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_SPELL_EDITOR");
+        }
+
 
         private String getOldValue() {
             String oldValues = textView.getText().toString();
