@@ -9,7 +9,6 @@ import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellCreateBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellsDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,8 +31,7 @@ import java.util.Objects;
 
 public class SpellsFragmentList extends Fragment
         implements
-        DeleteDialog.NoticeDialogListener,
-        SpellsDialog.NoticeDialogListener {
+        DeleteDialog.NoticeDialogListener {
 
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
@@ -128,16 +126,6 @@ public class SpellsFragmentList extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    @Override
-    public void onSpellCreateDialogPositiveClick(DialogFragment dialog, String spellName, String imageResId) {
-        viewModel.insert(new Spell(spellName, "", "", "", "", "", "", imageResId, charId));
-    }
-
-    @Override
-    public void onSpellCreateDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
     public void setChangeFragmentCallback(changeFragmentCallback callback) {
         this.callback = callback;
     }
@@ -166,12 +154,6 @@ public class SpellsFragmentList extends Fragment
                     new SpellCreateBottomSheetDialog(viewModel, charId);
 
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
-        }
-
-        private void showCreationDialog() {
-            SpellsDialog dialog = new SpellsDialog();
-            dialog.setTargetFragment(SpellsFragmentList.this, 0);
-            dialog.show(getParentFragmentManager(), "CREATE_SPELL_DIALOG");
         }
     }
 
