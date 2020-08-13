@@ -31,6 +31,7 @@ class SpellCreateBottomSheetDialog(private val viewModel: SpellsViewModel,
         val fab: FloatingActionButton = rootView.findViewById(R.id.fab_spellCreation_bottomDialog)
         fab.setOnClickListener {
             createSpell()
+            dialog?.dismiss()
         }
 
         val recyclerView: RecyclerView = rootView.findViewById(R.id.dialogSpells_recyclerView)
