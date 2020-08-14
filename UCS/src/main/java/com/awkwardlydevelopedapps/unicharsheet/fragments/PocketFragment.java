@@ -1,7 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +10,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PocketBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
 import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
 import com.awkwardlydevelopedapps.unicharsheet.models.Level;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PocketDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.PocketViewModel;
 
 import java.util.List;
 
-public class PocketFragment extends Fragment
-        implements PocketDialog.NoticeDialogListener {
+public class PocketFragment extends Fragment {
 
     private View rootView;
     private int charId;
@@ -63,11 +60,11 @@ public class PocketFragment extends Fragment
         charId = ((MainActivity) requireActivity()).characterId;
 
         textViewGold = rootView.findViewById(R.id.textView_gold);
-        textViewGold.setOnClickListener(new OnValueClickListener(PocketDialog.CURRENCY, Currency.TYPE_GOLD));
+        textViewGold.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.CURRENCY, Currency.TYPE_GOLD));
         textViewSilver = rootView.findViewById(R.id.textView_silver);
-        textViewSilver.setOnClickListener(new OnValueClickListener(PocketDialog.CURRENCY, Currency.TYPE_SILVER));
+        textViewSilver.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.CURRENCY, Currency.TYPE_SILVER));
         textViewCopper = rootView.findViewById(R.id.textView_bronze);
-        textViewCopper.setOnClickListener(new OnValueClickListener(PocketDialog.CURRENCY, Currency.TYPE_COPPER));
+        textViewCopper.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.CURRENCY, Currency.TYPE_COPPER));
 
         seekBarGold = rootView.findViewById(R.id.seekBar_gold);
         seekBarGold.setOnSeekBarChangeListener(new CurrencySeekBarListener(Currency.TYPE_GOLD));
@@ -80,7 +77,7 @@ public class PocketFragment extends Fragment
 
 
         textViewExp = rootView.findViewById(R.id.textView_exp);
-        textViewExp.setOnClickListener(new OnValueClickListener(PocketDialog.EXPERIENCE, null));
+        textViewExp.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.EXPERIENCE, null));
         seekBarExp = rootView.findViewById(R.id.seekBar_exp);
         seekBarExp.setOnSeekBarChangeListener(new ExpSeekBarListener());
 
@@ -238,22 +235,6 @@ public class PocketFragment extends Fragment
         textViewLvl.setText(levelValue);
     }
 
-    @Override
-    public void onCurrencyDialogPositiveClick(DialogFragment dialog, String currencyType, int value, int maxValue) {
-        viewModel.updateCurrencyWithMaxValue(String.valueOf(value), String.valueOf(maxValue), charId, currencyType);
-    }
-
-    @Override
-    public void onExperienceDialogPositiveClick(DialogFragment dialog, int value, int maxValue) {
-        viewModel.updateExperienceWithMaxValue(value, maxValue, charId);
-    }
-
-    @Override
-    public void onLevelDialogPositiveClick(DialogFragment dialog, int value) {
-        Log.v("LEVEL", "lvl: " + value);
-        viewModel.updateLevel(value, charId);
-    }
-
     /**
      * Inner classes
      */
@@ -316,10 +297,15 @@ public class PocketFragment extends Fragment
 
         @Override
         public void onClick(View view) {
-            PocketDialog dialog = new PocketDialog();
-            dialog.setTargetFragment(PocketFragment.this, 0);
-            dialog.setOption(option, currencyType);
-            dialog.show(getParentFragmentManager(), "POCKET_DIALOG");
+            showBottomDialog();
+        }
+
+        private void showBottomDialog() {
+            PocketBottomSheetDialog bottomSheetDialog =
+                    new PocketBottomSheetDialog(viewModel, charId);
+            bottomSheetDialog.setOption(this.option);
+            bottomSheetDialog.setCurrencyType(this.currencyType);
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }
 
@@ -345,7 +331,7 @@ public class PocketFragment extends Fragment
                     subLevel();
                     break;
                 case CHANGE_VALUE:
-                    showChangeValueDialog();
+                    showBottomDialog();
                     break;
             }
         }
@@ -360,11 +346,11 @@ public class PocketFragment extends Fragment
             viewModel.updateLevel(oldValue - 1, charId);
         }
 
-        private void showChangeValueDialog() {
-            PocketDialog dialog = new PocketDialog();
-            dialog.setTargetFragment(PocketFragment.this, 0);
-            dialog.setOption(PocketDialog.LEVEL, null);
-            dialog.show(getParentFragmentManager(), "POCKET_DIALOG");
+        private void showBottomDialog() {
+            PocketBottomSheetDialog bottomSheetDialog =
+                    new PocketBottomSheetDialog(viewModel, charId);
+            bottomSheetDialog.setOption(PocketBottomSheetDialog.LEVEL);
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }
 }
