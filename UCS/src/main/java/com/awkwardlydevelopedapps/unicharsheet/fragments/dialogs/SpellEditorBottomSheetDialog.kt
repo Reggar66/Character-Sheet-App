@@ -33,25 +33,25 @@ class SpellEditorBottomSheetDialog(private val viewModel: SpellsViewModel,
         }
 
         when (option) {
-            0 -> {
+            DESCRIPTION -> {
                 textView.setText(R.string.enter_description)
                 editText.inputType = InputType.TYPE_CLASS_TEXT + InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
-            1, 3 -> {
+            DAMAGE_VALUE, COST_VALUE -> {
                 textView.setText(R.string.enter_value)
                 editText.inputType = InputType.TYPE_NUMBER_FLAG_SIGNED +
                         InputType.TYPE_NUMBER_FLAG_DECIMAL +
                         InputType.TYPE_CLASS_NUMBER
             }
-            2 -> {
+            DAMAGE_ADD_EFFECT -> {
                 textView.setText(R.string.enter_additional_effect)
                 editText.inputType = InputType.TYPE_CLASS_TEXT + InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
-            4 -> {
+            COST_ADD_VALUE -> {
                 textView.setText(R.string.enter_additional_cost)
                 editText.inputType = InputType.TYPE_CLASS_TEXT + InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
-            5 -> {
+            SPECIAL_NOTES -> {
                 textView.setText(R.string.enter_special_notes)
                 editText.inputType = InputType.TYPE_CLASS_TEXT + InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
@@ -66,12 +66,12 @@ class SpellEditorBottomSheetDialog(private val viewModel: SpellsViewModel,
 
     private fun applyChanges() {
         when (option) {
-            0 -> viewModel.updateDescription(editText.text.toString(), charId, spellId)
-            1 -> viewModel.updateDmgValue(editText.text.toString(), charId, spellId)
-            2 -> viewModel.updateAddEffectValue(editText.text.toString(), charId, spellId)
-            3 -> viewModel.updateCostValue(editText.text.toString(), charId, spellId)
-            4 -> viewModel.updateAddCostValue(editText.text.toString(), charId, spellId)
-            5 -> viewModel.updateSpecialNotes(editText.text.toString(), charId, spellId)
+            DESCRIPTION -> viewModel.updateDescription(editText.text.toString(), charId, spellId)
+            DAMAGE_VALUE -> viewModel.updateDmgValue(editText.text.toString(), charId, spellId)
+            DAMAGE_ADD_EFFECT -> viewModel.updateAddEffectValue(editText.text.toString(), charId, spellId)
+            COST_VALUE -> viewModel.updateCostValue(editText.text.toString(), charId, spellId)
+            COST_ADD_VALUE -> viewModel.updateAddCostValue(editText.text.toString(), charId, spellId)
+            SPECIAL_NOTES -> viewModel.updateSpecialNotes(editText.text.toString(), charId, spellId)
         }
     }
 
