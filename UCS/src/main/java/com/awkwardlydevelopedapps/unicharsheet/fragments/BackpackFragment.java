@@ -18,9 +18,8 @@ import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Item;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemAddDialog;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemEditDialog;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.BackpackViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,9 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class BackpackFragment extends Fragment
-        implements ItemEditDialog.NoticeDialogListener,
-        DeleteDialog.NoticeDialogListener,
-        ItemAddDialog.NoticeDialogListener {
+        implements DeleteDialog.NoticeDialogListener {
 
     private View rootView;
     private int charId;
@@ -105,16 +102,6 @@ public class BackpackFragment extends Fragment
     }
 
     @Override
-    public void onEditDialogPositiveClick(DialogFragment dialog, String name, String quantity, int id) {
-        viewModel.updateItem(name, quantity, charId, id);
-    }
-
-    @Override
-    public void onEditDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
-    @Override
     public void onDeleteDialogPositiveClick(DialogFragment dialog) {
         viewModel.checkItemsToDelete(adapter);
         floatingActionButtonDelete.hide();
@@ -126,16 +113,6 @@ public class BackpackFragment extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    @Override
-    public void onItemAddDialogPositiveClick(DialogFragment dialog, String name, String quantity) {
-        viewModel.insert(new Item(name, quantity, charId));
-    }
-
-    @Override
-    public void onItemAddDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
     /**
      * Listener private classes
      */
@@ -143,9 +120,14 @@ public class BackpackFragment extends Fragment
 
         @Override
         public void onClick(View view) {
-            ItemAddDialog dialog = new ItemAddDialog();
-            dialog.setTargetFragment(BackpackFragment.this, 0);
-            dialog.show(getParentFragmentManager(), "ADD_ITEM_DIALOG");
+            showBottomDialog();
+        }
+
+        private void showBottomDialog() {
+            ItemBottomSheetDialog bottomSheetDialog =
+                    new ItemBottomSheetDialog(viewModel, charId);
+            bottomSheetDialog.setOption(ItemBottomSheetDialog.ADD);
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_ITEM");
         }
     }
 
@@ -189,10 +171,15 @@ public class BackpackFragment extends Fragment
 
         @Override
         public void onItemClick(View itemView, int position) {
-            ItemEditDialog dialog = new ItemEditDialog();
-            dialog.setOldItem(viewModel.getItems().get(position));
-            dialog.setTargetFragment(BackpackFragment.this, 0);
-            dialog.show(getParentFragmentManager(), "EDIT_ITEM_DIALOG");
+            showBottomDialog(position);
+        }
+
+        private void showBottomDialog(int position) {
+            ItemBottomSheetDialog bottomSheetDialog =
+                    new ItemBottomSheetDialog(viewModel, charId);
+            bottomSheetDialog.setOption(ItemBottomSheetDialog.EDIT);
+            bottomSheetDialog.setOldItem(viewModel.getItems().get(position));
+            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");
         }
     }
 
