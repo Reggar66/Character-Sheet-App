@@ -16,11 +16,11 @@ android {
             storePassword apiKeyProperties['STORE_PASSWORD']
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.awkwardlydevelopedapps.unicharsheet"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 15
         versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,10 +46,10 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
     // Preference library
     implementation 'androidx.preference:preference:1.1.1'
@@ -74,11 +74,10 @@ dependencies {
     //###
 
     // Navigation component
-    def nav_version = "2.3.0-rc01"
-    implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    implementation "androidx.navigation:navigation-fragment:2.3.0"
+    implementation "androidx.navigation:navigation-ui:2.3.0"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.0"
 
     // added to eliminate incompatibilities
     implementation 'androidx.browser:browser:1.2.0'
@@ -86,7 +85,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // google ads
-    implementation 'com.google.android.gms:play-services-ads:19.2.0'
+    implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation 'com.google.android.ads.consent:consent-library:1.0.8'
 
     // testImplementations
