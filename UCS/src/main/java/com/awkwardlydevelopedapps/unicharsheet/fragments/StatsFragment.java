@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,10 +27,10 @@ import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PresetAddBottomSheetDialog;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatTabNameChangeBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
 import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatTabNameChangeDialog;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatTabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -42,8 +41,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class StatsFragment extends Fragment
-        implements StatTabNameChangeDialog.NoticeDialogListener,
-        PresetAddBottomSheetDialog.OnApplyListener {
+        implements PresetAddBottomSheetDialog.OnApplyListener,
+        StatTabNameChangeBottomSheetDialog.OnApplyStatTabNameListener {
 
     private StatTabsAdapter adapter;
     private ViewPager viewPager;
@@ -135,9 +134,11 @@ public class StatsFragment extends Fragment
     }
 
     public void changeCurrentTabName() {
-        StatTabNameChangeDialog dialog = new StatTabNameChangeDialog();
-        dialog.setTargetFragment(this, 0); //Setting target Fragment to THIS as we call dialog form THIS FRAGMENT.
-        dialog.show(getParentFragmentManager(), "STAT_TAB_CHANGE_DIALOG");
+        StatTabNameChangeBottomSheetDialog bottomSheetDialog =
+                new StatTabNameChangeBottomSheetDialog();
+        bottomSheetDialog.setListener(this);
+        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CHANGE_TAB_NAME");
+
     }
 
     public void createNewTab() {
@@ -183,18 +184,6 @@ public class StatsFragment extends Fragment
         loadTabNames();
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String tabName) {
-        int idx = tabLayout.getSelectedTabPosition();
-        Objects.requireNonNull(tabLayout.getTabAt(idx)).setText(tabName);
-        saveTabNameToSharedPrefs(idx, tabName);
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
-    }
-
     private void saveTabNameToSharedPrefs(int tabNumber, String stringValue) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -218,8 +207,6 @@ public class StatsFragment extends Fragment
                 new PresetAddBottomSheetDialog();
         bottomSheetDialog.setListener(this);
         bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_PRESET");
-
-
     }
 
     private void addToPreset(String presetName) {
@@ -240,6 +227,13 @@ public class StatsFragment extends Fragment
     @Override
     public void applyPreset(@NotNull String presetName) {
         addToPreset(presetName);
+    }
+
+    @Override
+    public void applyStatTabName(@NotNull String tabName) {
+        int idx = tabLayout.getSelectedTabPosition();
+        Objects.requireNonNull(tabLayout.getTabAt(idx)).setText(tabName);
+        saveTabNameToSharedPrefs(idx, tabName);
     }
 
     /**
