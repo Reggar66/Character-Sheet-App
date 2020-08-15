@@ -27,13 +27,15 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PresetAddBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
-import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PresetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatTabNameChangeDialog;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatTabsAdapter;
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ import java.util.Objects;
 
 public class StatsFragment extends Fragment
         implements StatTabNameChangeDialog.NoticeDialogListener,
-        PresetDialog.NoticeDialogListener {
+        PresetAddBottomSheetDialog.OnApplyListener {
 
     private StatTabsAdapter adapter;
     private ViewPager viewPager;
@@ -86,7 +88,6 @@ public class StatsFragment extends Fragment
         setupToolbar(view);
 
         // Load tabs
-        //SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String tabName;
         int numberOfTabs = Integer.parseInt(sharedPreferences.getString(NUMBER_OF_TABS, "3"));
@@ -147,7 +148,6 @@ public class StatsFragment extends Fragment
         adapter.addFragment(statsPage, "STATS " + pos, pos);
 
         // Save number of tabs in SharedPreferences
-        //SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getCount()));
@@ -170,7 +170,6 @@ public class StatsFragment extends Fragment
         adapter.removeFragment(pos);
 
         // Save number of tabs
-        //SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getCount()));
@@ -197,7 +196,6 @@ public class StatsFragment extends Fragment
     }
 
     private void saveTabNameToSharedPrefs(int tabNumber, String stringValue) {
-        //SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -206,7 +204,6 @@ public class StatsFragment extends Fragment
     }
 
     private void loadTabNames() {
-        //SharedPreferences sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String name;
 
@@ -216,10 +213,13 @@ public class StatsFragment extends Fragment
         }
     }
 
-    private void showPresetDialog() {
-        PresetDialog presetDialog = new PresetDialog();
-        presetDialog.setTargetFragment(this, 0);
-        presetDialog.show(getParentFragmentManager(), "PRESET_LIST_DIALOG");
+    private void showPresetBottomDialog() {
+        PresetAddBottomSheetDialog bottomSheetDialog =
+                new PresetAddBottomSheetDialog();
+        bottomSheetDialog.setListener(this);
+        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_PRESET");
+
+
     }
 
     private void addToPreset(String presetName) {
@@ -238,13 +238,8 @@ public class StatsFragment extends Fragment
     }
 
     @Override
-    public void onPresetAddDialogPositiveClick(DialogFragment dialog, String presetName) {
+    public void applyPreset(@NotNull String presetName) {
         addToPreset(presetName);
-    }
-
-    @Override
-    public void onPresetAddDialogNegativeClick(DialogFragment dialog) {
-        Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
     /**
@@ -282,7 +277,7 @@ public class StatsFragment extends Fragment
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_addPreset:
-                    showPresetDialog();
+                    showPresetBottomDialog();
                     return true;
 
                 case R.id.action_changeTabName:

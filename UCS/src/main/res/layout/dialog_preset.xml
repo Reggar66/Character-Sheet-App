@@ -12,13 +12,13 @@
         android:layout_marginStart="16dp"
         android:text="@string/preset_name"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_preset"
+        app:layout_constraintBottom_toBottomOf="@+id/presetDialog_editText_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText_preset"
+        app:layout_constraintTop_toTopOf="@+id/presetDialog_editText_name"
         tools:text="Preset name:" />
 
     <EditText
-        android:id="@+id/editText_preset"
+        android:id="@+id/presetDialog_editText_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,4 +30,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_presetName"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/presetDialog_fab_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/presetDialog_editText_name"
+        app:srcCompat="@drawable/ic_done_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
