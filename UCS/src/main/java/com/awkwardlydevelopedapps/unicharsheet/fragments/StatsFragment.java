@@ -98,6 +98,9 @@ public class StatsFragment extends Fragment
 
         }
         viewPager.setAdapter(adapter);
+
+        ((MainActivity) requireActivity()).inAppReview();
+
     }
 
     @Override

@@ -50,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
         // No need to set manually fragment transaction. Starting point is set automatically by NavComponent.
 
 
-        // TODO find a better place for showing InAppReview. Probably statistics fragment.
+    }
+
+
+    public void inAppReview() {
+        // Right now shown inside of statistic fragment. Maybe there is a better place?
         InAppReview inAppReview = new InAppReview(this, this);
         if (inAppReview.checkIfWeeksPassed(InAppReview.ZERO_WEEKS)) {
 
