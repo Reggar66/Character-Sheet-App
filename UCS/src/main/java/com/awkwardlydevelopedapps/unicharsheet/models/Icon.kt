@@ -17,6 +17,13 @@ class Icon(val iconId: Int,
             icons.add(Icon(ImageContract.Character.WIZARD_ID, ImageContract.Character.WIZARD))
             icons.add(Icon(ImageContract.Character.VISORED_ID, ImageContract.Character.VISORED))
             icons.add(Icon(ImageContract.Character.KENAKU_ID, ImageContract.Character.KENAKU))
+            icons.add(Icon(ImageContract.Character.ALIEN_ID, ImageContract.Character.ALIEN))
+            icons.add(Icon(ImageContract.Character.BANDIT_ID, ImageContract.Character.BANDIT))
+            icons.add(Icon(ImageContract.Character.DWARF_ID, ImageContract.Character.DWARF))
+            icons.add(Icon(ImageContract.Character.HOOD_ID, ImageContract.Character.HOOD))
+            icons.add(Icon(ImageContract.Character.MEDUSA_ID, ImageContract.Character.MEDUSA))
+            icons.add(Icon(ImageContract.Character.ORC_ID, ImageContract.Character.ORC))
+            icons.add(Icon(ImageContract.Character.OVERLORD_ID, ImageContract.Character.OVERLORD))
 
             return icons
         }

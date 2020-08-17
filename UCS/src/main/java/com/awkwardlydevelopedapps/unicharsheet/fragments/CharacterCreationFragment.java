@@ -172,7 +172,7 @@ public class CharacterCreationFragment extends Fragment {
         }
         switch (presetName) {
             case "None":
-                showToast("Character created without Blade preset.");
+                showToast("Character created without preset.");
                 break;
             case "Blade":
                 Snackbar.make(rootView, "Character created with Blade preset.", BaseTransientBottomBar.LENGTH_SHORT).show();

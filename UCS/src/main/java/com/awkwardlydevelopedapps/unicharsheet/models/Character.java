@@ -81,6 +81,22 @@ public class Character {
                 return ImageContract.Character.VISORED_ID;
             case ImageContract.Character.KENAKU:
                 return ImageContract.Character.KENAKU_ID;
+            case ImageContract.Character.ALIEN:
+                return ImageContract.Character.ALIEN_ID;
+            case ImageContract.Character.BANDIT:
+                return ImageContract.Character.BANDIT_ID;
+            case ImageContract.Character.DWARF:
+                return ImageContract.Character.DWARF_ID;
+            case ImageContract.Character.HOOD:
+                return ImageContract.Character.HOOD_ID;
+            case ImageContract.Character.MEDUSA:
+                return ImageContract.Character.MEDUSA_ID;
+            case ImageContract.Character.ORC:
+                return ImageContract.Character.ORC_ID;
+            case ImageContract.Character.OVERLORD:
+                return ImageContract.Character.OVERLORD_ID;
+
+
             default:
                 return ImageContract.Character.COWLED_ID;
         }

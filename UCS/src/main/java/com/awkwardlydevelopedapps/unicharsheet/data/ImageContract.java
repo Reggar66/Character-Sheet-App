@@ -13,12 +13,29 @@ public final class ImageContract {
         public final static int VISORED_ID = R.drawable.ic_visored_helm;
         public final static int KENAKU_ID = R.drawable.ic_kenku_head;
 
+        public final static int ALIEN_ID = R.drawable.ic_alien_stare;
+        public final static int BANDIT_ID = R.drawable.ic_bandit;
+        public final static int DWARF_ID = R.drawable.ic_dwarf_face;
+        public final static int HOOD_ID = R.drawable.ic_hood;
+        public final static int MEDUSA_ID = R.drawable.ic_medusa_head;
+        public final static int ORC_ID = R.drawable.ic_orc_head;
+        public final static int OVERLORD_ID = R.drawable.ic_overlord_helm;
+
+
         public final static String COWLED = "cowled";
         public final static String CULTIST = "cultist";
         public final static String VIKING = "viking";
         public final static String WIZARD = "wizard";
         public final static String VISORED = "visored";
         public final static String KENAKU = "kenaku";
+
+        public final static String ALIEN = "alien";
+        public final static String BANDIT = "bandit";
+        public final static String DWARF = "dwarf";
+        public final static String HOOD = "hood";
+        public final static String MEDUSA = "medusa";
+        public final static String ORC = "orc";
+        public final static String OVERLORD = "overlord";
     }
 
     public final static class Spell {
