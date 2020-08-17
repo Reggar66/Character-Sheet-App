@@ -9,13 +9,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.suddenh4x.ratingdialog.AppRating;
-import com.suddenh4x.ratingdialog.preferences.MailSettings;
-import com.suddenh4x.ratingdialog.preferences.RatingThreshold;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,12 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
 
     private BottomNavigationView bottomNavigationView;
-
-    // Rating app stuff
-    MailSettings mailSettings = new MailSettings("awkwardly.developed.apps@gmail.com",
-            "UCS - feedback",
-            "Hello there,\n",
-            "Didn't work.");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +49,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         // No need to set manually fragment transaction. Starting point is set automatically by NavComponent.
 
-        // Rate App
-        if (savedInstanceState == null) {
-            new AppRating.Builder(this)
-                    .setMinimumLaunchTimes(5)
-                    .setMinimumDays(7)
-                    .setMinimumLaunchTimesToShowAgain(5)
-                    .setMinimumDaysToShowAgain(10)
-                    .setRatingThreshold(RatingThreshold.FOUR)
-                    .setMailSettingsForFeedbackDialog(mailSettings)
-                    //.showNow();
-                    .showIfMeetsConditions();
+
+        // TODO find a better place for showing InAppReview. Probably statistics fragment.
+        InAppReview inAppReview = new InAppReview(this, this);
+        if (inAppReview.checkIfWeeksPassed(InAppReview.ZERO_WEEKS)) {
+
+            if (inAppReview.getCurrentWeek() != 0) {
+                inAppReview.requestReview();
+                Log.v("DAYS", "DAYS > 0, showing InAppReview");
+            } else {
+                Log.v("DAYS", "DAYS == 0, NOT showing InAppReview");
+            }
+
+            inAppReview.updateWeekToCheck();
         }
     }
 

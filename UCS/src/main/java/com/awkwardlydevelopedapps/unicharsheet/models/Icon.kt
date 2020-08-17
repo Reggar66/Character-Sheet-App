@@ -7,10 +7,10 @@ class Icon(val iconId: Int,
            var selected: Boolean = false) {
 
     companion object {
+        // TODO add more icons
         fun populateCharacterIcons(): ArrayList<Icon> {
             val icons = ArrayList<Icon>()
 
-            // TODO change to normal icons
             icons.add(Icon(ImageContract.Character.COWLED_ID, ImageContract.Character.COWLED))
             icons.add(Icon(ImageContract.Character.CULTIST_ID, ImageContract.Character.CULTIST))
             icons.add(Icon(ImageContract.Character.VIKING_ID, ImageContract.Character.VIKING))
