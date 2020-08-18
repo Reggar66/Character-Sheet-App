@@ -51,7 +51,7 @@ public class AdSingleton {
     }
 
     public void enableTestDevice() {
-        List<String> testDeviceIds = Arrays.asList("AE5B3676F36A10E4DE9250343E2B2B70");
+        List<String> testDeviceIds = Arrays.asList("0D9DC6373F50EC8ACEDB84403476DA34");
         RequestConfiguration configuration = new RequestConfiguration.Builder()
                 .setTestDeviceIds(testDeviceIds).build();
         MobileAds.setRequestConfiguration(configuration);
