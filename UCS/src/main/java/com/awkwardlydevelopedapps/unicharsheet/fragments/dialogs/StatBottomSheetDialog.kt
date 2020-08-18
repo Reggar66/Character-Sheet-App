@@ -33,8 +33,22 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
         val rootView: View = inflater.inflate(R.layout.dialog_stat_add, container, false)
 
         editTextName = rootView.findViewById(R.id.stat_name_dialog_editText)
+        editTextName.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+            if (b)
+                editTextName.setSelection(editTextName.length())
+        }
+
         editTextValue = rootView.findViewById(R.id.stat_value_dialog_editText)
+        editTextValue.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+            if (b)
+                editTextValue.setSelection(editTextValue.length())
+        }
+
+
         titleTextView = rootView.findViewById(R.id.title)
+
+
+        editTextName.requestFocus()
         checkForTitle()
 
         if (option == OPTION_EDIT) {
@@ -45,11 +59,6 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
         addButton.setOnClickListener(OnAddClickListener())
 
         return rootView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        editTextName.requestFocus()
     }
 
     private fun checkForTitle() {

@@ -15,15 +15,23 @@ class ItemBottomSheetDialog(private val viewModel: BackpackViewModel,
                             private val charId: Int) : BottomSheetDialogModel() {
 
     var option = 0
-    lateinit var editTextName: EditText
-    lateinit var editTextQuantity: EditText
+    private lateinit var editTextName: EditText
+    private lateinit var editTextQuantity: EditText
     var oldItem: Item? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_items, container, false)
 
         editTextName = rootView.findViewById(R.id.itemsDialog_editText_name)
+        editTextName.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+            if (b)
+                editTextName.setSelection(editTextName.length())
+        }
         editTextQuantity = rootView.findViewById(R.id.itemsDialog_editText_Quantity)
+        editTextQuantity.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+            if (b)
+                editTextQuantity.setSelection(editTextQuantity.length())
+        }
 
         if (option == EDIT && oldItem != null) {
             editTextName.setText(oldItem!!.name)

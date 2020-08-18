@@ -43,6 +43,8 @@
     <string name="eq_armor">Armor</string>
     <string name="eq_type">Type</string>
     <string name="eq_additional_effects">Additional Effects</string>
+
+
     <string name="eq_slot_description_head" translatable="false">Equipment slot - Head</string>
     <string name="eq_slot_description_neck" translatable="false">Equipment slot - Neck</string>
     <string name="eq_slot_description_chest" translatable="false">Equipment slot - Chest</string>
@@ -54,6 +56,12 @@
     <string name="eq_slot_description_off_hand" translatable="false">Equipment slot - Off Hand</string>
     <string name="eq_slot_description_ears" translatable="false">Equipment slot - Ears</string>
     <string name="eq_slot_description_finger" translatable="false">Equipment slot - Finger</string>
+
+    <!-- Equipment dialog -->
+    <string name="enter_description">Enter description</string>
+    <string name="enter_value">Enter value</string>
+    <string name="additional_effects">Additional Effects</string>
+    <string name="type">Type:</string>
 
     <!-- Item's strings -->
     <string name="item_name">Item name</string>
@@ -139,9 +147,6 @@
     <string name="bottom_nav_stats">Stats</string>
     <string name="bottom_nav_inventory">Inventory</string>
     <string name="bottom_nav_abilities">Abilities</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="enter_description">Enter description</string>
-    <string name="enter_value">Enter value</string>
+
 
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -225,37 +226,48 @@ public class EquipmentFragment extends Fragment {
 
         switch (slot) {
             case SLOT_HEAD:
-                imageViewHead.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewHead.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_CHEST:
-                imageViewChest.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewChest.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_RIGHT_ARM:
-                imageViewRight.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewRight.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_LEFT_ARM:
-                imageViewLeft.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewLeft.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_FEET:
-                imageViewFeet.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewFeet.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_NECK:
-                imageViewNeck.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewNeck.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_LEGS:
-                imageViewLegs.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewLegs.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_WEAPON:
-                imageViewWeapon.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewWeapon.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_OFF_HAND:
-                imageViewOffHand.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewOffHand.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_EARS:
-                imageViewEars.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewEars.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
             case SLOT_FINGER:
-                imageViewFinger.setBackground(requireContext().getDrawable(R.drawable.slot_selected_drawable));
+                imageViewFinger.setBackground(ContextCompat.getDrawable(requireContext(),
+                        R.drawable.slot_selected_drawable));
                 break;
         }
     }
@@ -314,13 +326,12 @@ public class EquipmentFragment extends Fragment {
 
         private void showEditBottomDialog() {
             EquipmentBottomSheetDialog bottomSheetDialog =
-                    new EquipmentBottomSheetDialog(viewModel, slotCurrentlySelected, charId);
+                    new EquipmentBottomSheetDialog(requireContext(), viewModel, slotCurrentlySelected, charId);
 
             bottomSheetDialog.setOldValues(textViewItemName.getText().toString(),
                     textViewItemArmorType.getText().toString(),
                     textViewItemArmorValue.getText().toString(),
                     textViewItemAdditionalEffectsValue.getText().toString());
-
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EQ_EDIT");
 
         }
