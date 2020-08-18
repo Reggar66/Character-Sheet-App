@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void inAppReview() {
         // Right now shown inside of statistic fragment. Maybe there is a better place?
         InAppReview inAppReview = new InAppReview(this, this);
-        if (inAppReview.checkIfWeeksPassed(InAppReview.ZERO_WEEKS)) {
+        if (inAppReview.checkIfWeeksPassed(InAppReview.ONE_WEEK)) {
 
             if (inAppReview.getCurrentWeek() != 0) {
                 inAppReview.requestReview();
