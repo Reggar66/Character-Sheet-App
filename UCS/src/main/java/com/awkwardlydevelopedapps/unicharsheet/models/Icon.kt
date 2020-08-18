@@ -24,6 +24,10 @@ class Icon(val iconId: Int,
             icons.add(Icon(ImageContract.Character.MEDUSA_ID, ImageContract.Character.MEDUSA))
             icons.add(Icon(ImageContract.Character.ORC_ID, ImageContract.Character.ORC))
             icons.add(Icon(ImageContract.Character.OVERLORD_ID, ImageContract.Character.OVERLORD))
+            icons.add(Icon(ImageContract.Character.BESTIAL_FANGS_ID, ImageContract.Character.BESTIAL_FANGS))
+            icons.add(Icon(ImageContract.Character.BOAR_TUSKS_ID, ImageContract.Character.BOAR_TUSKS))
+            icons.add(Icon(ImageContract.Character.BURNING_SKULL_ID, ImageContract.Character.BURNING_SKULL))
+            icons.add(Icon(ImageContract.Character.HORNED_REPTILE_ID, ImageContract.Character.HORNED_REPTILE))
 
             return icons
         }

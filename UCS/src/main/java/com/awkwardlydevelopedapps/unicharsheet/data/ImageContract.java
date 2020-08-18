@@ -19,6 +19,10 @@ public final class ImageContract {
         public final static int MEDUSA_ID = R.drawable.ic_medusa_head;
         public final static int ORC_ID = R.drawable.ic_orc_head;
         public final static int OVERLORD_ID = R.drawable.ic_overlord_helm;
+        public final static int BESTIAL_FANGS_ID = R.drawable.ic_bestial_fangs;
+        public final static int BOAR_TUSKS_ID = R.drawable.ic_boar_tusks;
+        public final static int BURNING_SKULL_ID = R.drawable.ic_burning_skull;
+        public final static int HORNED_REPTILE_ID = R.drawable.ic_horned_reptile;
 
         public final static String COWLED = "cowled";
         public final static String CULTIST = "cultist";
@@ -33,6 +37,10 @@ public final class ImageContract {
         public final static String MEDUSA = "medusa";
         public final static String ORC = "orc";
         public final static String OVERLORD = "overlord";
+        public final static String BESTIAL_FANGS = "bestial fangs";
+        public final static String BOAR_TUSKS = "boar tusks";
+        public final static String BURNING_SKULL = "burning skull";
+        public final static String HORNED_REPTILE = "horned reptile";
     }
 
     public final static class Spell {
@@ -43,7 +51,6 @@ public final class ImageContract {
         public final static int NATURE_ID = R.drawable.ic_three_leaves;
         public final static int ESSENCE_ID = R.drawable.ic_jawbone;
         public final static int MIND_ID = R.drawable.ic_sunken_eye;
-
         public final static int ACID_BLOB_ID = R.drawable.ic_acid_blob;
         public final static int ANGULAR_SPIDER_ID = R.drawable.ic_angular_spider;
         public final static int BLEEDING_EYE_ID = R.drawable.ic_bleeding_eye;
@@ -68,7 +75,6 @@ public final class ImageContract {
         public final static String NATURE = "nature";
         public final static String ESSENCE = "essence";
         public final static String MIND = "mind";
-
         public final static String ACID_BLOB = "acid blob";
         public final static String ANGULAR_SPIDER = "angular spider";
         public final static String BLEEDING_EYE = "bleeding eye";

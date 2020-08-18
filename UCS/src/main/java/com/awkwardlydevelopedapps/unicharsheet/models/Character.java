@@ -95,6 +95,14 @@ public class Character {
                 return ImageContract.Character.ORC_ID;
             case ImageContract.Character.OVERLORD:
                 return ImageContract.Character.OVERLORD_ID;
+            case ImageContract.Character.BESTIAL_FANGS:
+                return ImageContract.Character.BESTIAL_FANGS_ID;
+            case ImageContract.Character.BOAR_TUSKS:
+                return ImageContract.Character.BOAR_TUSKS_ID;
+            case ImageContract.Character.BURNING_SKULL:
+                return ImageContract.Character.BURNING_SKULL_ID;
+            case ImageContract.Character.HORNED_REPTILE:
+                return ImageContract.Character.HORNED_REPTILE_ID;
 
 
             default:
