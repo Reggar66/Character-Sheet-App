@@ -37,6 +37,22 @@ class Icon(val iconId: Int,
             icons.add(Icon(ImageContract.Spell.NATURE_ID, ImageContract.Spell.NATURE))
             icons.add(Icon(ImageContract.Spell.ESSENCE_ID, ImageContract.Spell.ESSENCE))
             icons.add(Icon(ImageContract.Spell.MIND_ID, ImageContract.Spell.MIND))
+            icons.add(Icon(ImageContract.Spell.ACID_BLOB_ID, ImageContract.Spell.ACID_BLOB))
+            icons.add(Icon(ImageContract.Spell.ANGULAR_SPIDER_ID, ImageContract.Spell.ANGULAR_SPIDER))
+            icons.add(Icon(ImageContract.Spell.BLEEDING_EYE_ID, ImageContract.Spell.BLEEDING_EYE))
+            icons.add(Icon(ImageContract.Spell.BROKEN_TABLET_ID, ImageContract.Spell.BROKEN_TABLET))
+            icons.add(Icon(ImageContract.Spell.CADUCEUS_ID, ImageContract.Spell.CADUCEUS))
+            icons.add(Icon(ImageContract.Spell.CLOUDY_FORK_ID, ImageContract.Spell.CLOUDY_FORK))
+            icons.add(Icon(ImageContract.Spell.DEATH_JUICE_ID, ImageContract.Spell.DEATH_JUICE))
+            icons.add(Icon(ImageContract.Spell.DRIPPING_KNIFE_ID, ImageContract.Spell.DRIPPING_KNIFE))
+            icons.add(Icon(ImageContract.Spell.EVIL_BAT_ID, ImageContract.Spell.EVIL_BAT))
+            icons.add(Icon(ImageContract.Spell.FANGS_ID, ImageContract.Spell.FANGS))
+            icons.add(Icon(ImageContract.Spell.FLAMING_CLAW_ID, ImageContract.Spell.FLAMING_CLAW))
+            icons.add(Icon(ImageContract.Spell.INCENSE_ID, ImageContract.Spell.INCENSE))
+            icons.add(Icon(ImageContract.Spell.PAWPRINT_ID, ImageContract.Spell.PAWPRINT))
+            icons.add(Icon(ImageContract.Spell.SPIRAL_ARROW_ID, ImageContract.Spell.SPIRAL_ARROW))
+            icons.add(Icon(ImageContract.Spell.STEAM_ID, ImageContract.Spell.STEAM))
+            icons.add(Icon(ImageContract.Spell.WOLF_HEAD_ID, ImageContract.Spell.WOLF_HEAD))
 
             return icons
         }

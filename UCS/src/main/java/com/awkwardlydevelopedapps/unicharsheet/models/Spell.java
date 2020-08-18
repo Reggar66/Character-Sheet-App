@@ -102,6 +102,39 @@ public class Spell {
                 return ImageContract.Spell.ESSENCE_ID;
             case ImageContract.Spell.MIND:
                 return ImageContract.Spell.MIND_ID;
+            case ImageContract.Spell.ACID_BLOB:
+                return ImageContract.Spell.ACID_BLOB_ID;
+            case ImageContract.Spell.ANGULAR_SPIDER:
+                return ImageContract.Spell.ANGULAR_SPIDER_ID;
+            case ImageContract.Spell.BLEEDING_EYE:
+                return ImageContract.Spell.BLEEDING_EYE_ID;
+            case ImageContract.Spell.BROKEN_TABLET:
+                return ImageContract.Spell.BROKEN_TABLET_ID;
+            case ImageContract.Spell.CADUCEUS:
+                return ImageContract.Spell.CADUCEUS_ID;
+            case ImageContract.Spell.CLOUDY_FORK:
+                return ImageContract.Spell.CLOUDY_FORK_ID;
+            case ImageContract.Spell.DEATH_JUICE:
+                return ImageContract.Spell.DEATH_JUICE_ID;
+            case ImageContract.Spell.DRIPPING_KNIFE:
+                return ImageContract.Spell.DRIPPING_KNIFE_ID;
+            case ImageContract.Spell.EVIL_BAT:
+                return ImageContract.Spell.EVIL_BAT_ID;
+            case ImageContract.Spell.FANGS:
+                return ImageContract.Spell.FANGS_ID;
+            case ImageContract.Spell.FLAMING_CLAW:
+                return ImageContract.Spell.FLAMING_CLAW_ID;
+            case ImageContract.Spell.INCENSE:
+                return ImageContract.Spell.INCENSE_ID;
+            case ImageContract.Spell.PAWPRINT:
+                return ImageContract.Spell.PAWPRINT_ID;
+            case ImageContract.Spell.SPIRAL_ARROW:
+                return ImageContract.Spell.SPIRAL_ARROW_ID;
+            case ImageContract.Spell.STEAM:
+                return ImageContract.Spell.STEAM_ID;
+            case ImageContract.Spell.WOLF_HEAD:
+                return ImageContract.Spell.WOLF_HEAD_ID;
+
             default:
                 return ImageContract.Spell.FIRE_ID;
         }
