@@ -7,7 +7,6 @@ class Icon(val iconId: Int,
            var selected: Boolean = false) {
 
     companion object {
-        // TODO add more icons
         fun populateCharacterIcons(): ArrayList<Icon> {
             val icons = ArrayList<Icon>()
 
