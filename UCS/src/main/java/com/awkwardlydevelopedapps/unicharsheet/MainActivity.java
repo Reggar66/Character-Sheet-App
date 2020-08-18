@@ -9,7 +9,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.ads.AdView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AdSingleton.Instance().enableTestDevice();
+        //AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
         AdSingleton.Instance().adInit(this);
         AdView adView = findViewById(R.id.adView);
@@ -60,11 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (inAppReview.getCurrentWeek() != 0) {
                 inAppReview.requestReview();
-                Log.v("DAYS", "DAYS > 0, showing InAppReview");
-            } else {
-                Log.v("DAYS", "DAYS == 0, NOT showing InAppReview");
             }
-
             inAppReview.updateWeekToCheck();
         }
     }

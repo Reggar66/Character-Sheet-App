@@ -87,4 +87,8 @@
     <string name="bottom_nav_stats">Statystyki</string>
     <string name="bottom_nav_inventory">Ekwipunek</string>
     <string name="bottom_nav_abilities">Umiejętności</string>
+    <string name="enter_description">Wprowadź opis</string>
+    <string name="enter_value">Wprowadź wartość</string>
+    <string name="additional_effects">Dodatkowe efekty</string>
+    <string name="type">Typ</string>
 </resources>
