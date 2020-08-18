@@ -74,7 +74,7 @@
     <string name="spell_cost">Cost:</string>
     <string name="spell_damage">Damage:</string>
     <string name="spell_description">Description:</string>
-    <string name="spell_name_hint_dialog">Spell name</string>
+    <string name="spell_name_hint_dialog">Ability/Spell name</string>
     <string name="spell_cost_hint_dialog">Cost</string>
     <string name="spell_damage_hint_dialog">Damage</string>
     <string name="spell_description_hint_dialog">Description</string>
