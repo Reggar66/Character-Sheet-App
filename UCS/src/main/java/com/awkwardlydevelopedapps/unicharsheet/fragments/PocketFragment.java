@@ -107,6 +107,20 @@ public class PocketFragment extends Fragment {
 
                 updateCurrencyText(currencies);
                 updateCurrencySeekBarProgress(currencies);
+
+                for (Currency c : currencies) {
+                    switch (c.getType()) {
+                        case Currency.TYPE_GOLD:
+                            viewModel.setGold(c);
+                            break;
+                        case Currency.TYPE_SILVER:
+                            viewModel.setSilver(c);
+                            break;
+                        case Currency.TYPE_COPPER:
+                            viewModel.setCopper(c);
+                            break;
+                    }
+                }
             }
         });
 
@@ -117,6 +131,8 @@ public class PocketFragment extends Fragment {
 
                 updateExperienceText(experience);
                 updateExperienceSeekBarProgress(experience);
+
+                viewModel.setExperience(experience);
             }
         });
 
@@ -290,21 +306,61 @@ public class PocketFragment extends Fragment {
         private int option;
         private String currencyType;
 
+        private String oldValue = "0";
+        private String oldMaxValue = "0";
+
         OnValueClickListener(int option, String currencyType) {
             this.option = option;
             this.currencyType = currencyType;
         }
 
+        private void oldValues() {
+            if (option == PocketBottomSheetDialog.EXPERIENCE) {
+                oldValue = String.valueOf(viewModel.getExperience().getValue());
+                oldMaxValue = String.valueOf(viewModel.getExperience().getMaxValue());
+            } else if (option == PocketBottomSheetDialog.CURRENCY) {
+                switch (currencyType) {
+                    case Currency.TYPE_GOLD:
+                        oldValue = String.valueOf(viewModel.getGold().getValue());
+                        oldMaxValue = String.valueOf(viewModel.getGold().getMaxValue());
+                        break;
+
+                    case Currency.TYPE_SILVER:
+                        oldValue = String.valueOf(viewModel.getSilver().getValue());
+                        oldMaxValue = String.valueOf(viewModel.getSilver().getMaxValue());
+                        break;
+
+                    case Currency.TYPE_COPPER:
+                        oldValue = String.valueOf(viewModel.getCopper().getValue());
+                        oldMaxValue = String.valueOf(viewModel.getCopper().getMaxValue());
+                        break;
+                }
+            }
+
+
+            if (oldValue.isEmpty()) {
+                oldValue = "0";
+            }
+
+            if ((oldMaxValue.isEmpty())) {
+                oldMaxValue = "0";
+            }
+        }
+
         @Override
         public void onClick(View view) {
+            oldValues();
             showBottomDialog();
         }
 
         private void showBottomDialog() {
+
             PocketBottomSheetDialog bottomSheetDialog =
                     new PocketBottomSheetDialog(viewModel, charId);
             bottomSheetDialog.setOption(this.option);
             bottomSheetDialog.setCurrencyType(this.currencyType);
+            bottomSheetDialog.setOldValue(oldValue);
+            bottomSheetDialog.setOldMaxValue(oldMaxValue);
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }
@@ -350,6 +406,7 @@ public class PocketFragment extends Fragment {
             PocketBottomSheetDialog bottomSheetDialog =
                     new PocketBottomSheetDialog(viewModel, charId);
             bottomSheetDialog.setOption(PocketBottomSheetDialog.LEVEL);
+            bottomSheetDialog.setOldValue(String.valueOf(viewModel.getLevel().getValue()));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }

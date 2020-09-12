@@ -16,13 +16,19 @@ class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
 
     var option: Int = 0
     var currencyType: String? = ""
+
+    var oldValue = "0"
+    var oldMaxValue = "0"
+
     lateinit var editTextValue: EditText
     lateinit var editTextMaxValue: EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_pocket_fragment, container, false)
         editTextValue = rootView.findViewById(R.id.pocketDialog_editText_value)
+        editTextValue.setText(oldValue)
         editTextMaxValue = rootView.findViewById(R.id.pocketDialog_editText_maxValue)
+        editTextMaxValue.setText(oldMaxValue)
         val textViewMaxVal = rootView.findViewById<TextView>(R.id.pocketDialog_textView_maxValue)
         val fabApply: FloatingActionButton = rootView.findViewById(R.id.pocketDialog_fab_apply)
         fabApply.setOnClickListener {
@@ -42,20 +48,32 @@ class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
     }
 
     private fun applyChanges() {
+
+        var updateValue = "0"
+        var updateMaxValue = "0"
+
+        if (editTextValue.text.isNotEmpty()) {
+            updateValue = editTextValue.text.toString()
+        }
+
+        if (editTextMaxValue.text.isNotEmpty()) {
+            updateMaxValue = editTextMaxValue.text.toString()
+        }
+
         when (option) {
             CURRENCY -> {
-                viewModel.updateCurrencyWithMaxValue(editTextValue.text.toString(),
-                        editTextMaxValue.text.toString(),
+                viewModel.updateCurrencyWithMaxValue(updateValue,
+                        updateMaxValue,
                         charId,
                         currencyType)
             }
             EXPERIENCE -> {
-                viewModel.updateExperienceWithMaxValue(editTextValue.text.toString().toInt(),
-                        editTextMaxValue.text.toString().toInt(),
+                viewModel.updateExperienceWithMaxValue(updateValue.toInt(),
+                        updateMaxValue.toInt(),
                         charId)
             }
             LEVEL -> {
-                viewModel.updateLevel(editTextValue.text.toString().toInt(), charId)
+                viewModel.updateLevel(updateValue.toInt(), charId)
             }
         }
     }

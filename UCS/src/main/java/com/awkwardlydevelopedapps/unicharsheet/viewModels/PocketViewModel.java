@@ -21,9 +21,13 @@ public class PocketViewModel extends ViewModel {
     private CurrencyRepository currencyRepository;
     private LiveData<List<Currency>> allCurrency;
     private List<Currency> currencies;
+    private Currency gold;
+    private Currency silver;
+    private Currency copper;
 
     private ExperienceRepository experienceRepository;
     private LiveData<Experience> experienceLiveData;
+    private Experience experience;
 
     private LevelRepository levelRepository;
     private LiveData<Level> levelLiveData;
@@ -65,6 +69,30 @@ public class PocketViewModel extends ViewModel {
         currencyRepository.updateCurrencyWithMaxValue(value, maxValue, charId, type);
     }
 
+    public Currency getCopper() {
+        return copper;
+    }
+
+    public void setCopper(Currency copper) {
+        this.copper = copper;
+    }
+
+    public Currency getGold() {
+        return gold;
+    }
+
+    public void setGold(Currency gold) {
+        this.gold = gold;
+    }
+
+    public Currency getSilver() {
+        return silver;
+    }
+
+    public void setSilver(Currency silver) {
+        this.silver = silver;
+    }
+
     // Experience
     public LiveData<Experience> getExperienceLiveData() {
         return experienceLiveData;
@@ -84,6 +112,14 @@ public class PocketViewModel extends ViewModel {
 
     public void updateExperienceWithMaxValue(int value, int maxValue, int charId) {
         experienceRepository.updateWithMaxValue(value, maxValue, charId);
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
     }
 
     // Level
