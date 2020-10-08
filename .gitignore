@@ -9,6 +9,7 @@
 /build
 /captures
 .externalNativeBuild
+.cxx
 
 #My ignores
 apikey.properties
