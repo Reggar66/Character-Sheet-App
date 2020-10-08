@@ -14,3 +14,7 @@
 apikey.properties
 /DB_download_tests
 /UCS/release/
+
+#Build files
+*.aab
+*.apk
