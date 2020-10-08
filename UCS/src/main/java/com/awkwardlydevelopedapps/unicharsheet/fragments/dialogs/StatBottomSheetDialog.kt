@@ -47,13 +47,14 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
 
         titleTextView = rootView.findViewById(R.id.title)
 
-
-        editTextName.requestFocus()
         checkForTitle()
 
         if (option == OPTION_EDIT) {
             setOldValues()
         }
+
+        editTextName.setSelection(editTextName.text.length)
+        editTextName.requestFocus()
 
         val addButton: View = rootView.findViewById(R.id.floatingActionButton_add_stat)
         addButton.setOnClickListener(OnAddClickListener())
@@ -69,8 +70,15 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
     }
 
     private fun setOldValues() {
-        editTextName.setText(oldStat.name)
-        editTextValue.setText(oldStat.value)
+        val name = oldStat.name.toString()
+        var value = oldStat.value.toString()
+
+        if (value.isEmpty()) {
+            value = DEFAULT_VALUE
+        }
+
+        editTextName.setText(name)
+        editTextValue.setText(value)
     }
 
 
@@ -104,8 +112,15 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
         }
 
         private fun editStat() {
-            viewModel.updateStatValues(editTextName.text.toString(),
-                    editTextValue.text.toString(),
+            val name = editTextName.text.toString()
+            var value = editTextValue.text.toString()
+
+            if (value.isEmpty()) {
+                value = Companion.DEFAULT_VALUE
+            }
+
+            viewModel.updateStatValues(name,
+                    value,
                     oldStat.charId,
                     oldStat.id)
             dialog?.dismiss()

@@ -13,3 +13,4 @@
 #My ignores
 apikey.properties
 /DB_download_tests
+/UCS/release/

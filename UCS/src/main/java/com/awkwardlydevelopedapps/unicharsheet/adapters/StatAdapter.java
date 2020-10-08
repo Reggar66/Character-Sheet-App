@@ -106,7 +106,12 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Stat stat = stats.get(position);
         viewHolder.mStatName.setText(stat.getName());
-        viewHolder.mStatValue.setText(stat.getValue());
+
+        String value = stat.getValue();
+        if (value.isEmpty()) {
+            value = "0";
+        }
+        viewHolder.mStatValue.setText(value);
 
         viewHolder.bindCheckBox();
     }
@@ -170,7 +175,10 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                         return;
 
                     Stat stat = stats.get(getAdapterPosition());
-                    int temp = Integer.parseInt(stat.getValue());
+                    int temp = 0;
+                    if (!stat.getValue().isEmpty()) {
+                        temp = Integer.parseInt(stat.getValue());
+                    }
                     temp = temp + 1;
                     statUpdateListener.incAndDecStatValue(stat, temp);
                 }
@@ -184,7 +192,10 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                         return;
 
                     Stat stat = stats.get(getAdapterPosition());
-                    int temp = Integer.parseInt(stat.getValue());
+                    int temp = 0;
+                    if (!stat.getValue().isEmpty()) {
+                        temp = Integer.parseInt(stat.getValue());
+                    }
                     temp = temp - 1;
                     statUpdateListener.incAndDecStatValue(stat, temp);
                 }
