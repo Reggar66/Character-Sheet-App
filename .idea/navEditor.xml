@@ -123,8 +123,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="65" />
+                            <option name="x" value="-357" />
+                            <option name="y" value="477" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -140,6 +140,16 @@
                               </value>
                             </entry>
                             <entry key="action_characterListFragment_to_inventoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_characterListFragment_to_notesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_characterListFragment_to_notesFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -186,6 +196,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="notesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -147,6 +147,7 @@
     <string name="bottom_nav_stats">Stats</string>
     <string name="bottom_nav_inventory">Inventory</string>
     <string name="bottom_nav_abilities">Abilities</string>
+    <string name="bottom_nav_notes">Notes</string>
 
 
 </resources>

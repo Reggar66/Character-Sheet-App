@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_whatshot_white_24dp"
         android:title="@string/bottom_nav_abilities" />
 
+    <item
+        android:id="@+id/notesFragment"
+        android:icon="@drawable/ic_baseline_subtitles_white_24"
+        android:title="@string/bottom_nav_notes" />
+
 </menu>

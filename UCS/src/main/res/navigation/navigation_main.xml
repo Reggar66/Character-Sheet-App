@@ -62,6 +62,12 @@
             android:id="@+id/action_characterListFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/characterListFragment" />
+        <action
+            android:id="@+id/action_characterListFragment_to_notesFragment2"
+            app:destination="@id/notesFragment" />
+        <action
+            android:id="@+id/action_characterListFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -106,4 +112,8 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.SettingsFragment" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.NotesFragment"
+        android:label="NotesFragment" />
 </navigation>
