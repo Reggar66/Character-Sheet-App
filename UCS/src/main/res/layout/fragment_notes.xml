@@ -7,8 +7,17 @@
     tools:background="@color/colorSecondaryDark">
 
     <include
-        android:id="@+id/toolbar_statsFragment"
+        android:id="@+id/toolbar_notesFragment"
         layout="@layout/toolbar_character" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout_notes_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_notesFragment" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,6 @@ import com.awkwardlydevelopedapps.unicharsheet.R
 
 class NotesFragment : Fragment() {
 
-
     private var characterId = 0
     private lateinit var characterName: String
     private lateinit var characterClass: String
@@ -37,7 +36,16 @@ class NotesFragment : Fragment() {
         characterIconId = (requireActivity() as MainActivity).characterIconId
 
 
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container, getNewNotesFragmentList())
+        fragmentTransaction.commit()
+
+
         return inflater.inflate(R.layout.fragment_notes, container, false)
+    }
+
+    private fun getNewNotesFragmentList(): Fragment {
+        return NotesFragmentList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +61,7 @@ class NotesFragment : Fragment() {
     private fun setupToolbar(view: View) {
         val navController = Navigation.findNavController(view)
 
-        val toolbar: Toolbar = view.findViewById(R.id.toolbar_statsFragment)
+        val toolbar: Toolbar = view.findViewById(R.id.toolbar_notesFragment)
         toolbar.inflateMenu(R.menu.toolbar_menu_character_list)
 
         val textViewName: TextView = view.findViewById(R.id.toolbar_textView_characterName)
