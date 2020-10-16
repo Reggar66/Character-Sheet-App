@@ -1,17 +1,25 @@
 package com.awkwardlydevelopedapps.unicharsheet.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "notes")
 public class Note {
+    @PrimaryKey(autoGenerate = true)
     public int id;
+
+    @ColumnInfo(name = "title")
     private String title;
-    private String noteText;
+    @ColumnInfo(name = "note")
+    private String note;
+    @ColumnInfo(name = "char_id")
+    private int charId;
 
-    public Note(String title, String noteText) {
+    public Note(String title, String note, int charId) {
         this.title = title;
-        this.noteText = noteText;
-    }
-
-    public Note(String title) {
-        this.title = title;
+        this.note = note;
+        this.charId = charId;
     }
 
     public String getTitle() {
@@ -22,11 +30,19 @@ public class Note {
         this.title = title;
     }
 
-    public String getNoteText() {
-        return noteText;
+    public String getNote() {
+        return note;
     }
 
-    public void setNoteText(String noteText) {
-        this.noteText = noteText;
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public int getCharId() {
+        return charId;
+    }
+
+    public void setCharId(int charId) {
+        this.charId = charId;
     }
 }

@@ -24,7 +24,7 @@ class NotesListAdapter(private val notes: ArrayList<Note>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewTitle.text = notes[position].title
-        val noteText = notes[position].noteText
+        val noteText = notes[position].note
         if (noteText.length >= 300) {
             val noteShortened: String = noteText.subSequence(0, 297) as String
             holder.textViewNoteSummary.text = "$noteShortened..."

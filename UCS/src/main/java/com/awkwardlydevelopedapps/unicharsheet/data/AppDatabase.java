@@ -12,6 +12,7 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
 import com.awkwardlydevelopedapps.unicharsheet.models.Item;
 import com.awkwardlydevelopedapps.unicharsheet.models.Level;
+import com.awkwardlydevelopedapps.unicharsheet.models.Note;
 import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
 import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
@@ -27,7 +28,8 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
         PresetList.class,
         Preset.class,
         Experience.class,
-        Level.class}, version = 7, exportSchema = false)
+        Level.class,
+        Note.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CharacterDao characterDao();
 
@@ -76,6 +78,13 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE 'level'('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'value' INTEGER NOT NULL, 'char_id' INTEGER NOT NULL)");
+        }
+    };
+
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE 'notes'('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'note' TEXT, 'char_id' INTEGER NOT NULL)");
         }
     };
 }
