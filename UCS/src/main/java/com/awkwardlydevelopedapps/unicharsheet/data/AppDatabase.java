@@ -49,6 +49,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract LevelDao levelDao();
 
+    public abstract NoteDao noteDao();
+
     static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {

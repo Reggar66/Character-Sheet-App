@@ -73,4 +73,8 @@ public class DbSingleton {
     public LevelDao getLevelDao() {
         return database.levelDao();
     }
+
+    public NoteDao getNoteDao() {
+        return database.noteDao();
+    }
 }

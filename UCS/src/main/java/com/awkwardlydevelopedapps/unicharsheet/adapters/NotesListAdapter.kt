@@ -4,11 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
+import com.awkwardlydevelopedapps.unicharsheet.utils.NoteDiffUtilCallback
 
-class NotesListAdapter(private val notes: ArrayList<Note>) : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+
+    private var notes = ArrayList<Note>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewTitle: TextView = itemView.findViewById(R.id.textView_title_note_list_item)
@@ -35,5 +39,14 @@ class NotesListAdapter(private val notes: ArrayList<Note>) : RecyclerView.Adapte
 
     override fun getItemCount(): Int {
         return notes.size
+    }
+
+    fun setNotes(notes: List<Note>) {
+        val noteDiffUtilCallback = NoteDiffUtilCallback(this.notes, notes)
+        val diffResult = DiffUtil.calculateDiff(noteDiffUtilCallback)
+
+        this.notes.clear()
+        this.notes.addAll(notes)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
