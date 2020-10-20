@@ -272,37 +272,31 @@ public class StatsFragment extends Fragment
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_addPreset:
-                    showPresetBottomDialog();
-                    return true;
-
-                case R.id.action_changeTabName:
-                    changeCurrentTabName();
-                    return true;
-
-                case R.id.action_about:
-                    NavHostFragment
-                            .findNavController(StatsFragment.this)
-                            .navigate(StatsFragmentDirections.actionStatsFragmentToAboutFragment());
-                    return true;
-
-                case R.id.action_createTab:
-                    createNewTab();
-                    return true;
-
-                case R.id.action_removeTab:
-                    removeTab();
-                    return true;
-
-                case R.id.action_settings:
-                    NavHostFragment
-                            .findNavController(StatsFragment.this)
-                            .navigate(StatsFragmentDirections.actionStatsFragmentToSettingsFragment());
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_addPreset) {
+                showPresetBottomDialog();
+                return true;
+            } else if (itemId == R.id.action_changeTabName) {
+                changeCurrentTabName();
+                return true;
+            } else if (itemId == R.id.action_about) {
+                NavHostFragment
+                        .findNavController(StatsFragment.this)
+                        .navigate(StatsFragmentDirections.actionStatsFragmentToAboutFragment());
+                return true;
+            } else if (itemId == R.id.action_createTab) {
+                createNewTab();
+                return true;
+            } else if (itemId == R.id.action_removeTab) {
+                removeTab();
+                return true;
+            } else if (itemId == R.id.action_settings) {
+                NavHostFragment
+                        .findNavController(StatsFragment.this)
+                        .navigate(StatsFragmentDirections.actionStatsFragmentToSettingsFragment());
+                return true;
             }
+            return false;
         }
     }
 }
