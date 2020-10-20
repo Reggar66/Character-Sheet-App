@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,12 +17,12 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class NotesFragmentList : Fragment() {
+class NotesFragmentList : Fragment(),
+        NotesListAdapter.OnItemClickListener,
+        NotesListAdapter.OnLongItemClickListener {
 
-    val notes = ArrayList<Note>()
     val adapter = NotesListAdapter()
     private var characterId = 0
-
 
     lateinit var viewModel: NoteViewModel
 
@@ -45,6 +46,8 @@ class NotesFragmentList : Fragment() {
         floatingActionButtonDeleteNote.hide()
 
 
+        adapter.onItemClickListener = this
+        adapter.onItemLongClickListener = this
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.notes_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
@@ -61,6 +64,18 @@ class NotesFragmentList : Fragment() {
             adapter.setNotes(it)
         })
 
+    }
+
+    override fun onItemClick(itemView: View?, position: Int): Boolean {
+        // TODO opening note
+        Toast.makeText(context, "click$position", Toast.LENGTH_LONG).show()
+        return true
+    }
+
+    override fun onItemLongClick(itemView: View?, position: Int): Boolean {
+        // TODO trigger delete selections
+        Toast.makeText(context, "LongClick$position", Toast.LENGTH_LONG).show()
+        return true
     }
 
     /**
@@ -83,6 +98,4 @@ class NotesFragmentList : Fragment() {
         }
 
     }
-
-
 }

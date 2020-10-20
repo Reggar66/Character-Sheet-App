@@ -14,9 +14,36 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
     private var notes = ArrayList<Note>()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var onItemClickListener: OnItemClickListener? = null
+    var onItemLongClickListener: OnLongItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(itemView: View?, position: Int): Boolean
+    }
+
+    interface OnLongItemClickListener {
+        fun onItemLongClick(itemView: View?, position: Int): Boolean
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+            View.OnClickListener,
+            View.OnLongClickListener {
+        init {
+            itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
+        }
+
         val textViewTitle: TextView = itemView.findViewById(R.id.textView_title_note_list_item)
         val textViewNoteSummary: TextView = itemView.findViewById(R.id.textView_text_summary_note_list_item)
+
+        override fun onClick(p0: View?) {
+            onItemClickListener?.onItemClick(p0, adapterPosition)
+        }
+
+        override fun onLongClick(p0: View?): Boolean {
+            onItemLongClickListener?.onItemLongClick(p0, adapterPosition)
+            return true
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
