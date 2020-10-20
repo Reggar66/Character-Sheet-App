@@ -2,6 +2,7 @@ package com.awkwardlydevelopedapps.unicharsheet.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "notes")
@@ -15,6 +16,9 @@ public class Note {
     private String note;
     @ColumnInfo(name = "char_id")
     private int charId;
+
+    @Ignore
+    private boolean checked;
 
     public Note(String title, String note, int charId) {
         this.title = title;
@@ -44,5 +48,13 @@ public class Note {
 
     public void setCharId(int charId) {
         this.charId = charId;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

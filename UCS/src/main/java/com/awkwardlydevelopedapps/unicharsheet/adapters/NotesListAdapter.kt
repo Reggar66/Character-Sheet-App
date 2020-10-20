@@ -1,9 +1,11 @@
 package com.awkwardlydevelopedapps.unicharsheet.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.R
@@ -12,7 +14,9 @@ import com.awkwardlydevelopedapps.unicharsheet.utils.NoteDiffUtilCallback
 
 class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
-    private var notes = ArrayList<Note>()
+    var notes = ArrayList<Note>()
+    private var showChecks = false
+    private lateinit var context: Context
 
     var onItemClickListener: OnItemClickListener? = null
     var onItemLongClickListener: OnLongItemClickListener? = null
@@ -37,16 +41,42 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
         val textViewNoteSummary: TextView = itemView.findViewById(R.id.textView_text_summary_note_list_item)
 
         override fun onClick(p0: View?) {
-            onItemClickListener?.onItemClick(p0, adapterPosition)
+            if (showChecks) {
+                manageBackgroundSelection()
+            } else {
+                onItemClickListener?.onItemClick(p0, adapterPosition)
+            }
         }
 
         override fun onLongClick(p0: View?): Boolean {
             onItemLongClickListener?.onItemLongClick(p0, adapterPosition)
             return true
         }
+
+        private fun manageBackgroundSelection() {
+            val note = notes[adapterPosition]
+            if (note.isChecked) {
+                note.isChecked = false
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.equipment_details_background_drawable)
+            } else {
+                note.isChecked = true
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.list_item_stat_drawable_selected)
+            }
+        }
+
+        fun bindCheckBox() {
+            val note = notes[adapterPosition]
+
+            if (note.isChecked) {
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.list_item_stat_drawable_selected)
+            } else {
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.equipment_details_background_drawable)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.list_item_note, parent, false)
 
@@ -62,6 +92,8 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
         } else {
             holder.textViewNoteSummary.text = noteText
         }
+
+        holder.bindCheckBox()
     }
 
     override fun getItemCount(): Int {
@@ -75,5 +107,19 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
         this.notes.clear()
         this.notes.addAll(notes)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setShowChecks() {
+        if (!showChecks) {
+            showChecks = true
+        } else {
+            showChecks = false
+            for ((index, note) in notes.withIndex()) {
+                if (note.isChecked) {
+                    note.isChecked = false
+                    notifyItemChanged(index)
+                }
+            }
+        }
     }
 }

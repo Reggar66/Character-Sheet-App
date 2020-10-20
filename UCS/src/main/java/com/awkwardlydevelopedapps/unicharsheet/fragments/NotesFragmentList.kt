@@ -73,8 +73,10 @@ class NotesFragmentList : Fragment(),
     }
 
     override fun onItemLongClick(itemView: View?, position: Int): Boolean {
-        // TODO trigger delete selections
-        Toast.makeText(context, "LongClick$position", Toast.LENGTH_LONG).show()
+        // TODO show deleting button
+        adapter.notes[position].isChecked = true
+        adapter.setShowChecks()
+        adapter.notifyItemChanged(position)
         return true
     }
 
