@@ -115,5 +115,12 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.NotesFragment"
-        android:label="NotesFragment" />
+        android:label="NotesFragment">
+        <action
+            android:id="@+id/action_notesFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_notesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
 </navigation>

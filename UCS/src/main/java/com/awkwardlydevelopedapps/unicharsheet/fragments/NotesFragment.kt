@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
@@ -87,7 +88,22 @@ class NotesFragment : Fragment() {
 
     inner class ToolbarOnMenuClickListener : Toolbar.OnMenuItemClickListener {
         override fun onMenuItemClick(item: MenuItem?): Boolean {
-            TODO("Not yet implemented")
+
+            return when (item?.itemId) {
+                R.id.action_about -> {
+                    NavHostFragment
+                            .findNavController(this@NotesFragment)
+                            .navigate(NotesFragmentDirections.actionNotesFragmentToAboutFragment())
+                    true
+                }
+                R.id.action_settings -> {
+                    NavHostFragment
+                            .findNavController(this@NotesFragment)
+                            .navigate(NotesFragmentDirections.actionNotesFragmentToSettingsFragment())
+                    true
+                }
+                else -> false
+            }
         }
 
     }
