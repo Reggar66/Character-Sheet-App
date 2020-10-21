@@ -15,6 +15,7 @@ import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.NoteBottomSheetDialog
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,10 +43,10 @@ class NotesFragmentList : Fragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_notes_list, container, false)
 
-        fabAddNote = rootView.findViewById<FloatingActionButton>(R.id.add_button_notes)
+        fabAddNote = rootView.findViewById(R.id.add_button_notes)
         fabAddNote.setOnClickListener(AddNoteOnClickListener())
 
-        fabDeleteNote = rootView.findViewById<FloatingActionButton>(R.id.floatingActionButton_notes_delete)
+        fabDeleteNote = rootView.findViewById(R.id.floatingActionButton_notes_delete)
         fabDeleteNote.setOnClickListener(DeleteNoteOnClickListener())
         fabDeleteNote.hide()
 
@@ -95,9 +96,14 @@ class NotesFragmentList : Fragment(),
     inner class AddNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
             //TODO showing dialog with note creation
+            /*
             viewModel.insert(Note("Really creative name for a note",
                     "Classes, objects, interfaces, constructors, functions, properties and their setters can have visibility modifiers. (Getters always have the same visibility as the property.) There are four visibility modifiers in Kotlin: private, protected, internal and public. The default visibility, used if there is no explicit modifier, is public.",
                     characterId))
+             */
+
+            val bottomDialog = NoteBottomSheetDialog(viewModel, characterId)
+            bottomDialog.show(parentFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
         }
 
     }
@@ -106,12 +112,12 @@ class NotesFragmentList : Fragment(),
         override fun onClick(p0: View?) {
             val deleteDialog = DeleteDialog()
             deleteDialog.setTargetFragment(this@NotesFragmentList, 0)
-            deleteDialog.show(parentFragmentManager, "DELETE_NOTES_DIALOG")
+            deleteDialog.show(parentFragmentManager, "DIALOG_DELETE_NOTES")
         }
 
     }
 
-    inner class FabHideListener() : RecyclerView.OnScrollListener() {
+    inner class FabHideListener : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
@@ -127,7 +133,7 @@ class NotesFragmentList : Fragment(),
         }
     }
 
-    inner class OnNoteItemLongClickListener() : NotesListAdapter.OnLongItemClickListener {
+    inner class OnNoteItemLongClickListener : NotesListAdapter.OnLongItemClickListener {
         override fun onItemLongClick(itemView: View?, position: Int): Boolean {
             adapter.notes[position].isChecked = true
             adapter.setShowChecks()

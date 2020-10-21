@@ -148,6 +148,9 @@
     <string name="bottom_nav_inventory">Inventory</string>
     <string name="bottom_nav_abilities">Abilities</string>
     <string name="bottom_nav_notes">Notes</string>
+    <string name="note_creation">Note Creation</string>
+    <string name="title">Title:</string>
+    <string name="note">Note:</string>
 
 
 </resources>
