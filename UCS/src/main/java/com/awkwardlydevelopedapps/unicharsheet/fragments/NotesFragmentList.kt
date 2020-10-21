@@ -115,7 +115,6 @@ class NotesFragmentList : Fragment(),
     inner class OnNoteItemLongClickListener(private val fabAddNote: FloatingActionButton,
                                             private val fabDeleteNote: FloatingActionButton) : NotesListAdapter.OnLongItemClickListener {
         override fun onItemLongClick(itemView: View?, position: Int): Boolean {
-            // TODO show deleting button
             adapter.notes[position].isChecked = true
             adapter.setShowChecks()
             adapter.notifyItemChanged(position)
