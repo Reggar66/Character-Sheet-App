@@ -8,7 +8,7 @@
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="4dp"
-    android:background="@drawable/equipment_details_background_drawable">
+    android:background="@drawable/note_background_drawable">
 
     <TextView
         android:id="@+id/textView_title_note_list_item"

@@ -57,10 +57,10 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
             val note = notes[adapterPosition]
             if (note.isChecked) {
                 note.isChecked = false
-                itemView.background = ContextCompat.getDrawable(context, R.drawable.equipment_details_background_drawable)
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable)
             } else {
                 note.isChecked = true
-                itemView.background = ContextCompat.getDrawable(context, R.drawable.list_item_stat_drawable_selected)
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable_selected)
             }
         }
 
@@ -68,9 +68,9 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
             val note = notes[adapterPosition]
 
             if (note.isChecked) {
-                itemView.background = ContextCompat.getDrawable(context, R.drawable.list_item_stat_drawable_selected)
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable_selected)
             } else {
-                itemView.background = ContextCompat.getDrawable(context, R.drawable.equipment_details_background_drawable)
+                itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable)
             }
         }
     }
