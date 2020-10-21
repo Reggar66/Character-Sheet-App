@@ -18,11 +18,12 @@ import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NotesFragmentList : Fragment(),
-        NotesListAdapter.OnItemClickListener,
-        NotesListAdapter.OnLongItemClickListener {
+        NotesListAdapter.OnItemClickListener {
 
     val adapter = NotesListAdapter()
     private var characterId = 0
+    //private lateinit var fabAddNote: FloatingActionButton
+    //private lateinit var fabDeleteNote: FloatingActionButton
 
     lateinit var viewModel: NoteViewModel
 
@@ -38,20 +39,21 @@ class NotesFragmentList : Fragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_notes_list, container, false)
 
-        val floatingActionButtonAddNote = rootView.findViewById<FloatingActionButton>(R.id.add_button_notes)
-        floatingActionButtonAddNote.setOnClickListener(AddNoteOnClickListener())
+        val fabAddNote = rootView.findViewById<FloatingActionButton>(R.id.add_button_notes)
+        fabAddNote.setOnClickListener(AddNoteOnClickListener())
 
-        val floatingActionButtonDeleteNote = rootView.findViewById<FloatingActionButton>(R.id.floatingActionButton_notes_delete)
-        floatingActionButtonDeleteNote.setOnClickListener(DeleteNoteOnClickListener())
-        floatingActionButtonDeleteNote.hide()
+        val fabDeleteNote = rootView.findViewById<FloatingActionButton>(R.id.floatingActionButton_notes_delete)
+        fabDeleteNote.setOnClickListener(DeleteNoteOnClickListener())
+        fabDeleteNote.hide()
 
 
         adapter.onItemClickListener = this
-        adapter.onItemLongClickListener = this
+        adapter.onItemLongClickListener = OnNoteItemLongClickListener(fabAddNote, fabDeleteNote)
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.notes_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = this.adapter
+        recyclerView.addOnScrollListener(FabHideListener(fabAddNote))
 
         return rootView
     }
@@ -72,13 +74,6 @@ class NotesFragmentList : Fragment(),
         return true
     }
 
-    override fun onItemLongClick(itemView: View?, position: Int): Boolean {
-        // TODO show deleting button
-        adapter.notes[position].isChecked = true
-        adapter.setShowChecks()
-        adapter.notifyItemChanged(position)
-        return true
-    }
 
     /**
      * Inner classes
@@ -99,5 +94,44 @@ class NotesFragmentList : Fragment(),
             TODO("Not yet implemented")
         }
 
+    }
+
+    inner class FabHideListener(private val fabAddNote: FloatingActionButton) : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (adapter.showChecks) {
+                return
+            }
+
+            if (dy > 0 && fabAddNote.visibility == View.VISIBLE) {
+                fabAddNote.hide()
+            } else if (dy < 0 && fabAddNote.visibility != View.VISIBLE) {
+                fabAddNote.show()
+            }
+        }
+    }
+
+    inner class OnNoteItemLongClickListener(private val fabAddNote: FloatingActionButton,
+                                            private val fabDeleteNote: FloatingActionButton) : NotesListAdapter.OnLongItemClickListener {
+        override fun onItemLongClick(itemView: View?, position: Int): Boolean {
+            // TODO show deleting button
+            adapter.notes[position].isChecked = true
+            adapter.setShowChecks()
+            adapter.notifyItemChanged(position)
+
+            handleFabHiding()
+            return true
+        }
+
+        private fun handleFabHiding() {
+            if (fabDeleteNote.isShown) {
+                fabDeleteNote.hide()
+                fabAddNote.show()
+            } else {
+                fabDeleteNote.show()
+                fabAddNote.hide()
+            }
+        }
     }
 }

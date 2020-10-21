@@ -15,7 +15,8 @@ import com.awkwardlydevelopedapps.unicharsheet.utils.NoteDiffUtilCallback
 class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
     var notes = ArrayList<Note>()
-    private var showChecks = false
+    var showChecks = false
+        private set
     private lateinit var context: Context
 
     var onItemClickListener: OnItemClickListener? = null
