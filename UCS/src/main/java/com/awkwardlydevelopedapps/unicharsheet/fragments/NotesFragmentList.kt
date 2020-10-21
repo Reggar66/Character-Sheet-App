@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,17 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
+import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NotesFragmentList : Fragment(),
-        NotesListAdapter.OnItemClickListener {
+        NotesListAdapter.OnItemClickListener,
+        DeleteDialog.NoticeDialogListener {
 
     val adapter = NotesListAdapter()
     private var characterId = 0
-    //private lateinit var fabAddNote: FloatingActionButton
-    //private lateinit var fabDeleteNote: FloatingActionButton
+    private lateinit var fabAddNote: FloatingActionButton
+    private lateinit var fabDeleteNote: FloatingActionButton
 
     lateinit var viewModel: NoteViewModel
 
@@ -39,21 +42,21 @@ class NotesFragmentList : Fragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_notes_list, container, false)
 
-        val fabAddNote = rootView.findViewById<FloatingActionButton>(R.id.add_button_notes)
+        fabAddNote = rootView.findViewById<FloatingActionButton>(R.id.add_button_notes)
         fabAddNote.setOnClickListener(AddNoteOnClickListener())
 
-        val fabDeleteNote = rootView.findViewById<FloatingActionButton>(R.id.floatingActionButton_notes_delete)
+        fabDeleteNote = rootView.findViewById<FloatingActionButton>(R.id.floatingActionButton_notes_delete)
         fabDeleteNote.setOnClickListener(DeleteNoteOnClickListener())
         fabDeleteNote.hide()
 
 
         adapter.onItemClickListener = this
-        adapter.onItemLongClickListener = OnNoteItemLongClickListener(fabAddNote, fabDeleteNote)
+        adapter.onItemLongClickListener = OnNoteItemLongClickListener()
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.notes_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = this.adapter
-        recyclerView.addOnScrollListener(FabHideListener(fabAddNote))
+        recyclerView.addOnScrollListener(FabHideListener())
 
         return rootView
     }
@@ -66,6 +69,16 @@ class NotesFragmentList : Fragment(),
             adapter.setNotes(it)
         })
 
+    }
+
+    override fun onDeleteDialogPositiveClick(dialog: DialogFragment?) {
+        viewModel.checkAndDeleteSpells(adapter)
+        fabAddNote.show()
+        fabDeleteNote.hide()
+    }
+
+    override fun onDeleteDialogNegativeClick(dialog: DialogFragment?) {
+        dialog?.dialog?.cancel()
     }
 
     override fun onItemClick(itemView: View?, position: Int): Boolean {
@@ -91,12 +104,14 @@ class NotesFragmentList : Fragment(),
 
     inner class DeleteNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
+            val deleteDialog = DeleteDialog()
+            deleteDialog.setTargetFragment(this@NotesFragmentList, 0)
+            deleteDialog.show(parentFragmentManager, "DELETE_NOTES_DIALOG")
         }
 
     }
 
-    inner class FabHideListener(private val fabAddNote: FloatingActionButton) : RecyclerView.OnScrollListener() {
+    inner class FabHideListener() : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
@@ -112,8 +127,7 @@ class NotesFragmentList : Fragment(),
         }
     }
 
-    inner class OnNoteItemLongClickListener(private val fabAddNote: FloatingActionButton,
-                                            private val fabDeleteNote: FloatingActionButton) : NotesListAdapter.OnLongItemClickListener {
+    inner class OnNoteItemLongClickListener() : NotesListAdapter.OnLongItemClickListener {
         override fun onItemLongClick(itemView: View?, position: Int): Boolean {
             adapter.notes[position].isChecked = true
             adapter.setShowChecks()
