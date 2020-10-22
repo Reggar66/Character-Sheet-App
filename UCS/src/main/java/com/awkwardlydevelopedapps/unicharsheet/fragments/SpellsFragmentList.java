@@ -45,7 +45,7 @@ public class SpellsFragmentList extends Fragment
 
     private int charId;
 
-    private changeFragmentCallback callback;
+    private ChangeFragmentCallback callback;
 
     public SpellsFragmentList() {
 
@@ -126,7 +126,7 @@ public class SpellsFragmentList extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    public void setChangeFragmentCallback(changeFragmentCallback callback) {
+    public void setChangeFragmentCallback(ChangeFragmentCallback callback) {
         this.callback = callback;
     }
 
@@ -134,7 +134,7 @@ public class SpellsFragmentList extends Fragment
      * Interfaces
      */
 
-    public interface changeFragmentCallback {
+    public interface ChangeFragmentCallback {
         void changeToDisplay(int spellId);
     }
 

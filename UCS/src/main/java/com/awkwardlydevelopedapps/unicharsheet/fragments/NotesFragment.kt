@@ -16,7 +16,9 @@ import androidx.navigation.ui.NavigationUI
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
 
-class NotesFragment : Fragment() {
+class NotesFragment : Fragment(),
+        NotesFragmentList.ChangeFragmentCallback,
+        NotesFragmentDisplay.ChangeFragmentCallback {
 
     private var characterId = 0
     private lateinit var characterName: String
@@ -45,9 +47,6 @@ class NotesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_notes, container, false)
     }
 
-    private fun getNewNotesFragmentList(): Fragment {
-        return NotesFragmentList()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,6 +79,28 @@ class NotesFragment : Fragment() {
 
         // Setup with Navigation Controller
         NavigationUI.setupWithNavController(toolbar, navController)
+    }
+
+    private fun getNewNoteFragmentDisplay(): Fragment {
+        val fragmentDisplay = NotesFragmentDisplay()
+        fragmentDisplay.changeFragmentCallback = this
+        return fragmentDisplay
+    }
+
+    private fun getNewNotesFragmentList(): Fragment {
+        val fragmentList = NotesFragmentList()
+        fragmentList.changeFragmentCallback = this
+        return fragmentList
+    }
+
+    override fun changeToDisplayNote(noteId: Int) {
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container, getNewNoteFragmentDisplay())
+        fragmentTransaction.commit()
+    }
+
+    override fun changeToList() {
+        TODO("Not yet implemented")
     }
 
     /**

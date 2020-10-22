@@ -2,7 +2,6 @@ package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.awkwardlydevelopedapps.unicharsheet.AdSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.google.ads.consent.ConsentInformation;
 
 public class SpellsFragment extends Fragment
-        implements SpellsFragmentList.changeFragmentCallback,
+        implements SpellsFragmentList.ChangeFragmentCallback,
         SpellsFragmentDisplay.ChangeFragmentCallback {
 
     private View rootView;

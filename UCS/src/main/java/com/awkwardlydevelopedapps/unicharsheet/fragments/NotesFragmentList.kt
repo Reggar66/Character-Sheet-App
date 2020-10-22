@@ -16,7 +16,6 @@ import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.NoteBottomSheetDialog
-import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -28,9 +27,12 @@ class NotesFragmentList : Fragment(),
     private var characterId = 0
     private lateinit var fabAddNote: FloatingActionButton
     private lateinit var fabDeleteNote: FloatingActionButton
-
     lateinit var viewModel: NoteViewModel
+    var changeFragmentCallback: ChangeFragmentCallback? = null
 
+    interface ChangeFragmentCallback {
+        fun changeToDisplayNote(noteId: Int)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,8 +85,10 @@ class NotesFragmentList : Fragment(),
     }
 
     override fun onItemClick(itemView: View?, position: Int): Boolean {
-        // TODO opening note
-        Toast.makeText(context, "click$position", Toast.LENGTH_LONG).show()
+        val notes = viewModel.getAllNotes().value
+        if (notes != null) {
+            changeFragmentCallback?.changeToDisplayNote(notes[position].id)
+        }
         return true
     }
 
