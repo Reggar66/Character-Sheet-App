@@ -95,13 +95,6 @@ class NotesFragmentList : Fragment(),
 
     inner class AddNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
-            //TODO showing dialog with note creation
-            /*
-            viewModel.insert(Note("Really creative name for a note",
-                    "Classes, objects, interfaces, constructors, functions, properties and their setters can have visibility modifiers. (Getters always have the same visibility as the property.) There are four visibility modifiers in Kotlin: private, protected, internal and public. The default visibility, used if there is no explicit modifier, is public.",
-                    characterId))
-             */
-
             val bottomDialog = NoteBottomSheetDialog(viewModel, characterId)
             bottomDialog.show(parentFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
         }
