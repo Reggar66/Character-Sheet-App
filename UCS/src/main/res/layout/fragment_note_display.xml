@@ -45,7 +45,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView_note_title"
+                android:id="@+id/textView_note_display_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -60,40 +60,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Fire Ball" />
 
-            <TextView
-                android:id="@+id/textView_note_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="?android:selectableItemBackground"
-                android:fontFamily="@font/almendra"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_note_title"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus tellus eu justo tristique, vitae pellentesque libero condimentum. Duis sed lorem luctus odio venenatis faucibus a ac nisl. Vestibulum placerat vehicula diam, nec feugiat dolor lacinia eu." />
-
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/editText_note_display_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
-                android:ems="10"
+                android:enabled="false"
                 android:fontFamily="@font/almendra"
                 android:inputType="textMultiLine"
                 android:textAlignment="textStart"
+                android:textColor="@color/colorSecondaryDark"
                 android:textSize="18sp"
-                android:visibility="gone"
+                android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_note_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView_note_display_title"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus tellus eu justo tristique, vitae pellentesque libero condimentum. Duis sed lorem luctus odio venenatis faucibus a ac nisl. Vestibulum placerat vehicula diam, nec feugiat dolor lacinia eu." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

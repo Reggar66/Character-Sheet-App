@@ -26,6 +26,10 @@ class NoteViewModel(application: Application,
         return allNotes
     }
 
+    fun getNote(noteId: Int): LiveData<Note> {
+        return noteRepository.getNote(noteId)
+    }
+
     fun checkAndDeleteSpells(adapter: NotesListAdapter) {
         val tempNotes = allNotes.value
         if (tempNotes != null) {

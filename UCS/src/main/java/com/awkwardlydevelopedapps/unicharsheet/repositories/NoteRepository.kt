@@ -24,4 +24,8 @@ class NoteRepository(application: Application,
             noteDao.delete(note)
         }
     }
+
+    fun getNote(noteId: Int): LiveData<Note> {
+        return noteDao.getLiveDataNote(noteId)
+    }
 }

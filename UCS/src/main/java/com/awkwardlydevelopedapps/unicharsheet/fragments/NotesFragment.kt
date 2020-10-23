@@ -81,9 +81,10 @@ class NotesFragment : Fragment(),
         NavigationUI.setupWithNavController(toolbar, navController)
     }
 
-    private fun getNewNoteFragmentDisplay(): Fragment {
+    private fun getNewNoteFragmentDisplay(noteId: Int): Fragment {
         val fragmentDisplay = NotesFragmentDisplay()
         fragmentDisplay.changeFragmentCallback = this
+        fragmentDisplay.noteId = noteId
         return fragmentDisplay
     }
 
@@ -95,12 +96,16 @@ class NotesFragment : Fragment(),
 
     override fun changeToDisplayNote(noteId: Int) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container, getNewNoteFragmentDisplay())
+        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container,
+                getNewNoteFragmentDisplay(noteId))
         fragmentTransaction.commit()
     }
 
     override fun changeToList() {
-        TODO("Not yet implemented")
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container,
+                getNewNotesFragmentList())
+        fragmentTransaction.commit()
     }
 
     /**
