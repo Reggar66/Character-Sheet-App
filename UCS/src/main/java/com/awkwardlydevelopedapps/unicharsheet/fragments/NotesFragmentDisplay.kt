@@ -18,8 +18,9 @@ class NotesFragmentDisplay() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // TODO correct layout
-        return inflater.inflate(R.layout.fragment_spells_display, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_note_display, container, false)
+
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
