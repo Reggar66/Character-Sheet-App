@@ -87,12 +87,7 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewTitle.text = notes[position].title
         val noteText = notes[position].note
-        if (noteText.length >= 300) {
-            val noteShortened: String = noteText.subSequence(0, 297) as String
-            holder.textViewNoteSummary.text = "$noteShortened..."
-        } else {
-            holder.textViewNoteSummary.text = noteText
-        }
+        holder.textViewNoteSummary.text = noteText
 
         holder.bindCheckBox()
     }
