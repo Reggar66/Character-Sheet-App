@@ -30,6 +30,10 @@ class NoteViewModel(application: Application,
         return noteRepository.getNote(noteId)
     }
 
+    fun updateNote(newNote: String, charId: Int, noteId: Int) {
+        noteRepository.updateNote(newNote, charId, noteId)
+    }
+
     fun checkAndDeleteSpells(adapter: NotesListAdapter) {
         val tempNotes = allNotes.value
         if (tempNotes != null) {

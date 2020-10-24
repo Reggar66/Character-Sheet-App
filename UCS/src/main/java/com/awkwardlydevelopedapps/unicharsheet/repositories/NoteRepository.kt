@@ -28,4 +28,10 @@ class NoteRepository(application: Application,
     fun getNote(noteId: Int): LiveData<Note> {
         return noteDao.getLiveDataNote(noteId)
     }
+
+    fun updateNote(newNote: String, charId: Int, noteId: Int) {
+        ExecSingleton.getInstance().execute {
+            noteDao.updateNote(newNote, charId, noteId)
+        }
+    }
 }

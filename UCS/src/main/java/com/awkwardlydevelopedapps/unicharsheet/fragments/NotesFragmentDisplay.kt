@@ -85,14 +85,15 @@ class NotesFragmentDisplay() : Fragment() {
                         R.drawable.ic_done_black_24dp))
 
                 edit = true
-            } else {
-                // TODO update note in DB
+            } else if (edit) {
                 editTextNote.isEnabled = false
                 editTextNote.setTextColor(ContextCompat.getColor(requireContext(),
                         R.color.colorSecondaryDark))
 
                 editButton.setImageDrawable(ContextCompat.getDrawable(requireContext(),
                         R.drawable.ic_edit_black_24dp))
+
+                viewModel.updateNote(editTextNote.text.toString(), charId, noteId)
                 edit = false
             }
         }
