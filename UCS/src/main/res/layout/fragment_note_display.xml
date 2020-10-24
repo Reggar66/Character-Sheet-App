@@ -53,7 +53,7 @@
                 android:fontFamily="@font/almendra"
                 android:textAlignment="textStart"
                 android:textColor="@color/TextOnSecondary"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
