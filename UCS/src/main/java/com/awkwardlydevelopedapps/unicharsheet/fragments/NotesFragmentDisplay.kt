@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
@@ -43,7 +44,10 @@ class NotesFragmentDisplay() : Fragment() {
         editButton = rootView.findViewById(R.id.imageView_edit_note_display)
         editButton.setOnClickListener(EditButtonOnClickListener())
 
-        viewModel = NoteViewModel(requireActivity().application, charId)
+        viewModel = ViewModelProvider(
+                this,
+                NoteViewModel.NoteViewModelFactory(requireActivity().application, charId))
+                .get(NoteViewModel::class.java)
         return rootView
     }
 
@@ -54,10 +58,6 @@ class NotesFragmentDisplay() : Fragment() {
             textViewTitle.text = it.title
             editTextNote.setText(it.note)
         })
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     /**
