@@ -1,0 +1,1021 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/gradle.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,22 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="GradleMigrationSettings" migrationVersion="1" />
+-  <component name="GradleSettings">
+-    <option name="linkedExternalProjectsSettings">
+-      <GradleProjectSettings>
+-        <option name="delegatedBuild" value="false" />
+-        <option name="testRunner" value="PLATFORM" />
+-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="modules">
+-          <set>
+-            <option value="$PROJECT_DIR$" />
+-            <option value="$PROJECT_DIR$/UCS" />
+-          </set>
+-        </option>
+-        <option name="resolveModulePerSourceSet" value="false" />
+-        <option name="useQualifiedModuleNames" value="true" />
+-      </GradleProjectSettings>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/compiler.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="1.8" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/jarRepositories.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/jarRepositories.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,35 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RemoteRepositoriesConfiguration">
+-    <remote-repository>
+-      <option name="id" value="central" />
+-      <option name="name" value="Maven Central repository" />
+-      <option name="url" value="https://repo1.maven.org/maven2" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="jboss.community" />
+-      <option name="name" value="JBoss Community repository" />
+-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="BintrayJCenter" />
+-      <option name="name" value="BintrayJCenter" />
+-      <option name="url" value="https://jcenter.bintray.com/" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="Google" />
+-      <option name="name" value="Google" />
+-      <option name="url" value="https://dl.google.com/dl/android/maven2/" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="maven" />
+-      <option name="name" value="maven" />
+-      <option name="url" value="https://jitpack.io" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="MavenRepo" />
+-      <option name="name" value="MavenRepo" />
+-      <option name="url" value="https://repo.maven.apache.org/maven2/" />
+-    </remote-repository>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/navEditor.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/navEditor.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/navEditor.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,301 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="navEditor-manualLayoutAlgorithm2">
+-    <option name="myPositions">
+-      <map>
+-        <entry key="navigation.xml">
+-          <value>
+-            <LayoutPositions>
+-              <option name="myPositions">
+-                <map>
+-                  <entry key="aboutFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="368" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="characterCreationFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="415" />
+-                            <option name="y" value="-155" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="characterDisplayFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="12" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="characterListFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="-406" />
+-                            <option name="y" value="348" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_characterListFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_characterCreationFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_characterDisplayFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </LayoutPositions>
+-          </value>
+-        </entry>
+-        <entry key="navigation_main.xml">
+-          <value>
+-            <LayoutPositions>
+-              <option name="myPositions">
+-                <map>
+-                  <entry key="aboutFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="1077" />
+-                            <option name="y" value="874" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="characterCreationFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="12" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_characterCreationFragment_to_characterListFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="characterListFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="-357" />
+-                            <option name="y" value="477" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_characterListFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_characterCreationFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_inventoryFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_notesFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_notesFragment2">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_settingsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_spellsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_characterListFragment_to_statsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="inventoryFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="725" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_inventoryFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_inventoryFragment_to_settingsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="notesFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="262" />
+-                            <option name="y" value="1429" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_notesFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_notesFragment_to_settingsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="settingsFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="925" />
+-                            <option name="y" value="387" />
+-                          </Point>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="spellsFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="369" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_spellsFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_spellsFragment_to_settingsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                  <entry key="statsFragment">
+-                    <value>
+-                      <LayoutPositions>
+-                        <option name="myPosition">
+-                          <Point>
+-                            <option name="x" value="256" />
+-                            <option name="y" value="1081" />
+-                          </Point>
+-                        </option>
+-                        <option name="myPositions">
+-                          <map>
+-                            <entry key="action_statsFragment_to_aboutFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                            <entry key="action_statsFragment_to_settingsFragment">
+-                              <value>
+-                                <LayoutPositions />
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </LayoutPositions>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </LayoutPositions>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/vcs.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/misc.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,59 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CMakeSettings">
+-    <configurations>
+-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+-    </configurations>
+-  </component>
+-  <component name="NullableNotNullManager">
+-    <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
+-    <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
+-    <option name="myNullables">
+-      <value>
+-        <list size="15">
+-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+-          <item index="2" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+-          <item index="3" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
+-          <item index="4" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+-          <item index="5" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
+-          <item index="6" class="java.lang.String" itemvalue="android.annotation.Nullable" />
+-          <item index="7" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
+-          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
+-          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
+-          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
+-          <item index="11" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+-          <item index="12" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
+-          <item index="13" class="java.lang.String" itemvalue="io.reactivex.annotations.Nullable" />
+-          <item index="14" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.Nullable" />
+-        </list>
+-      </value>
+-    </option>
+-    <option name="myNotNulls">
+-      <value>
+-        <list size="14">
+-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+-          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+-          <item index="3" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+-          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
+-          <item index="5" class="java.lang.String" itemvalue="android.annotation.NonNull" />
+-          <item index="6" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
+-          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
+-          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+-          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+-          <item index="10" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+-          <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
+-          <item index="12" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
+-          <item index="13" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
+-        </list>
+-      </value>
+-    </option>
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/build/classes" />
+-  </component>
+-  <component name="ProjectType">
+-    <option name="id" value="Android" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/assetWizardSettings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/assetWizardSettings.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/assetWizardSettings.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,352 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="WizardSettings">
+-    <option name="children">
+-      <map>
+-        <entry key="imageWizard">
+-          <value>
+-            <PersistentState>
+-              <option name="children">
+-                <map>
+-                  <entry key="imageAssetPanel">
+-                    <value>
+-                      <PersistentState>
+-                        <option name="children">
+-                          <map>
+-                            <entry key="actionbar">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="clipArt">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                                <entry key="imagePath" value="C:\Users\Student236095\AppData\Local\Temp\ic_android_black_24dp.xml" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="text">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="textAsset">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                  <option name="values">
+-                                    <map>
+-                                      <entry key="theme" value="HOLO_DARK" />
+-                                      <entry key="themeColor" value="ffffff" />
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                            <entry key="launcher">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="backgroundImage">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="imagePath" value="F:\Coding\2_Resources\Universal Character Sheet\App Icons\512x512\d10_background.png" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundClipArt">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="imagePath" value="C:\Users\Student236095\AppData\Local\Temp\ic_android_black_24dp.xml" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundImage">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                                <entry key="imagePath" value="F:\Coding\2_Resources\Universal Character Sheet\App Icons\512x512\d10.png" />
+-                                                <entry key="scalingPercent" value="70" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundText">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundTextAsset">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                  <option name="values">
+-                                    <map>
+-                                      <entry key="outputName" value="d10_launcher" />
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                            <entry key="launcherLegacy">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="clipArt">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                                <entry key="imagePath" value="C:\Users\Student236095\AppData\Local\Temp\ic_android_black_24dp.xml" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="text">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="textAsset">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                            <entry key="notification">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="clipArt">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                                <entry key="imagePath" value="C:\Users\Student236095\AppData\Local\Temp\ic_android_black_24dp.xml" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="text">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="textAsset">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                            <entry key="tvBanner">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="foregroundText">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                            <entry key="tvChannel">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="children">
+-                                    <map>
+-                                      <entry key="foregroundClipArt">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="imagePath" value="C:\Users\Student236095\AppData\Local\Temp\ic_android_black_24dp.xml" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundImage">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundText">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                      <entry key="foregroundTextAsset">
+-                                        <value>
+-                                          <PersistentState>
+-                                            <option name="values">
+-                                              <map>
+-                                                <entry key="color" value="000000" />
+-                                              </map>
+-                                            </option>
+-                                          </PersistentState>
+-                                        </value>
+-                                      </entry>
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                      </PersistentState>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </PersistentState>
+-          </value>
+-        </entry>
+-        <entry key="vectorWizard">
+-          <value>
+-            <PersistentState>
+-              <option name="children">
+-                <map>
+-                  <entry key="vectorAssetStep">
+-                    <value>
+-                      <PersistentState>
+-                        <option name="children">
+-                          <map>
+-                            <entry key="clipartAsset">
+-                              <value>
+-                                <PersistentState>
+-                                  <option name="values">
+-                                    <map>
+-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/subtitles/baseline_subtitles_24.xml" />
+-                                    </map>
+-                                  </option>
+-                                </PersistentState>
+-                              </value>
+-                            </entry>
+-                          </map>
+-                        </option>
+-                        <option name="values">
+-                          <map>
+-                            <entry key="color" value="ffffff" />
+-                            <entry key="outputName" value="ic_baseline_subtitles_white_24" />
+-                            <entry key="sourceFile" value="C:\Users\Student236095" />
+-                          </map>
+-                        </option>
+-                      </PersistentState>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </PersistentState>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/runConfigurations.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/runConfigurations.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RunConfigurationProducerService">
+-    <option name="ignoredProducers">
+-      <set>
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/encodings.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/encodings.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+-</project>
+\ No newline at end of file
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/codeStyles/Project.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
++++ .idea/codeStyles/Project.xml	(revision 7bcdf324c25189ea9e091b078859b37ed213b623)
+@@ -1,134 +0,0 @@
+-<component name="ProjectCodeStyleConfiguration">
+-  <code_scheme name="Project" version="173">
+-    <JetCodeStyleSettings>
+-      <option name="PACKAGES_TO_USE_STAR_IMPORTS">
+-        <value>
+-          <package name="java.util" alias="false" withSubpackages="false" />
+-          <package name="kotlinx.android.synthetic" alias="false" withSubpackages="true" />
+-          <package name="io.ktor" alias="false" withSubpackages="true" />
+-        </value>
+-      </option>
+-      <option name="PACKAGES_IMPORT_LAYOUT">
+-        <value>
+-          <package name="" alias="false" withSubpackages="true" />
+-          <package name="java" alias="false" withSubpackages="true" />
+-          <package name="javax" alias="false" withSubpackages="true" />
+-          <package name="kotlin" alias="false" withSubpackages="true" />
+-          <package name="" alias="true" withSubpackages="true" />
+-        </value>
+-      </option>
+-    </JetCodeStyleSettings>
+-    <codeStyleSettings language="XML">
+-      <indentOptions>
+-        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+-      </indentOptions>
+-      <arrangement>
+-        <rules>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>xmlns:android</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>xmlns:.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*:id</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*:name</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>name</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>style</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>^$</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>http://schemas.android.com/apk/res/android</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>ANDROID_ATTRIBUTE_ORDER</order>
+-            </rule>
+-          </section>
+-          <section>
+-            <rule>
+-              <match>
+-                <AND>
+-                  <NAME>.*</NAME>
+-                  <XML_ATTRIBUTE />
+-                  <XML_NAMESPACE>.*</XML_NAMESPACE>
+-                </AND>
+-              </match>
+-              <order>BY_NAME</order>
+-            </rule>
+-          </section>
+-        </rules>
+-      </arrangement>
+-    </codeStyleSettings>
+-  </code_scheme>
+-</component>
+\ No newline at end of file
