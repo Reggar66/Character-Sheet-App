@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.EquipmentBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.EquipmentViewModel;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 public class EquipmentFragment extends Fragment {
 
     private View rootView;
-    private int charId;
+    private int characterID;
 
     private EquipmentViewModel viewModel;
 
@@ -76,7 +76,10 @@ public class EquipmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_equipment, container, false);
 
-        charId = ((MainActivity) requireActivity()).characterId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+
+        characterID = dataHolderViewModel.getCharacterId();
 
         // Head
         imageViewHead = rootView.findViewById(R.id.imageView_slot_head);
@@ -133,7 +136,7 @@ public class EquipmentFragment extends Fragment {
         textViewSlotItemArmorOrDamage = rootView.findViewById(R.id.textView_slot_item_armor);
 
         viewModel = new ViewModelProvider(this,
-                new EquipmentViewModel.EquipmentViewModelFactory(requireActivity().getApplication(), charId))
+                new EquipmentViewModel.EquipmentViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(EquipmentViewModel.class);
 
 
@@ -157,7 +160,7 @@ public class EquipmentFragment extends Fragment {
                             getResources().getString(R.string.eq_type_none),
                             "0",
                             getResources().getString(R.string.eq_no_additional_effects),
-                            charId));
+                            characterID));
                 }
 
                 // Updates texts for currently selected slots
@@ -304,7 +307,7 @@ public class EquipmentFragment extends Fragment {
                         getResources().getString(R.string.eq_type_none),
                         "0",
                         getResources().getString(R.string.eq_no_additional_effects),
-                        charId));
+                        characterID));
             }
 
             if (slot.equals(SLOT_WEAPON) || slot.equals(SLOT_OFF_HAND)) {
@@ -326,7 +329,7 @@ public class EquipmentFragment extends Fragment {
 
         private void showEditBottomDialog() {
             EquipmentBottomSheetDialog bottomSheetDialog =
-                    new EquipmentBottomSheetDialog(requireContext(), viewModel, slotCurrentlySelected, charId);
+                    new EquipmentBottomSheetDialog(requireContext(), viewModel, slotCurrentlySelected, characterID);
 
             bottomSheetDialog.setOldValues(textViewItemName.getText().toString(),
                     textViewItemArmorType.getText().toString(),

@@ -15,11 +15,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PocketBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Currency;
 import com.awkwardlydevelopedapps.unicharsheet.models.Experience;
 import com.awkwardlydevelopedapps.unicharsheet.models.Level;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.PocketViewModel;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 public class PocketFragment extends Fragment {
 
     private View rootView;
-    private int charId;
+    private int characterID;
     private PocketViewModel viewModel;
 
     private SeekBar seekBarGold;
@@ -57,7 +57,10 @@ public class PocketFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_pocket, container, false);
 
-        charId = ((MainActivity) requireActivity()).characterId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+
+        characterID = dataHolderViewModel.getCharacterId();
 
         textViewGold = rootView.findViewById(R.id.textView_gold);
         textViewGold.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.CURRENCY, Currency.TYPE_GOLD));
@@ -89,7 +92,7 @@ public class PocketFragment extends Fragment {
         imageViewSubLvl.setOnClickListener(new LevelOnClickListener(LevelOnClickListener.SUB));
 
         viewModel = new ViewModelProvider(this,
-                new PocketViewModel.PocketViewModelFactory(requireActivity().getApplication(), charId))
+                new PocketViewModel.PocketViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(PocketViewModel.class);
 
         return rootView;
@@ -149,9 +152,9 @@ public class PocketFragment extends Fragment {
 
     private void checkForCurrencies() {
         if (viewModel.getCurrencies().isEmpty()) {
-            viewModel.insert(new Currency("0", "100", Currency.TYPE_GOLD, charId));
-            viewModel.insert(new Currency("0", "100", Currency.TYPE_SILVER, charId));
-            viewModel.insert(new Currency("0", "100", Currency.TYPE_COPPER, charId));
+            viewModel.insert(new Currency("0", "100", Currency.TYPE_GOLD, characterID));
+            viewModel.insert(new Currency("0", "100", Currency.TYPE_SILVER, characterID));
+            viewModel.insert(new Currency("0", "100", Currency.TYPE_COPPER, characterID));
         }
     }
 
@@ -216,7 +219,7 @@ public class PocketFragment extends Fragment {
     // Experience
     private void checkForExperience(Experience experience) {
         if (experience == null) {
-            viewModel.insert(new Experience(0, 100, charId));
+            viewModel.insert(new Experience(0, 100, characterID));
         }
     }
 
@@ -239,7 +242,7 @@ public class PocketFragment extends Fragment {
     // Level
     private void checkForLevel(Level level) {
         if (level == null) {
-            viewModel.insert(new Level(1, charId));
+            viewModel.insert(new Level(1, characterID));
         }
     }
 
@@ -266,7 +269,7 @@ public class PocketFragment extends Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
             if (fromUser) {
-                viewModel.updateCurrency(String.valueOf(i), charId, type);
+                viewModel.updateCurrency(String.valueOf(i), characterID, type);
             }
         }
 
@@ -286,7 +289,7 @@ public class PocketFragment extends Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
             if (fromUser) {
-                viewModel.updateExperience(i, charId);
+                viewModel.updateExperience(i, characterID);
             }
         }
 
@@ -356,7 +359,7 @@ public class PocketFragment extends Fragment {
         private void showBottomDialog() {
 
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog(viewModel, charId);
+                    new PocketBottomSheetDialog(viewModel, characterID);
             bottomSheetDialog.setOption(this.option);
             bottomSheetDialog.setCurrencyType(this.currencyType);
             bottomSheetDialog.setOldValue(oldValue);
@@ -394,17 +397,17 @@ public class PocketFragment extends Fragment {
 
         private void addLevel() {
             int oldValue = viewModel.getLevel().getValue();
-            viewModel.updateLevel(oldValue + 1, charId);
+            viewModel.updateLevel(oldValue + 1, characterID);
         }
 
         private void subLevel() {
             int oldValue = viewModel.getLevel().getValue();
-            viewModel.updateLevel(oldValue - 1, charId);
+            viewModel.updateLevel(oldValue - 1, characterID);
         }
 
         private void showBottomDialog() {
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog(viewModel, charId);
+                    new PocketBottomSheetDialog(viewModel, characterID);
             bottomSheetDialog.setOption(PocketBottomSheetDialog.LEVEL);
             bottomSheetDialog.setOldValue(String.valueOf(viewModel.getLevel().getValue()));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");

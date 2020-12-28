@@ -21,6 +21,7 @@ import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Item;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.BackpackViewModel;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class BackpackFragment extends Fragment
         implements DeleteDialog.NoticeDialogListener {
 
     private View rootView;
-    private int charId;
+    private int characterID;
     private FloatingActionButton floatingActionButtonAddItem;
     private FloatingActionButton floatingActionButtonDelete;
 
@@ -48,7 +49,10 @@ public class BackpackFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_backpack, container, false);
 
-        charId = ((MainActivity) requireActivity()).characterId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+
+        characterID = dataHolderViewModel.getCharacterId();
 
         floatingActionButtonAddItem = rootView.findViewById(R.id.floatingActionButton_add);
         floatingActionButtonAddItem.setOnClickListener(new FABAddOnClick());
@@ -70,7 +74,7 @@ public class BackpackFragment extends Fragment
 
 
         viewModel = new ViewModelProvider(this,
-                new BackpackViewModel.BackpackViewModelFactory(requireActivity().getApplication(), charId))
+                new BackpackViewModel.BackpackViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(BackpackViewModel.class);
         return rootView;
     }
@@ -125,7 +129,7 @@ public class BackpackFragment extends Fragment
 
         private void showBottomDialog() {
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog(viewModel, charId);
+                    new ItemBottomSheetDialog(viewModel, characterID);
             bottomSheetDialog.setOption(ItemBottomSheetDialog.ADD);
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_ITEM");
         }
@@ -176,7 +180,7 @@ public class BackpackFragment extends Fragment
 
         private void showBottomDialog(int position) {
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog(viewModel, charId);
+                    new ItemBottomSheetDialog(viewModel, characterID);
             bottomSheetDialog.setOption(ItemBottomSheetDialog.EDIT);
             bottomSheetDialog.setOldItem(viewModel.getItems().get(position));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");

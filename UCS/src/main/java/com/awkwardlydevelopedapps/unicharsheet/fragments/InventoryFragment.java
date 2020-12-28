@@ -2,7 +2,6 @@ package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.awkwardlydevelopedapps.unicharsheet.AdSingleton;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.google.ads.consent.ConsentInformation;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class InventoryFragment extends Fragment {
@@ -32,11 +30,11 @@ public class InventoryFragment extends Fragment {
     private TabLayout tabLayout;
     private ImageView lastTabIcon;
 
-    private int characterId;
+    private int characterID;
     private String characterName;
     private String characterClass;
     private String characterRace;
-    private int characterIconId;
+    private int characterIconID;
 
     private final static int TAB_EQUIPMENT = 0;
     private final static int TAB_POCKET = 1;
@@ -56,11 +54,14 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
 
-        characterId = ((MainActivity) requireActivity()).characterId;
-        characterName = ((MainActivity) requireActivity()).characterName;
-        characterClass = ((MainActivity) requireActivity()).characterClass;
-        characterRace = ((MainActivity) requireActivity()).characterRace;
-        characterIconId = ((MainActivity) requireActivity()).characterIconId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+
+        characterID = dataHolderViewModel.getCharacterId();
+        characterName = dataHolderViewModel.getCharacterName();
+        characterClass = dataHolderViewModel.getClassName();
+        characterRace = dataHolderViewModel.getRaceName();
+        characterIconID = dataHolderViewModel.getImageResourceId();
 
         tabLayout = rootView.findViewById(R.id.tabLayout_inventory);
         tabLayout.addOnTabSelectedListener(new TabOnClick());
@@ -117,7 +118,7 @@ public class InventoryFragment extends Fragment {
         TextView textViewRace = view.findViewById(R.id.toolbar_textView_characterRace);
         ImageView imageView = view.findViewById(R.id.toolbar_statsFragment_icon);
 
-        imageView.setImageResource(characterIconId);
+        imageView.setImageResource(characterIconID);
         textViewName.setText(characterName);
         textViewClass.setText(characterClass);
         textViewRace.setText(characterRace);
