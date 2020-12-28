@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.ItemBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Item;
@@ -52,7 +51,7 @@ public class BackpackFragment extends Fragment
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
 
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         floatingActionButtonAddItem = rootView.findViewById(R.id.floatingActionButton_add);
         floatingActionButtonAddItem.setOnClickListener(new FABAddOnClick());

@@ -60,7 +60,7 @@ public class PocketFragment extends Fragment {
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
 
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         textViewGold = rootView.findViewById(R.id.textView_gold);
         textViewGold.setOnClickListener(new OnValueClickListener(PocketBottomSheetDialog.CURRENCY, Currency.TYPE_GOLD));

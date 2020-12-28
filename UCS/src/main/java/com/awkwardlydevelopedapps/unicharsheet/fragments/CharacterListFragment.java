@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.models.Character;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.CharacterListAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.MainActivityViewModel;
@@ -170,11 +169,11 @@ public class CharacterListFragment extends Fragment
                 //Set Character data in MainActivity
                 Character character = viewModel.getCharacterList().get(position);
 
-                dataHolderViewModel.setCharacterId(character.id);
+                dataHolderViewModel.setCharacterID(character.id);
                 dataHolderViewModel.setCharacterName(character.getCharacterName());
                 dataHolderViewModel.setClassName(character.getClassName());
                 dataHolderViewModel.setRaceName(character.getRaceName());
-                dataHolderViewModel.setImageResourceId(character.getImageResourceId());
+                dataHolderViewModel.setImageResourceID(character.getImageResourceId());
 
                 /*((MainActivity) requireActivity())
                         .setSelectedCharacterData(character.id,

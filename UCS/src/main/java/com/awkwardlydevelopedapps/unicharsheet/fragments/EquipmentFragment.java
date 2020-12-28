@@ -79,7 +79,7 @@ public class EquipmentFragment extends Fragment {
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
 
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         // Head
         imageViewHead = rootView.findViewById(R.id.imageView_slot_head);

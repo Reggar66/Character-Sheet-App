@@ -68,11 +68,11 @@ public class StatsFragment extends Fragment
         DataHolderViewModel dataHolderViewModel =
                 new ViewModelProvider(requireActivity()).get(DataHolderViewModel.class);
 
-        characterId = dataHolderViewModel.getCharacterId();
+        characterId = dataHolderViewModel.getCharacterID();
         characterName = dataHolderViewModel.getCharacterName();
         characterClass = dataHolderViewModel.getClassName();
         characterRace = dataHolderViewModel.getRaceName();
-        characterIconId = dataHolderViewModel.getImageResourceId();
+        characterIconId = dataHolderViewModel.getImageResourceID();
 
         adapter = new StatTabsAdapter(getChildFragmentManager());
         viewPager = rootView.findViewById(R.id.viewPager);

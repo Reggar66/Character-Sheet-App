@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellEditorBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
@@ -50,7 +49,7 @@ public class SpellsFragmentDisplay extends Fragment {
 
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         viewModel = new ViewModelProvider(requireActivity(),
                 new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(),

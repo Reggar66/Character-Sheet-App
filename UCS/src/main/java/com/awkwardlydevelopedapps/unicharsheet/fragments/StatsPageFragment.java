@@ -52,7 +52,7 @@ public class StatsPageFragment extends Fragment
 
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         floatingActionButtonAdd = rootView.findViewById(R.id.add_button);
         floatingActionButtonAdd.setImageResource(R.drawable.ic_add_black_24);

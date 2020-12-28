@@ -9,17 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 
 class NotesFragmentDisplay() : Fragment() {
 
-    var charId: Int = 0
-    var noteId: Int = 0 //set during fragment creation in NotesFragment
+    var characterID: Int = 0
+    var noteID: Int = 0 //set during fragment creation in NotesFragment
     var note: Note? = null
     lateinit var textViewTitle: TextView
     lateinit var viewModel: NoteViewModel
@@ -28,13 +30,15 @@ class NotesFragmentDisplay() : Fragment() {
 
     var changeFragmentCallback: ChangeFragmentCallback? = null
 
+    private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
+
     interface ChangeFragmentCallback {
         fun changeToList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_note_display, container, false)
-        charId = (requireActivity() as MainActivity).characterId
+        characterID = dataHolderViewModel.characterID
 
         textViewTitle = rootView.findViewById(R.id.textView_note_display_title)
         editTextNote = rootView.findViewById(R.id.editText_note_display_text)
@@ -46,7 +50,7 @@ class NotesFragmentDisplay() : Fragment() {
 
         viewModel = ViewModelProvider(
                 this,
-                NoteViewModel.NoteViewModelFactory(requireActivity().application, charId))
+                NoteViewModel.NoteViewModelFactory(requireActivity().application, characterID))
                 .get(NoteViewModel::class.java)
         return rootView
     }
@@ -54,7 +58,7 @@ class NotesFragmentDisplay() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getNote(noteId).observe(viewLifecycleOwner, Observer {
+        viewModel.getNote(noteID).observe(viewLifecycleOwner, Observer {
             textViewTitle.text = it.title
             editTextNote.setText(it.note)
         })
@@ -93,7 +97,7 @@ class NotesFragmentDisplay() : Fragment() {
                 editButton.setImageDrawable(ContextCompat.getDrawable(requireContext(),
                         R.drawable.ic_edit_black_24dp))
 
-                viewModel.updateNote(editTextNote.text.toString(), charId, noteId)
+                viewModel.updateNote(editTextNote.text.toString(), characterID, noteID)
                 edit = false
             }
         }

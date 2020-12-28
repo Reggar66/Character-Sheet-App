@@ -57,11 +57,11 @@ public class InventoryFragment extends Fragment {
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
 
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
         characterName = dataHolderViewModel.getCharacterName();
         characterClass = dataHolderViewModel.getClassName();
         characterRace = dataHolderViewModel.getRaceName();
-        characterIconID = dataHolderViewModel.getImageResourceId();
+        characterIconID = dataHolderViewModel.getImageResourceID();
 
         tabLayout = rootView.findViewById(R.id.tabLayout_inventory);
         tabLayout.addOnTabSelectedListener(new TabOnClick());

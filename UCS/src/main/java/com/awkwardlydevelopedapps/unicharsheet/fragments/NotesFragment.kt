@@ -10,21 +10,24 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity
 import com.awkwardlydevelopedapps.unicharsheet.R
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
 
 class NotesFragment : Fragment(),
         NotesFragmentList.ChangeFragmentCallback,
         NotesFragmentDisplay.ChangeFragmentCallback {
 
-    private var characterId = 0
+    private var characterID = 0
     private lateinit var characterName: String
     private lateinit var characterClass: String
     private lateinit var characterRace: String
-    private var characterIconId = 0
+    private var characterIconID = 0
+
+    private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +35,11 @@ class NotesFragment : Fragment(),
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        characterId = (requireActivity() as MainActivity).characterId
-        characterName = (requireActivity() as MainActivity).characterName
-        characterClass = (requireActivity() as MainActivity).characterClass
-        characterRace = (requireActivity() as MainActivity).characterRace
-        characterIconId = (requireActivity() as MainActivity).characterIconId
+        characterID = dataHolderViewModel.characterID
+        characterName = dataHolderViewModel.characterName
+        characterClass = dataHolderViewModel.className
+        characterRace = dataHolderViewModel.raceName
+        characterIconID = dataHolderViewModel.imageResourceID
 
 
         val fragmentTransaction = parentFragmentManager.beginTransaction()
@@ -69,7 +72,7 @@ class NotesFragment : Fragment(),
         val textViewRace: TextView = view.findViewById(R.id.toolbar_textView_characterRace)
         val imageView: ImageView = view.findViewById(R.id.toolbar_statsFragment_icon)
 
-        imageView.setImageResource(characterIconId)
+        imageView.setImageResource(characterIconID)
         textViewName.text = characterName
         textViewClass.text = characterClass
         textViewRace.text = characterRace
@@ -84,7 +87,7 @@ class NotesFragment : Fragment(),
     private fun getNewNoteFragmentDisplay(noteId: Int): Fragment {
         val fragmentDisplay = NotesFragmentDisplay()
         fragmentDisplay.changeFragmentCallback = this
-        fragmentDisplay.noteId = noteId
+        fragmentDisplay.noteID = noteId
         return fragmentDisplay
     }
 

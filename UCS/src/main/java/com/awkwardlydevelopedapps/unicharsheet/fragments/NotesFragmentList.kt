@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +16,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.NoteBottomSheetDialog
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -24,11 +25,13 @@ class NotesFragmentList : Fragment(),
         DeleteDialog.NoticeDialogListener {
 
     val adapter = NotesListAdapter()
-    private var characterId = 0
+    private var characterID = 0
     private lateinit var fabAddNote: FloatingActionButton
     private lateinit var fabDeleteNote: FloatingActionButton
     lateinit var viewModel: NoteViewModel
     var changeFragmentCallback: ChangeFragmentCallback? = null
+
+    private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
 
     interface ChangeFragmentCallback {
         fun changeToDisplayNote(noteId: Int)
@@ -37,8 +40,8 @@ class NotesFragmentList : Fragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        characterId = (requireActivity() as MainActivity).characterId
-        viewModel = ViewModelProvider(this, NoteViewModel.NoteViewModelFactory(requireActivity().application, characterId))
+        characterID = dataHolderViewModel.characterID
+        viewModel = ViewModelProvider(this, NoteViewModel.NoteViewModelFactory(requireActivity().application, characterID))
                 .get(NoteViewModel::class.java)
     }
 
@@ -99,7 +102,7 @@ class NotesFragmentList : Fragment(),
 
     inner class AddNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
-            val bottomDialog = NoteBottomSheetDialog(viewModel, characterId)
+            val bottomDialog = NoteBottomSheetDialog(viewModel, characterID)
             bottomDialog.show(parentFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
         }
 

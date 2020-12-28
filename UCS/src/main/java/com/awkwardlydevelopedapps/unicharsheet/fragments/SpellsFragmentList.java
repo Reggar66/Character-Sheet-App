@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellCreateBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
@@ -60,7 +59,7 @@ public class SpellsFragmentList extends Fragment
 
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
 
         floatingActionButtonAdd = rootView.findViewById(R.id.add_button);
         floatingActionButtonAdd.setImageResource(R.drawable.ic_add_black_24);

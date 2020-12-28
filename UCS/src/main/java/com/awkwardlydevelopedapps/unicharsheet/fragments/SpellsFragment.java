@@ -50,11 +50,11 @@ public class SpellsFragment extends Fragment
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
 
-        characterID = dataHolderViewModel.getCharacterId();
+        characterID = dataHolderViewModel.getCharacterID();
         characterName = dataHolderViewModel.getCharacterName();
         characterClass = dataHolderViewModel.getClassName();
         characterRace = dataHolderViewModel.getRaceName();
-        characterIconID = dataHolderViewModel.getImageResourceId();
+        characterIconID = dataHolderViewModel.getImageResourceID();
 
         fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
