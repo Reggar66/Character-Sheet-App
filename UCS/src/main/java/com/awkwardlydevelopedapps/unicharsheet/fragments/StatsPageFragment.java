@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatBottomSheetDialog;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -35,7 +35,7 @@ public class StatsPageFragment extends Fragment
     private FloatingActionButton floatingActionButtonDelete;
     private StatsViewModel viewModel;
 
-    private int charId;
+    private int characterID;
     private int pageNumber;
     private int position;
     private List<Stat> statList;
@@ -49,7 +49,10 @@ public class StatsPageFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_stats_page, container, false);
-        charId = ((MainActivity) requireActivity()).characterId;
+
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+        characterID = dataHolderViewModel.getCharacterId();
 
         floatingActionButtonAdd = rootView.findViewById(R.id.add_button);
         floatingActionButtonAdd.setImageResource(R.drawable.ic_add_black_24);
@@ -71,7 +74,7 @@ public class StatsPageFragment extends Fragment
 
         //load stats
         viewModel = new ViewModelProvider(this,
-                new StatsViewModel.CAViewModelFactory(requireActivity().getApplication(), charId))
+                new StatsViewModel.CAViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(StatsViewModel.class);
 
         return rootView;
@@ -81,7 +84,7 @@ public class StatsPageFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getAllStatsOfPage(charId, pageNumber).observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
+        viewModel.getAllStatsOfPage(characterID, pageNumber).observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
             @Override
             public void onChanged(List<Stat> stats) {
                 // UI update
@@ -115,7 +118,7 @@ public class StatsPageFragment extends Fragment
     public void openStatEditDialog(int position) {
         Stat stat = statList.get(position);
         StatBottomSheetDialog bottomSheetDialog =
-                new StatBottomSheetDialog(viewModel, charId, pageNumber);
+                new StatBottomSheetDialog(viewModel, characterID, pageNumber);
         bottomSheetDialog.setTitle("Stat Edit");
         bottomSheetDialog.setOption(StatBottomSheetDialog.OPTION_EDIT);
         bottomSheetDialog.setOldStat(stat);
@@ -172,7 +175,7 @@ public class StatsPageFragment extends Fragment
 
         private void showAddStatBottomSheet() {
             StatBottomSheetDialog bottomSheetDialog =
-                    new StatBottomSheetDialog(viewModel, charId, pageNumber);
+                    new StatBottomSheetDialog(viewModel, characterID, pageNumber);
             bottomSheetDialog.setTitle("Stat Creation");
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
         }

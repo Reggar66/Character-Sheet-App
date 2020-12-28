@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,6 +33,7 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Preset;
 import com.awkwardlydevelopedapps.unicharsheet.models.PresetList;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatTabsAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -63,11 +65,14 @@ public class StatsFragment extends Fragment
 
         View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        characterId = ((MainActivity) requireActivity()).characterId;
-        characterName = ((MainActivity) requireActivity()).characterName;
-        characterClass = ((MainActivity) requireActivity()).characterClass;
-        characterRace = ((MainActivity) requireActivity()).characterRace;
-        characterIconId = ((MainActivity) requireActivity()).characterIconId;
+        DataHolderViewModel dataHolderViewModel =
+                new ViewModelProvider(requireActivity()).get(DataHolderViewModel.class);
+
+        characterId = dataHolderViewModel.getCharacterId();
+        characterName = dataHolderViewModel.getCharacterName();
+        characterClass = dataHolderViewModel.getClassName();
+        characterRace = dataHolderViewModel.getRaceName();
+        characterIconId = dataHolderViewModel.getImageResourceId();
 
         adapter = new StatTabsAdapter(getChildFragmentManager());
         viewPager = rootView.findViewById(R.id.viewPager);
@@ -93,7 +98,7 @@ public class StatsFragment extends Fragment
         for (int position = 0; position < numberOfTabs; position++) {
             tabName = sharedPreferences.getString(TAB_NAME + position, "STATS " + position);
             StatsPageFragment statsPage = new StatsPageFragment();
-            statsPage.setPage(position + 1);
+            statsPage.setPage(position + 1); //Page number in DB is stored from #1, so we add 1 to position
             adapter.addFragment(statsPage, tabName, position);
 
         }

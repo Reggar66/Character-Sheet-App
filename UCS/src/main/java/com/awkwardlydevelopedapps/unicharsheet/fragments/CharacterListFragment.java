@@ -28,6 +28,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.models.Character;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.CharacterListAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.MainActivityViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,6 +45,7 @@ public class CharacterListFragment extends Fragment
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
     private MainActivityViewModel viewModel;
+    private DataHolderViewModel dataHolderViewModel;
 
     private RecyclerView recyclerView;
     private CharacterListAdapter adapter;
@@ -98,6 +100,9 @@ public class CharacterListFragment extends Fragment
         // ViewModel
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
                 .get(MainActivityViewModel.class);
+
+        dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
 
         return rootView;
     }
@@ -164,13 +169,20 @@ public class CharacterListFragment extends Fragment
             if (!adapter.isShowingChecks()) {
                 //Set Character data in MainActivity
                 Character character = viewModel.getCharacterList().get(position);
-                ((MainActivity) requireActivity())
+
+                dataHolderViewModel.setCharacterId(character.id);
+                dataHolderViewModel.setCharacterName(character.getCharacterName());
+                dataHolderViewModel.setClassName(character.getClassName());
+                dataHolderViewModel.setRaceName(character.getRaceName());
+                dataHolderViewModel.setImageResourceId(character.getImageResourceId());
+
+                /*((MainActivity) requireActivity())
                         .setSelectedCharacterData(character.id,
                                 character.getImageResourceId(),
                                 character.getCharacterName(),
                                 character.getClassName(),
                                 character.getRaceName());
-
+*/
                 //Navigate to character
                 NavHostFragment
                         .findNavController(CharacterListFragment.this)
