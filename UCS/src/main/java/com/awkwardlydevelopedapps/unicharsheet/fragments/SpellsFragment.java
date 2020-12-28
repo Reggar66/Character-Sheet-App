@@ -14,13 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 
 public class SpellsFragment extends Fragment
         implements SpellsFragmentList.ChangeFragmentCallback,
@@ -28,11 +29,11 @@ public class SpellsFragment extends Fragment
 
     private View rootView;
 
-    private int characterId;
+    private int characterID;
     private String characterName;
     private String characterClass;
     private String characterRace;
-    private int characterIconId;
+    private int characterIconID;
 
     private FragmentManager fragmentManager;
 
@@ -46,11 +47,14 @@ public class SpellsFragment extends Fragment
 
         rootView = inflater.inflate(R.layout.fragment_spells, container, false);
 
-        characterId = ((MainActivity) requireActivity()).characterId;
-        characterName = ((MainActivity) requireActivity()).characterName;
-        characterClass = ((MainActivity) requireActivity()).characterClass;
-        characterRace = ((MainActivity) requireActivity()).characterRace;
-        characterIconId = ((MainActivity) requireActivity()).characterIconId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+
+        characterID = dataHolderViewModel.getCharacterId();
+        characterName = dataHolderViewModel.getCharacterName();
+        characterClass = dataHolderViewModel.getClassName();
+        characterRace = dataHolderViewModel.getRaceName();
+        characterIconID = dataHolderViewModel.getImageResourceId();
 
         fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -89,7 +93,7 @@ public class SpellsFragment extends Fragment
         TextView textViewRace = view.findViewById(R.id.toolbar_textView_characterRace);
         ImageView imageView = view.findViewById(R.id.toolbar_statsFragment_icon);
 
-        imageView.setImageResource(characterIconId);
+        imageView.setImageResource(characterIconID);
         textViewName.setText(characterName);
         textViewClass.setText(characterClass);
         textViewRace.setText(characterRace);
@@ -108,17 +112,16 @@ public class SpellsFragment extends Fragment
         return spellsFragmentList;
     }
 
-    private Fragment getNewSpellsFragmentDisplay(int spellId) {
+    private Fragment getNewSpellsFragmentDisplay() {
         SpellsFragmentDisplay spellsFragmentDisplay = new SpellsFragmentDisplay();
         spellsFragmentDisplay.setChangeFragmentCallback(SpellsFragment.this);
-        spellsFragmentDisplay.setSpellId(spellId);
         return spellsFragmentDisplay;
     }
 
     @Override
-    public void changeToDisplay(int spellId) {
+    public void changeToDisplay() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentDisplay(spellId));
+        fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentDisplay());
         fragmentTransaction.commit();
     }
 

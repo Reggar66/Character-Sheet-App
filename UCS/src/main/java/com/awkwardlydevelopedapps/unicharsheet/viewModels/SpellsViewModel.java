@@ -19,6 +19,10 @@ public class SpellsViewModel extends ViewModel {
     private LiveData<List<Spell>> allSpells;
     private List<Spell> spells;
 
+    private int selectedSpellID = -1;
+
+    public final static int SPELL_ID_NOT_SET = -1;
+
 
     public SpellsViewModel(Application application, int charId) {
         spellRepository = new SpellRepository(application, charId);
@@ -81,6 +85,14 @@ public class SpellsViewModel extends ViewModel {
 
     public void updateSpecialNotes(String specialNotesValue, int charId, int spellId) {
         spellRepository.updateSpecialNotes(specialNotesValue, charId, spellId);
+    }
+
+    public int getSelectedSpellID() {
+        return selectedSpellID;
+    }
+
+    public void setSelectedSpellID(int selectedSpellID) {
+        this.selectedSpellID = selectedSpellID;
     }
 
     /**

@@ -9,6 +9,7 @@ import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellCreateBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,7 +44,7 @@ public class SpellsFragmentList extends Fragment
     private SpellAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private int charId;
+    private int characterID;
 
     private ChangeFragmentCallback callback;
 
@@ -57,7 +58,9 @@ public class SpellsFragmentList extends Fragment
 
         View rootView = inflater.inflate(R.layout.fragment_spells_list, container, false);
 
-        charId = ((MainActivity) requireActivity()).characterId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+        characterID = dataHolderViewModel.getCharacterId();
 
         floatingActionButtonAdd = rootView.findViewById(R.id.add_button);
         floatingActionButtonAdd.setImageResource(R.drawable.ic_add_black_24);
@@ -80,8 +83,8 @@ public class SpellsFragmentList extends Fragment
         recyclerView.setAdapter(adapter);
 
 
-        viewModel = new ViewModelProvider(this,
-                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), charId))
+        viewModel = new ViewModelProvider(requireActivity(),
+                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(SpellsViewModel.class);
 
         return rootView;
@@ -135,7 +138,7 @@ public class SpellsFragmentList extends Fragment
      */
 
     public interface ChangeFragmentCallback {
-        void changeToDisplay(int spellId);
+        void changeToDisplay();
     }
 
     /**
@@ -151,7 +154,7 @@ public class SpellsFragmentList extends Fragment
 
         private void showCreationBottomDialog() {
             SpellCreateBottomSheetDialog bottomSheetDialog =
-                    new SpellCreateBottomSheetDialog(viewModel, charId);
+                    new SpellCreateBottomSheetDialog(viewModel, characterID);
 
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
         }
@@ -196,7 +199,8 @@ public class SpellsFragmentList extends Fragment
         @Override
         public void onItemClick(View itemView, int position) {
             Spell spell = viewModel.getSpells().get(position);
-            callback.changeToDisplay(spell.id);
+            viewModel.setSelectedSpellID(spell.id);
+            callback.changeToDisplay();
         }
     }
 

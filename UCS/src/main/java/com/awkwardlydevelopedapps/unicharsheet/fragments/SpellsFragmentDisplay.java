@@ -17,14 +17,15 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellEditorBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
+import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 
 public class SpellsFragmentDisplay extends Fragment {
 
     private View rootView;
 
-    private int charId;
-    private int spellId;
+    private int characterID;
+    private int spellID;
     private SpellsViewModel viewModel;
 
     private TextView spellTitle;
@@ -47,7 +48,16 @@ public class SpellsFragmentDisplay extends Fragment {
 
         rootView = inflater.inflate(R.layout.fragment_spells_display, container, false);
 
-        charId = ((MainActivity) requireActivity()).characterId;
+        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+                .get(DataHolderViewModel.class);
+        characterID = dataHolderViewModel.getCharacterId();
+
+        viewModel = new ViewModelProvider(requireActivity(),
+                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(),
+                        characterID))
+                .get(SpellsViewModel.class);
+
+        spellID = viewModel.getSelectedSpellID();
 
         ImageView closeSpellDisplayButton = rootView.findViewById(R.id.imageView_close_spell_display);
         closeSpellDisplayButton.setOnClickListener(new CloseButtonOnClick());
@@ -84,10 +94,6 @@ public class SpellsFragmentDisplay extends Fragment {
                 new SpellEditValuesListener(SpellEditorBottomSheetDialog.SPECIAL_NOTES,
                         specialNotes));
 
-        viewModel = new ViewModelProvider(requireActivity(),
-                new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(),
-                        charId))
-                .get(SpellsViewModel.class);
 
         return rootView;
     }
@@ -97,7 +103,7 @@ public class SpellsFragmentDisplay extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        viewModel.getSpell(spellId).observe(getViewLifecycleOwner(), new Observer<Spell>() {
+        viewModel.getSpell(spellID).observe(getViewLifecycleOwner(), new Observer<Spell>() {
             @Override
             public void onChanged(Spell spell) {
                 updateSpellInfo(spell);
@@ -162,8 +168,8 @@ public class SpellsFragmentDisplay extends Fragment {
         this.callback = callback;
     }
 
-    public void setSpellId(int spellId) {
-        this.spellId = spellId;
+    public void setSpellID(int spellID) {
+        this.spellID = spellID;
     }
 
     /**
@@ -203,7 +209,7 @@ public class SpellsFragmentDisplay extends Fragment {
 
         private void showBottomEditDialog() {
             SpellEditorBottomSheetDialog bottomSheetDialog =
-                    new SpellEditorBottomSheetDialog(viewModel, charId, spellId);
+                    new SpellEditorBottomSheetDialog(viewModel, characterID, spellID);
             bottomSheetDialog.setOption(option);
             bottomSheetDialog.setOldValue(getOldValue());
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_SPELL_EDITOR");
