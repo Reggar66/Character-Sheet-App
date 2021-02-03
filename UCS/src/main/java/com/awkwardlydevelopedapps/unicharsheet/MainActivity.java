@@ -16,12 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public int characterId;
-    public String characterName;
-    public String characterClass;
-    public String characterRace;
-    public int characterIconId;
-
     private NavController navController;
 
     private BottomNavigationView bottomNavigationView;
@@ -47,10 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         // No need to set manually fragment transaction. Starting point is set automatically by NavComponent.
-
-
     }
-
 
     public void inAppReview() {
         // Right now shown inside of statistic fragment. Maybe there is a better place?
@@ -64,18 +55,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setSelectedCharacterData(int characterId, int characterIconId, String characterName, String characterClass, String characterRace) {
-        this.characterId = characterId;
-        this.characterIconId = characterIconId;
-        this.characterName = characterName;
-        this.characterClass = characterClass;
-        this.characterRace = characterRace;
-    }
-
     /**
      * Inner classes
      */
-
     private class BottomNavAppearanceListener implements NavController.OnDestinationChangedListener {
 
         @Override
