@@ -151,6 +151,11 @@
     <string name="note_creation">Note Creation</string>
     <string name="title">Title:</string>
     <string name="note">Note:</string>
+    <string name="sort">Sort</string>
+    <string name="name_ascending">Name ascending</string>
+    <string name="name_descending">Name descending</string>
+    <string name="value_ascending">Value ascending</string>
+    <string name="value_descending">Value descending</string>
 
 
 </resources>

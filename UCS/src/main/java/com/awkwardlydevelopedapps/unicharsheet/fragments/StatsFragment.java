@@ -1,6 +1,7 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.PresetDao;
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.data.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.PresetAddBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.StatTabNameChangeBottomSheetDialog;
@@ -299,6 +302,18 @@ public class StatsFragment extends Fragment
                 NavHostFragment
                         .findNavController(StatsFragment.this)
                         .navigate(StatsFragmentDirections.actionStatsFragmentToSettingsFragment());
+                return true;
+            } else if (itemId == R.id.action_sort_nameAsc) {
+                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_NAME_ASC);
+                return true;
+            } else if (itemId == R.id.action_sort_nameDesc) {
+                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_NAME_DESC);
+                return true;
+            } else if (itemId == R.id.action_sort_valueAsc) {
+                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_VALUE_ASC);
+                return true;
+            } else if (itemId == R.id.action_sort_valueDesc) {
+                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_VALUE_DESC);
                 return true;
             }
             return false;

@@ -12,44 +12,36 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import java.util.List;
 
 public class StatRepository {
-    private StatDao statDao;
-    private LiveData<List<Stat>> allStatsPage1;
-    private LiveData<List<Stat>> allStatsPage2;
-    private LiveData<List<Stat>> allStatsPage3;
+    private final StatDao statDao;
+    private int characterId;
 
-    private LiveData<List<Stat>> allStats;
-
-    private LiveData<List<Stat>> allStatsOfPage;
-
-    public StatRepository(Application application, int id) {
+    public StatRepository(Application application, int characterId) {
         statDao = DbSingleton.Instance(application).getStatDao();
-
-        allStatsPage1 = statDao.getLiveDataAllPageStats(id, 1);
-        allStatsPage2 = statDao.getLiveDataAllPageStats(id, 2);
-        allStatsPage3 = statDao.getLiveDataAllPageStats(id, 3);
-
-        allStats = statDao.getLiveDataAllStats(id);
-    }
-
-    public LiveData<List<Stat>> getAllStatsPage1() {
-        return allStatsPage1;
-    }
-
-    public LiveData<List<Stat>> getAllStatsPage2() {
-        return allStatsPage2;
-    }
-
-    public LiveData<List<Stat>> getAllStatsPage3() {
-        return allStatsPage3;
+        this.characterId = characterId;
     }
 
     public LiveData<List<Stat>> getAllStats() {
-        return allStats;
+        return statDao.getLiveDataAllStats(characterId);
     }
 
-    public LiveData<List<Stat>> getAllStatsOfPage(int id, int page) {
-        allStatsOfPage = statDao.getLiveDataAllPageStats(id, page);
-        return allStatsOfPage;
+    public LiveData<List<Stat>> getAllStatsOfPage(int page) {
+        return statDao.getLiveDataAllPageStats(characterId, page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByNameAsc(int page) {
+        return statDao.getLiveDataAllPageStatsByNameAsc(characterId, page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByNameDesc(int page) {
+        return statDao.getLiveDataAllPageStatsByNameDesc(characterId, page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByValueAsc(int page) {
+        return statDao.getLiveDataAllPageStatsByValueAsc(characterId, page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByValueDesc(int page) {
+        return statDao.getLiveDataAllPageStatsByValueDesc(characterId, page);
     }
 
     public void insert(Stat stat) {

@@ -2,22 +2,48 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- "Mark Favorite", should appear as action button if possible -->
+    <group android:id="@+id/action_group_tabs">
+        <item
+            android:id="@+id/action_addPreset"
+            android:title="@string/add_to_presets"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_createTab"
+            android:title="@string/create_new_tab"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_removeTab"
+            android:title="@string/remove_tab"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_changeTabName"
+            android:title="@string/change_tab_name"
+            app:showAsAction="never" />
+    </group>
+
     <item
-        android:id="@+id/action_addPreset"
-        android:title="@string/add_to_presets"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_createTab"
-        android:title="@string/create_new_tab"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_removeTab"
-        android:title="@string/remove_tab"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_changeTabName"
-        android:title="@string/change_tab_name"
-        app:showAsAction="never" />
+        android:id="@+id/action_sortOrder"
+        android:title="@string/sort"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_sort_nameAsc"
+                android:title="@string/name_ascending"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_sort_nameDesc"
+                android:title="@string/name_descending"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_sort_valueAsc"
+                android:title="@string/value_ascending"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_sort_valueDesc"
+                android:title="@string/value_descending"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/action_settings"

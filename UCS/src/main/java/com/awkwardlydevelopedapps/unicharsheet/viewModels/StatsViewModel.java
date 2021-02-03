@@ -4,9 +4,14 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.StatRepository;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.StatAdapter;
@@ -16,21 +21,69 @@ import java.util.List;
 
 public class StatsViewModel extends ViewModel {
 
-    private StatRepository statRepository;
+    private int page;
 
+    private StatRepository statRepository;
     private LiveData<List<Stat>> allStatsOfPage;
 
-    public StatsViewModel(Application application, int charId) {
+    private MediatorLiveData<List<Stat>> statsOfPage = new MediatorLiveData<>();
+
+    public StatsViewModel(Application application, int charId, int page) {
         statRepository = new StatRepository(application, charId);
+        this.page = page;
+
+        statsOfPage.addSource(getAllStatsOfPage(), stats -> statsOfPage.setValue(stats));
     }
 
-    public LiveData<List<Stat>> getAllStatsOfPage(int id, int page) {
-        allStatsOfPage = statRepository.getAllStatsOfPage(id, page);
+    public LiveData<List<Stat>> getAllStatsOfPage() {
+        allStatsOfPage = statRepository.getAllStatsOfPage(page);
         return allStatsOfPage;
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByNameAsc() {
+        return statRepository.getAllStatsOfPageByNameAsc(page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByNameDesc() {
+        return statRepository.getAllStatsOfPageByNameDesc(page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByValueAsc() {
+        return statRepository.getAllStatsOfPageByValueAsc(page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPageByValueDesc() {
+        return statRepository.getAllStatsOfPageByValueDesc(page);
     }
 
     public void updateStatValues(String statName, String newValue, int charId, int statId) {
         statRepository.updateStatValues(statName, newValue, charId, statId);
+    }
+
+    public MediatorLiveData<List<Stat>> getStatsOfPage() {
+        return statsOfPage;
+    }
+
+    public void sortBy(int sortOrder) {
+        switch (sortOrder) {
+            default:
+            case Sort.BY_NAME_ASC:
+                statsOfPage.addSource(getAllStatsOfPageByNameAsc(),
+                        stats -> statsOfPage.setValue(stats));
+                break;
+            case Sort.BY_NAME_DESC:
+                statsOfPage.addSource(getAllStatsOfPageByNameDesc(),
+                        stats -> statsOfPage.setValue(stats));
+                break;
+            case Sort.BY_VALUE_ASC:
+                statsOfPage.addSource(getAllStatsOfPageByValueAsc(),
+                        stats -> statsOfPage.setValue(stats));
+                break;
+            case Sort.BY_VALUE_DESC:
+                statsOfPage.addSource(getAllStatsOfPageByValueDesc(),
+                        stats -> statsOfPage.setValue(stats));
+                break;
+        }
     }
 
     public void checkStatsAndDelete(StatAdapter adapter, List<Stat> stats) {
@@ -55,16 +108,18 @@ public class StatsViewModel extends ViewModel {
 
         Application application;
         int charId;
+        int page;
 
-        public CAViewModelFactory(Application application, int charId) {
+        public CAViewModelFactory(Application application, int charId, int page) {
             this.application = application;
             this.charId = charId;
+            this.page = page;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new StatsViewModel(application, charId);
+            return (T) new StatsViewModel(application, charId, page);
         }
     }
 }

@@ -34,6 +34,18 @@ public interface StatDao {
     @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page")
     LiveData<List<Stat>> getLiveDataAllPageStats(int id, int page);
 
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY name ASC")
+    LiveData<List<Stat>> getLiveDataAllPageStatsByNameAsc(int id, int page);
+
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY name DESC")
+    LiveData<List<Stat>> getLiveDataAllPageStatsByNameDesc(int id, int page);
+
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY Value ASC")
+    LiveData<List<Stat>> getLiveDataAllPageStatsByValueAsc(int id, int page);
+
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY Value DESC")
+    LiveData<List<Stat>> getLiveDataAllPageStatsByValueDesc(int id, int page);
+
     @Query("UPDATE stats SET value = :newValue, name=:statName WHERE char_id = :charId AND id = :statId")
     void updateStatValue(String statName, String newValue, int charId, int statId);
 

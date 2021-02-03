@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
@@ -72,10 +75,13 @@ public class StatsPageFragment extends Fragment
         recyclerView.addOnScrollListener(new FABOnScrollListener()); //handling hide of FAB
         recyclerView.setAdapter(adapter);
 
-        //load stats
+        //init viewModel
         viewModel = new ViewModelProvider(this,
-                new StatsViewModel.CAViewModelFactory(requireActivity().getApplication(), characterID))
+                new StatsViewModel.CAViewModelFactory(requireActivity().getApplication(),
+                        characterID,
+                        pageNumber))
                 .get(StatsViewModel.class);
+
 
         return rootView;
     }
@@ -84,10 +90,18 @@ public class StatsPageFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getAllStatsOfPage(characterID, pageNumber).observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
+        /*viewModel.getAllStatsOfPage().observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
             @Override
             public void onChanged(List<Stat> stats) {
                 // UI update
+                adapter.setStats(stats);
+                statList = stats;
+            }
+        });*/
+
+        viewModel.getStatsOfPage().observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
+            @Override
+            public void onChanged(List<Stat> stats) {
                 adapter.setStats(stats);
                 statList = stats;
             }
@@ -142,6 +156,10 @@ public class StatsPageFragment extends Fragment
     @Override
     public void onDeleteDialogNegativeClick(DialogFragment dialog) {
         Objects.requireNonNull(dialog.getDialog()).cancel();
+    }
+
+    public void sortStatsBy(int sortBy) {
+        viewModel.sortBy(sortBy);
     }
 
     /**
