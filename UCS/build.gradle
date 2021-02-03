@@ -61,7 +61,7 @@ dependencies {
 
     //### Play Core Library
     // Java
-    implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.android.play:core:1.9.1'
     // Kotlin
     implementation 'com.google.android.play:core-ktx:1.8.1'
     //###
@@ -82,10 +82,10 @@ dependencies {
     //###
 
     // Navigation component
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.2"
-    androidTestImplementation "androidx.navigation:navigation-testing:2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.3"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.3"
 
     // added to eliminate incompatibilities
     implementation 'androidx.browser:browser:1.3.0'
@@ -93,7 +93,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // google ads
-    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
     implementation 'com.google.android.ads.consent:consent-library:1.0.8'
 
     // testImplementations
