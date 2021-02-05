@@ -40,10 +40,10 @@ public interface StatDao {
     @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY name DESC")
     LiveData<List<Stat>> getLiveDataAllPageStatsByNameDesc(int id, int page);
 
-    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY Value ASC")
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY CAST(value AS INTEGER) ASC")
     LiveData<List<Stat>> getLiveDataAllPageStatsByValueAsc(int id, int page);
 
-    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY Value DESC")
+    @Query("SELECT  * FROM stats WHERE char_id = :id AND page = :page ORDER BY CAST(value AS INTEGER) DESC")
     LiveData<List<Stat>> getLiveDataAllPageStatsByValueDesc(int id, int page);
 
     @Query("UPDATE stats SET value = :newValue, name=:statName WHERE char_id = :charId AND id = :statId")

@@ -5,12 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.StatRepository;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
@@ -23,37 +20,49 @@ public class StatsViewModel extends ViewModel {
 
     private int page;
 
-    private StatRepository statRepository;
+    private final StatRepository statRepository;
     private LiveData<List<Stat>> allStatsOfPage;
+    private LiveData<List<Stat>> allStatsOfPageByNameAsc;
+    private LiveData<List<Stat>> allStatsOfPageByNameDesc;
+    private LiveData<List<Stat>> allStatsOfPageByValueAsc;
+    private LiveData<List<Stat>> allStatsOfPageByValueDesc;
 
     private MediatorLiveData<List<Stat>> statsOfPage = new MediatorLiveData<>();
 
     public StatsViewModel(Application application, int charId, int page) {
         statRepository = new StatRepository(application, charId);
         this.page = page;
+        initStatsLiveData();
 
         statsOfPage.addSource(getAllStatsOfPage(), stats -> statsOfPage.setValue(stats));
     }
 
-    public LiveData<List<Stat>> getAllStatsOfPage() {
+    private void initStatsLiveData() {
         allStatsOfPage = statRepository.getAllStatsOfPage(page);
+        allStatsOfPageByNameAsc = statRepository.getAllStatsOfPageByNameAsc(page);
+        allStatsOfPageByNameDesc = statRepository.getAllStatsOfPageByNameDesc(page);
+        allStatsOfPageByValueAsc = statRepository.getAllStatsOfPageByValueAsc(page);
+        allStatsOfPageByValueDesc = statRepository.getAllStatsOfPageByValueDesc(page);
+    }
+
+    public LiveData<List<Stat>> getAllStatsOfPage() {
         return allStatsOfPage;
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByNameAsc() {
-        return statRepository.getAllStatsOfPageByNameAsc(page);
+        return allStatsOfPageByNameAsc;
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByNameDesc() {
-        return statRepository.getAllStatsOfPageByNameDesc(page);
+        return allStatsOfPageByNameDesc;
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByValueAsc() {
-        return statRepository.getAllStatsOfPageByValueAsc(page);
+        return allStatsOfPageByValueAsc;
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByValueDesc() {
-        return statRepository.getAllStatsOfPageByValueDesc(page);
+        return allStatsOfPageByValueDesc;
     }
 
     public void updateStatValues(String statName, String newValue, int charId, int statId) {
@@ -65,6 +74,13 @@ public class StatsViewModel extends ViewModel {
     }
 
     public void sortBy(int sortOrder) {
+
+        statsOfPage.removeSource(getAllStatsOfPage());
+        statsOfPage.removeSource(getAllStatsOfPageByNameAsc());
+        statsOfPage.removeSource(getAllStatsOfPageByNameDesc());
+        statsOfPage.removeSource(getAllStatsOfPageByValueAsc());
+        statsOfPage.removeSource(getAllStatsOfPageByValueDesc());
+
         switch (sortOrder) {
             default:
             case Sort.BY_NAME_ASC:
