@@ -50,9 +50,6 @@ public class CharacterListFragment extends Fragment
     private RecyclerView recyclerView;
     private CharacterListAdapter adapter;
 
-    private BottomSheetBehavior bottomSheetBehavior;
-    private ConstraintLayout bottomSheetCharacterCreationLayout;
-
     public CharacterListFragment() {
 
     }
@@ -91,12 +88,6 @@ public class CharacterListFragment extends Fragment
         recyclerView.setAdapter(adapter);
 
 
-        //Bottom sheet
-//        bottomSheetCharacterCreationLayout = rootView.findViewById(R.id.bottomSheet_characterCreation);
-        //       bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetCharacterCreationLayout);
-//        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-
         // ViewModel
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
                 .get(MainActivityViewModel.class);
@@ -113,12 +104,9 @@ public class CharacterListFragment extends Fragment
 
         setupToolbar(view);
 
-        viewModel.getAllCharacters().observe(getViewLifecycleOwner(), new Observer<List<Character>>() {
-            @Override
-            public void onChanged(List<Character> characters) {
-                adapter.setCharacters(characters);
-                viewModel.setCharacterList(characters);
-            }
+        viewModel.getAllCharacters().observe(getViewLifecycleOwner(), characters -> {
+            adapter.setCharacters(characters);
+            viewModel.setCharacterList(characters);
         });
     }
 
@@ -176,13 +164,6 @@ public class CharacterListFragment extends Fragment
                 dataHolderViewModel.setRaceName(character.getRaceName());
                 dataHolderViewModel.setImageResourceID(character.getImageResourceId());
 
-                /*((MainActivity) requireActivity())
-                        .setSelectedCharacterData(character.id,
-                                character.getImageResourceId(),
-                                character.getCharacterName(),
-                                character.getClassName(),
-                                character.getRaceName());
-*/
                 //Navigate to character
                 NavHostFragment
                         .findNavController(CharacterListFragment.this)
