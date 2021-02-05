@@ -16,6 +16,18 @@
                 android:id="@+id/action_sort_nameDesc"
                 android:title="@string/name_descending"
                 app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_sort_valueAsc"
+                android:title="@string/value_ascending"
+                android:visible="false"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_sort_valueDesc"
+                android:title="@string/value_descending"
+                android:visible="false"
+                app:showAsAction="never" />
         </menu>
     </item>
 

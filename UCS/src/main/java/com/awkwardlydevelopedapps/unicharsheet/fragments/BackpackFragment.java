@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.BackpackAdapter;
@@ -27,7 +28,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class BackpackFragment extends Fragment
-        implements DeleteDialog.NoticeDialogListener {
+        implements DeleteDialog.NoticeDialogListener,
+        InventoryFragment.popupOnSortClickListener {
 
     private View rootView;
     private int characterID;
@@ -82,10 +84,12 @@ public class BackpackFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((InventoryFragment) getTargetFragment()).setPopupOnSortClickListener(this);
+
         viewModel.getAllItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
             @Override
             public void onChanged(List<Item> items) {
-                viewModel.setItems(items);
+                viewModel.setItemList(items);
                 adapter.setItems(items);
             }
         });
@@ -114,6 +118,26 @@ public class BackpackFragment extends Fragment
     @Override
     public void onDeleteDialogNegativeClick(DialogFragment dialog) {
         Objects.requireNonNull(dialog.getDialog()).cancel();
+    }
+
+    @Override
+    public void onPopupSortByNameAsc() {
+        viewModel.orderBy(Sort.BY_NAME_ASC);
+    }
+
+    @Override
+    public void onPopupSortByNameDesc() {
+        viewModel.orderBy(Sort.BY_NAME_DESC);
+    }
+
+    @Override
+    public void onPopupSortByValueAsc() {
+        viewModel.orderBy(Sort.BY_VALUE_ASC);
+    }
+
+    @Override
+    public void onPopupSortByValueDesc() {
+        viewModel.orderBy(Sort.BY_VALUE_DESC);
     }
 
     /**
@@ -149,7 +173,7 @@ public class BackpackFragment extends Fragment
 
         @Override
         public boolean onItemLongClick(View view, int position) {
-            Item item = viewModel.getItems().get(position);
+            Item item = viewModel.getItemList().get(position);
             item.setChecked(true);
             adapter.setShowChecks();
             adapter.notifyItemChanged(position);
@@ -181,7 +205,7 @@ public class BackpackFragment extends Fragment
             ItemBottomSheetDialog bottomSheetDialog =
                     new ItemBottomSheetDialog(viewModel, characterID);
             bottomSheetDialog.setOption(ItemBottomSheetDialog.EDIT);
-            bottomSheetDialog.setOldItem(viewModel.getItems().get(position));
+            bottomSheetDialog.setOldItem(viewModel.getItemList().get(position));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");
         }
     }

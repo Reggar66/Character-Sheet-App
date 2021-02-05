@@ -13,12 +13,20 @@ import java.util.List;
 
 public class BackpackRepository {
 
-    private ItemDao itemDao;
-    private LiveData<List<Item>> allItems;
+    private final ItemDao itemDao;
+    private final LiveData<List<Item>> allItems;
+    private final LiveData<List<Item>> allItemsByNameAsc;
+    private final LiveData<List<Item>> allItemsByNameDesc;
+    private final LiveData<List<Item>> allItemsByValueAsc;
+    private final LiveData<List<Item>> allItemsByValueDesc;
 
     public BackpackRepository(Application application, int charId) {
         itemDao = DbSingleton.Instance(application).getItemDao();
         allItems = itemDao.getLiveDataAllItems(charId);
+        allItemsByNameAsc = itemDao.getLiveDataAllItemsByNameAsc(charId);
+        allItemsByNameDesc = itemDao.getLiveDataAllItemsByNameDesc(charId);
+        allItemsByValueAsc = itemDao.getLiveDataAllItemsByValueAsc(charId);
+        allItemsByValueDesc = itemDao.getLiveDataAllItemsByValueDesc(charId);
     }
 
     public void insert(Item item) {
@@ -50,5 +58,21 @@ public class BackpackRepository {
 
     public LiveData<List<Item>> getAllItems() {
         return allItems;
+    }
+
+    public LiveData<List<Item>> getAllItemsByNameAsc() {
+        return allItemsByNameAsc;
+    }
+
+    public LiveData<List<Item>> getAllItemsByNameDesc() {
+        return allItemsByNameDesc;
+    }
+
+    public LiveData<List<Item>> getAllItemsByValueAsc() {
+        return allItemsByValueAsc;
+    }
+
+    public LiveData<List<Item>> getAllItemsByValueDesc() {
+        return allItemsByValueDesc;
     }
 }

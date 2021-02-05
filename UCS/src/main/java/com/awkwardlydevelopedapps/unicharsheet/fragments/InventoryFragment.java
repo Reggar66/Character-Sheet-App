@@ -44,6 +44,21 @@ public class InventoryFragment extends Fragment {
     private final PocketFragment pocketFragment = new PocketFragment();
     private final BackpackFragment backpackFragment = new BackpackFragment();
 
+    private popupOnSortClickListener popupOnSortClickListener;
+
+    public void setPopupOnSortClickListener(InventoryFragment.popupOnSortClickListener popupOnSortClickListener) {
+        this.popupOnSortClickListener = popupOnSortClickListener;
+    }
+
+    public interface popupOnSortClickListener {
+        void onPopupSortByNameAsc();
+
+        void onPopupSortByNameDesc();
+
+        void onPopupSortByValueAsc();
+
+        void onPopupSortByValueDesc();
+    }
 
     public InventoryFragment() {
 
@@ -77,6 +92,9 @@ public class InventoryFragment extends Fragment {
         View viewBackpack = getLayoutInflater().inflate(R.layout.inventory_custom_tab_view, null);
         viewBackpack.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_backpack);
         tabLayout.addTab(tabLayout.newTab().setCustomView(viewBackpack));
+
+        //sets target fragment to this, so we can retrieve it inside backpack and set listener
+        backpackFragment.setTargetFragment(this, 0);
 
         return rootView;
     }
@@ -184,21 +202,33 @@ public class InventoryFragment extends Fragment {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_about:
-                    NavHostFragment
-                            .findNavController(InventoryFragment.this)
-                            .navigate(InventoryFragmentDirections.actionInventoryFragmentToAboutFragment());
-                    return true;
-
-                case R.id.action_settings:
-                    NavHostFragment
-                            .findNavController(InventoryFragment.this)
-                            .navigate(InventoryFragmentDirections.actionInventoryFragmentToSettingsFragment());
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_about) {
+                NavHostFragment
+                        .findNavController(InventoryFragment.this)
+                        .navigate(InventoryFragmentDirections.actionInventoryFragmentToAboutFragment());
+                return true;
+            } else if (itemId == R.id.action_settings) {
+                NavHostFragment
+                        .findNavController(InventoryFragment.this)
+                        .navigate(InventoryFragmentDirections.actionInventoryFragmentToSettingsFragment());
+                return true;
+            } else if (itemId == R.id.action_sort_nameAsc) {
+                popupOnSortClickListener.onPopupSortByNameAsc();
+                return true;
+            } else if (itemId == R.id.action_sort_nameDesc) {
+                popupOnSortClickListener.onPopupSortByNameDesc();
+                return true;
+            } else if (itemId == R.id.action_sort_valueAsc) {
+                popupOnSortClickListener.onPopupSortByValueAsc();
+                return true;
+            } else if (itemId == R.id.action_sort_valueDesc) {
+                popupOnSortClickListener.onPopupSortByValueDesc();
+                return true;
             }
+
+
+            return false;
         }
     }
 }

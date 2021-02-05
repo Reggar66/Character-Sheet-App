@@ -19,10 +19,22 @@ public interface ItemDao {
     void delete(Item item);
 
     @Query("SELECT * FROM items WHERE char_id = :charId")
-    LiveData<List<Item>> getLiveDataAllItems(int charId);
+    List<Item> getAllItems(int charId);
 
     @Query("SELECT * FROM items WHERE char_id = :charId")
-    List<Item> getAllItems(int charId);
+    LiveData<List<Item>> getLiveDataAllItems(int charId);
+
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY name ASC")
+    LiveData<List<Item>> getLiveDataAllItemsByNameAsc(int charId);
+
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY name DESC")
+    LiveData<List<Item>> getLiveDataAllItemsByNameDesc(int charId);
+
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY quantity ASC")
+    LiveData<List<Item>> getLiveDataAllItemsByValueAsc(int charId);
+
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY quantity DESC")
+    LiveData<List<Item>> getLiveDataAllItemsByValueDesc(int charId);
 
     @Query("UPDATE items SET name = :newName, quantity = :newQuantity WHERE char_id = :charId AND id = :itemId")
     void updateItem(String newName, String newQuantity, int charId, int itemId);
