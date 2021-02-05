@@ -4,6 +4,22 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
 
     <item
+        android:id="@+id/action_sortOrder"
+        android:title="@string/sort"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/action_sort_nameAsc"
+                android:title="@string/name_ascending"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_sort_nameDesc"
+                android:title="@string/name_descending"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/settings"
         app:showAsAction="never" />

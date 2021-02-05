@@ -27,6 +27,12 @@ public interface CharacterDao {
     @Query("SELECT * FROM characters")
     LiveData<List<Character>> getLiveDataAllCharacters();
 
+    @Query("SELECT * FROM characters ORDER BY name ASC")
+    LiveData<List<Character>> getLiveDataAllCharactersByNameAsc();
+
+    @Query("SELECT * FROM characters ORDER BY name DESC")
+    LiveData<List<Character>> getLiveDataAllCharactersByNameDesc();
+
     //Delete all stuff
     @Query("DELETE FROM stats WHERE char_id = :id")
     void deleteStats(int id);

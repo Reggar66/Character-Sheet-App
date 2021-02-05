@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.models.Character;
@@ -256,20 +257,23 @@ public class CharacterListFragment extends Fragment
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_about:
-                    NavHostFragment
-                            .findNavController(CharacterListFragment.this)
-                            .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToAboutFragment());
-                    return true;
-                case R.id.action_settings:
-                    NavHostFragment
-                            .findNavController(CharacterListFragment.this)
-                            .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToSettingsFragment());
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_about) {
+                NavHostFragment
+                        .findNavController(CharacterListFragment.this)
+                        .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToAboutFragment());
+                return true;
+            } else if (itemId == R.id.action_settings) {
+                NavHostFragment
+                        .findNavController(CharacterListFragment.this)
+                        .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToSettingsFragment());
+                return true;
+            } else if (itemId == R.id.action_sort_nameAsc) {
+                viewModel.orderBy(Sort.BY_NAME_ASC);
+            } else if (itemId == R.id.action_sort_nameDesc) {
+                viewModel.orderBy(Sort.BY_NAME_DESC);
             }
+            return false;
         }
     }
 }

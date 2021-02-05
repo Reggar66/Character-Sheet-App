@@ -12,16 +12,28 @@ import com.awkwardlydevelopedapps.unicharsheet.data.DbSingleton;
 import java.util.List;
 
 public class CharacterRepository {
-    private CharacterDao characterDao;
-    private LiveData<List<Character>> allCharacters;
+    private final CharacterDao characterDao;
+    private final LiveData<List<Character>> allCharacters;
+    private final LiveData<List<Character>> allCharactersByNameAsc;
+    private final LiveData<List<Character>> allCharactersByNameDesc;
 
     public CharacterRepository(Application application) {
         characterDao = DbSingleton.Instance(application).getCharacterDao();
         allCharacters = characterDao.getLiveDataAllCharacters();
+        allCharactersByNameAsc = characterDao.getLiveDataAllCharactersByNameAsc();
+        allCharactersByNameDesc = characterDao.getLiveDataAllCharactersByNameDesc();
     }
 
     public LiveData<List<Character>> getAllCharacters() {
         return allCharacters;
+    }
+
+    public LiveData<List<Character>> getAllCharactersByNameAsc() {
+        return allCharactersByNameAsc;
+    }
+
+    public LiveData<List<Character>> getAllCharactersByNameDesc() {
+        return allCharactersByNameDesc;
     }
 
     public void insert(Character character) {
@@ -95,5 +107,4 @@ public class CharacterRepository {
             }
         });
     }
-
 }
