@@ -19,50 +19,35 @@ import java.util.List;
 public class StatsViewModel extends ViewModel {
 
     private final int page;
-
     private final StatRepository statRepository;
-    private LiveData<List<Stat>> allStatsOfPage;
-    private LiveData<List<Stat>> allStatsOfPageByNameAsc;
-    private LiveData<List<Stat>> allStatsOfPageByNameDesc;
-    private LiveData<List<Stat>> allStatsOfPageByValueAsc;
-    private LiveData<List<Stat>> allStatsOfPageByValueDesc;
 
     private final MediatorLiveData<List<Stat>> statsOfPage = new MediatorLiveData<>();
 
     public StatsViewModel(Application application, int charId, int page) {
-        statRepository = new StatRepository(application, charId);
+        statRepository = new StatRepository(application, charId, page);
         this.page = page;
-        initStatsLiveData();
 
         statsOfPage.addSource(getAllStatsOfPageByNameAsc(), stats -> statsOfPage.setValue(stats));
     }
 
-    private void initStatsLiveData() {
-        allStatsOfPage = statRepository.getAllStatsOfPage(page);
-        allStatsOfPageByNameAsc = statRepository.getAllStatsOfPageByNameAsc(page);
-        allStatsOfPageByNameDesc = statRepository.getAllStatsOfPageByNameDesc(page);
-        allStatsOfPageByValueAsc = statRepository.getAllStatsOfPageByValueAsc(page);
-        allStatsOfPageByValueDesc = statRepository.getAllStatsOfPageByValueDesc(page);
-    }
-
     public LiveData<List<Stat>> getAllStatsOfPage() {
-        return allStatsOfPage;
+        return statRepository.getAllStatsOfPage();
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByNameAsc() {
-        return allStatsOfPageByNameAsc;
+        return statRepository.getAllStatsOfPageByNameAsc();
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByNameDesc() {
-        return allStatsOfPageByNameDesc;
+        return statRepository.getAllStatsOfPageByNameDesc();
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByValueAsc() {
-        return allStatsOfPageByValueAsc;
+        return statRepository.getAllStatsOfPageByValueAsc();
     }
 
     public LiveData<List<Stat>> getAllStatsOfPageByValueDesc() {
-        return allStatsOfPageByValueDesc;
+        return statRepository.getAllStatsOfPageByValueDesc();
     }
 
     public void updateStatValues(String statName, String newValue, int charId, int statId) {
