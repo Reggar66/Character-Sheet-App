@@ -34,7 +34,7 @@ public class StatsViewModel extends ViewModel {
         this.page = page;
         initStatsLiveData();
 
-        statsOfPage.addSource(getAllStatsOfPage(), stats -> statsOfPage.setValue(stats));
+        statsOfPage.addSource(getAllStatsOfPageByNameAsc(), stats -> statsOfPage.setValue(stats));
     }
 
     private void initStatsLiveData() {
