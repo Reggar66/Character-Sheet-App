@@ -18,7 +18,7 @@ import java.util.List;
 
 public class StatsViewModel extends ViewModel {
 
-    private int page;
+    private final int page;
 
     private final StatRepository statRepository;
     private LiveData<List<Stat>> allStatsOfPage;
@@ -27,7 +27,7 @@ public class StatsViewModel extends ViewModel {
     private LiveData<List<Stat>> allStatsOfPageByValueAsc;
     private LiveData<List<Stat>> allStatsOfPageByValueDesc;
 
-    private MediatorLiveData<List<Stat>> statsOfPage = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Stat>> statsOfPage = new MediatorLiveData<>();
 
     public StatsViewModel(Application application, int charId, int page) {
         statRepository = new StatRepository(application, charId);
