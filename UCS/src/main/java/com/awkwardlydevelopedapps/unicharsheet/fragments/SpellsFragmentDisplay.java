@@ -51,12 +51,12 @@ public class SpellsFragmentDisplay extends Fragment {
                 .get(DataHolderViewModel.class);
         characterID = dataHolderViewModel.getCharacterID();
 
-        viewModel = new ViewModelProvider(requireActivity(),
+        viewModel = new ViewModelProvider(this,
                 new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(),
                         characterID))
                 .get(SpellsViewModel.class);
 
-        spellID = viewModel.getSelectedSpellID();
+        spellID = dataHolderViewModel.getSelectedSpellID();
 
         ImageView closeSpellDisplayButton = rootView.findViewById(R.id.imageView_close_spell_display);
         closeSpellDisplayButton.setOnClickListener(new CloseButtonOnClick());

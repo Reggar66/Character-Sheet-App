@@ -21,13 +21,19 @@ public interface SpellDao {
     @Query("SELECT * FROM spells WHERE char_id = :id")
     List<Spell> getAllSpells(int id);
 
-    @Query("SELECT * FROM spells WHERE char_id = :id")
-    LiveData<List<Spell>> getLiveDataAllSpells(int id);
+    @Query("SELECT * FROM spells WHERE char_id = :charId")
+    LiveData<List<Spell>> getLiveDataAllSpells(int charId);
 
-    @Query(("SELECT * FROM spells WHERE id = :id"))
+    @Query("SELECT * FROM spells WHERE char_id = :charId ORDER BY name ASC")
+    LiveData<List<Spell>> getLiveDataAllSpellsByNameAsc(int charId);
+
+    @Query("SELECT * FROM spells WHERE char_id = :charId ORDER BY name DESC")
+    LiveData<List<Spell>> getLiveDataAllSpellsByNameDesc(int charId);
+
+    @Query("SELECT * FROM spells WHERE id = :id")
     Spell getSpell(int id);
 
-    @Query(("SELECT * FROM spells WHERE id = :id"))
+    @Query("SELECT * FROM spells WHERE id = :id")
     LiveData<Spell> getLiveDataSpell(int id);
 
     @Query("UPDATE spells SET description = :desc WHERE char_id = :charId AND id = :spellId")

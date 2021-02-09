@@ -52,6 +52,7 @@ public class InventoryFragment extends Fragment {
         this.popupOnSortClickListener = popupOnSortClickListener;
     }
 
+    // TODO remove it and use separate interface class
     public interface popupOnSortClickListener {
         void onPopupSortByNameAsc();
 

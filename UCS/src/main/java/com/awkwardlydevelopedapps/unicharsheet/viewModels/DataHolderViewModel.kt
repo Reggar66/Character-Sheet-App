@@ -7,7 +7,10 @@ class DataHolderViewModel(
         var characterName: String = "",
         var className: String = "",
         var raceName: String = "",
-        var imageResourceID: Int = 0
+        var imageResourceID: Int = 0,
+        var selectedSpellID: Int = -1
 ) : ViewModel() {
+
+    val SPELL_ID_NOT_SET = -1;
 
 }

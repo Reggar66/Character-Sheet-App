@@ -2,6 +2,7 @@ package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 
@@ -34,8 +36,15 @@ public class SpellsFragment extends Fragment
     private String characterClass;
     private String characterRace;
     private int characterIconID;
+    private MenuItem sortItemGroup;
 
     private FragmentManager fragmentManager;
+
+    private PopupOnSortClickListener popupOnSortClickListener;
+
+    public void setPopupOnSortClickListener(PopupOnSortClickListener popupOnSortClickListener) {
+        this.popupOnSortClickListener = popupOnSortClickListener;
+    }
 
     public SpellsFragment() {
 
@@ -98,6 +107,8 @@ public class SpellsFragment extends Fragment
         textViewClass.setText(characterClass);
         textViewRace.setText(characterRace);
 
+        sortItemGroup = toolbar.getMenu().findItem(R.id.action_group_sortOrder);
+
         // Handling clicks on menu item
         toolbar.setOnMenuItemClickListener(new ToolbarOnMenuClickListener());
 
@@ -109,6 +120,7 @@ public class SpellsFragment extends Fragment
     private Fragment getNewSpellsFragmentList() {
         SpellsFragmentList spellsFragmentList = new SpellsFragmentList();
         spellsFragmentList.setChangeFragmentCallback(SpellsFragment.this);
+        spellsFragmentList.setTargetFragment(this, 0);
         return spellsFragmentList;
     }
 
@@ -123,6 +135,7 @@ public class SpellsFragment extends Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentDisplay());
         fragmentTransaction.commit();
+        sortItemGroup.setVisible(false);
     }
 
     @Override
@@ -130,6 +143,7 @@ public class SpellsFragment extends Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentList());
         fragmentTransaction.commit();
+        sortItemGroup.setVisible(true);
     }
 
 
@@ -141,20 +155,25 @@ public class SpellsFragment extends Fragment
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_about:
-                    NavHostFragment
-                            .findNavController(SpellsFragment.this)
-                            .navigate(SpellsFragmentDirections.actionSpellsFragmentToAboutFragment());
-                    return true;
-                case R.id.action_settings:
-                    NavHostFragment
-                            .findNavController(SpellsFragment.this)
-                            .navigate(SpellsFragmentDirections.actionSpellsFragmentToSettingsFragment());
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.action_about) {
+                NavHostFragment
+                        .findNavController(SpellsFragment.this)
+                        .navigate(SpellsFragmentDirections.actionSpellsFragmentToAboutFragment());
+                return true;
+            } else if (itemId == R.id.action_settings) {
+                NavHostFragment
+                        .findNavController(SpellsFragment.this)
+                        .navigate(SpellsFragmentDirections.actionSpellsFragmentToSettingsFragment());
+                return true;
+            } else if (itemId == R.id.action_sort_nameAsc) {
+                popupOnSortClickListener.onPopupSortByNameAsc();
+                return true;
+            } else if (itemId == R.id.action_sort_nameDesc) {
+                popupOnSortClickListener.onPopupSortByNameDesc();
+                return true;
             }
+            return false;
         }
     }
 }

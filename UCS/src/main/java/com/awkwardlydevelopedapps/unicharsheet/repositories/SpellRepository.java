@@ -12,12 +12,18 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import java.util.List;
 
 public class SpellRepository {
-    private SpellDao spellDao;
-    private LiveData<List<Spell>> allSpells;
+    private final SpellDao spellDao;
+
+    private final LiveData<List<Spell>> allSpells;
+    private final LiveData<List<Spell>> allSpellsByNameAsc;
+    private final LiveData<List<Spell>> allSpellsByNameDesc;
 
     public SpellRepository(Application application, int charId) {
         spellDao = DbSingleton.Instance(application).getSpellDao();
+
         allSpells = spellDao.getLiveDataAllSpells(charId);
+        allSpellsByNameAsc = spellDao.getLiveDataAllSpellsByNameAsc(charId);
+        allSpellsByNameDesc = spellDao.getLiveDataAllSpellsByNameDesc(charId);
     }
 
     public void insert(Spell spell) {
@@ -40,6 +46,14 @@ public class SpellRepository {
 
     public LiveData<List<Spell>> getAllSpells() {
         return allSpells;
+    }
+
+    public LiveData<List<Spell>> getAllSpellsByNameAsc() {
+        return allSpellsByNameAsc;
+    }
+
+    public LiveData<List<Spell>> getAllSpellsByNameDesc() {
+        return allSpellsByNameDesc;
     }
 
     public LiveData<Spell> getSpell(int spellId) {

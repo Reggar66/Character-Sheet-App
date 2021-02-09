@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener;
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.SpellCreateBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
@@ -31,12 +33,14 @@ import java.util.Objects;
 
 public class SpellsFragmentList extends Fragment
         implements
-        DeleteDialog.NoticeDialogListener {
+        DeleteDialog.NoticeDialogListener,
+        PopupOnSortClickListener {
 
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
 
     private SpellsViewModel viewModel;
+    private DataHolderViewModel dataHolderViewModel;
 
     //RecyclerView
     private RecyclerView recyclerView;
@@ -57,7 +61,7 @@ public class SpellsFragmentList extends Fragment
 
         View rootView = inflater.inflate(R.layout.fragment_spells_list, container, false);
 
-        DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
+        dataHolderViewModel = new ViewModelProvider(requireActivity())
                 .get(DataHolderViewModel.class);
         characterID = dataHolderViewModel.getCharacterID();
 
@@ -82,9 +86,11 @@ public class SpellsFragmentList extends Fragment
         recyclerView.setAdapter(adapter);
 
 
-        viewModel = new ViewModelProvider(requireActivity(),
+        viewModel = new ViewModelProvider(this,
                 new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(SpellsViewModel.class);
+
+        ((SpellsFragment) getTargetFragment()).setPopupOnSortClickListener(this);
 
         return rootView;
     }
@@ -93,12 +99,9 @@ public class SpellsFragmentList extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getAllSpells().observe(getViewLifecycleOwner(), new Observer<List<Spell>>() {
-            @Override
-            public void onChanged(List<Spell> spells) {
-                adapter.setSpells(spells);
-                viewModel.setSpells(spells);
-            }
+        viewModel.getAllSpells().observe(getViewLifecycleOwner(), spells -> {
+            adapter.setSpells(spells);
+            viewModel.setSpellList(spells);
         });
     }
 
@@ -130,6 +133,26 @@ public class SpellsFragmentList extends Fragment
 
     public void setChangeFragmentCallback(ChangeFragmentCallback callback) {
         this.callback = callback;
+    }
+
+    @Override
+    public void onPopupSortByNameAsc() {
+        viewModel.orderBy(Sort.BY_NAME_ASC);
+    }
+
+    @Override
+    public void onPopupSortByNameDesc() {
+        viewModel.orderBy(Sort.BY_NAME_DESC);
+    }
+
+    @Override
+    public void onPopupSortByValueAsc() {
+        // No values to sort by
+    }
+
+    @Override
+    public void onPopupSortByValueDesc() {
+        // No values to sort by
     }
 
     /**
@@ -173,7 +196,7 @@ public class SpellsFragmentList extends Fragment
 
         @Override
         public boolean onItemLongClick(View view, int position) {
-            Spell spell = viewModel.getSpells().get(position);
+            Spell spell = viewModel.getSpellList().get(position);
             spell.setChecked(true);
             adapter.setShowChecks();
             adapter.notifyItemChanged(position);
@@ -197,8 +220,8 @@ public class SpellsFragmentList extends Fragment
 
         @Override
         public void onItemClick(View itemView, int position) {
-            Spell spell = viewModel.getSpells().get(position);
-            viewModel.setSelectedSpellID(spell.id);
+            Spell spell = viewModel.getSpellList().get(position);
+            dataHolderViewModel.setSelectedSpellID(spell.id);
             callback.changeToDisplay();
         }
     }

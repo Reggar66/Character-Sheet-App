@@ -4,9 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.repositories.SpellRepository;
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.adapters.SpellAdapter;
@@ -15,22 +17,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpellsViewModel extends ViewModel {
-    private SpellRepository spellRepository;
-    private LiveData<List<Spell>> allSpells;
-    private List<Spell> spells;
-
-    private int selectedSpellID = -1;
-
-    public final static int SPELL_ID_NOT_SET = -1;
-
+    private final SpellRepository spellRepository;
+    private final MediatorLiveData<List<Spell>> allSpells = new MediatorLiveData<>();
+    private List<Spell> spellList;
 
     public SpellsViewModel(Application application, int charId) {
         spellRepository = new SpellRepository(application, charId);
-        allSpells = spellRepository.getAllSpells();
+
+        allSpells.addSource(getAllSpellsByNameAsc(),
+                spells -> allSpells.setValue(spells));
     }
 
-    public LiveData<List<Spell>> getAllSpells() {
+    public MediatorLiveData<List<Spell>> getAllSpells() {
         return allSpells;
+    }
+
+
+    public LiveData<List<Spell>> getAllSpellsByNameAsc() {
+        return spellRepository.getAllSpellsByNameAsc();
+    }
+
+    public LiveData<List<Spell>> getAllSpellsByNameDesc() {
+        return spellRepository.getAllSpellsByNameDesc();
+    }
+
+    public void orderBy(int order) {
+        allSpells.removeSource(getAllSpellsByNameAsc());
+        allSpells.removeSource(getAllSpellsByNameDesc());
+
+        switch (order) {
+            default:
+            case Sort.BY_NAME_ASC:
+                allSpells.addSource(getAllSpellsByNameAsc(), spells -> allSpells.setValue(spells));
+                break;
+            case Sort.BY_NAME_DESC:
+                allSpells.addSource(getAllSpellsByNameDesc(), spells -> allSpells.setValue(spells));
+                break;
+        }
     }
 
     public void insert(Spell spell) {
@@ -42,7 +65,7 @@ public class SpellsViewModel extends ViewModel {
     }
 
     public void checkSpellsAndDelete(SpellAdapter adapter) {
-        List<Spell> temp = new ArrayList<>(this.spells);
+        List<Spell> temp = new ArrayList<>(this.spellList);
         for (Spell spell : temp) {
             if (spell.isChecked()) {
                 spellRepository.delete(spell);
@@ -51,12 +74,12 @@ public class SpellsViewModel extends ViewModel {
         adapter.setShowChecks();
     }
 
-    public List<Spell> getSpells() {
-        return spells;
+    public List<Spell> getSpellList() {
+        return spellList;
     }
 
-    public void setSpells(List<Spell> spells) {
-        this.spells = spells;
+    public void setSpellList(List<Spell> spellList) {
+        this.spellList = spellList;
     }
 
     public LiveData<Spell> getSpell(int spellId) {
@@ -85,14 +108,6 @@ public class SpellsViewModel extends ViewModel {
 
     public void updateSpecialNotes(String specialNotesValue, int charId, int spellId) {
         spellRepository.updateSpecialNotes(specialNotesValue, charId, spellId);
-    }
-
-    public int getSelectedSpellID() {
-        return selectedSpellID;
-    }
-
-    public void setSelectedSpellID(int selectedSpellID) {
-        this.selectedSpellID = selectedSpellID;
     }
 
     /**
