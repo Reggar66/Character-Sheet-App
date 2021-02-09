@@ -2,6 +2,7 @@ package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class InventoryFragment extends Fragment {
     private View rootView;
     private TabLayout tabLayout;
     private ImageView lastTabIcon;
+    private Menu popupMenu;
 
     private int characterID;
     private String characterName;
@@ -141,6 +143,12 @@ public class InventoryFragment extends Fragment {
         textViewClass.setText(characterClass);
         textViewRace.setText(characterRace);
 
+        // Set visibility of sorting by value
+        popupMenu = toolbar.getMenu();
+        popupMenu.findItem(R.id.action_sort_valueAsc).setVisible(true);
+        popupMenu.findItem(R.id.action_sort_valueDesc).setVisible(true);
+        popupMenu.findItem(R.id.action_group_sortOrder).setVisible(false);
+
         // Handling clicks on menu item
         toolbar.setOnMenuItemClickListener(new ToolbarOnMenuClickListener());
 
@@ -178,6 +186,8 @@ public class InventoryFragment extends Fragment {
 
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainer_inventory, fragmentToReplaceWith).commit();
+
+            popupMenuVisibilityHandler(tab);
         }
 
         @Override
@@ -195,6 +205,19 @@ public class InventoryFragment extends Fragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
 
+        }
+
+        private void popupMenuVisibilityHandler(TabLayout.Tab tab) {
+            if (popupMenu == null)
+                return;
+
+            MenuItem sortGroupItem = popupMenu.findItem(R.id.action_group_sortOrder);
+
+            if (tab.getPosition() == TAB_BACKPACK) {
+                sortGroupItem.setVisible(true);
+            } else {
+                sortGroupItem.setVisible(false);
+            }
         }
     }
 

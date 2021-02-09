@@ -30,10 +30,10 @@ public interface ItemDao {
     @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY name DESC")
     LiveData<List<Item>> getLiveDataAllItemsByNameDesc(int charId);
 
-    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY quantity ASC")
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY CAST(quantity AS INTEGER) ASC")
     LiveData<List<Item>> getLiveDataAllItemsByValueAsc(int charId);
 
-    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY quantity DESC")
+    @Query("SELECT * FROM items WHERE char_id = :charId ORDER BY CAST(quantity AS INTEGER) DESC")
     LiveData<List<Item>> getLiveDataAllItemsByValueDesc(int charId);
 
     @Query("UPDATE items SET name = :newName, quantity = :newQuantity WHERE char_id = :charId AND id = :itemId")
