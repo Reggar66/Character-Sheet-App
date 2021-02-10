@@ -2,9 +2,12 @@ package com.awkwardlydevelopedapps.unicharsheet.viewModels
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.repositories.NoteRepository
 
@@ -12,7 +15,23 @@ class NoteViewModel(application: Application,
                     charId: Int) : ViewModel() {
 
     private val noteRepository = NoteRepository(application, charId)
-    private val allNotes = noteRepository.allNotes
+    private val allNotes: MediatorLiveData<List<Note>> = MediatorLiveData()
+    private val allNotesByNameAsc = noteRepository.allNotesByNameAsc
+    private val allNotesByNameDesc = noteRepository.allNotesByNameDesc
+
+    init {
+        allNotes.addSource(allNotesByNameAsc) { allNotes.value = it }
+    }
+
+    fun orderBy(order: Int) {
+        allNotes.removeSource(allNotesByNameAsc)
+        allNotes.removeSource(allNotesByNameDesc)
+
+        when (order) {
+            Sort.BY_NAME_ASC -> allNotes.addSource(allNotesByNameAsc) { allNotes.value = it }
+            Sort.BY_NAME_DESC -> allNotes.addSource(allNotesByNameDesc) { allNotes.value = it }
+        }
+    }
 
     fun insert(note: Note) {
         noteRepository.insert(note)
@@ -22,7 +41,7 @@ class NoteViewModel(application: Application,
         noteRepository.delete(note)
     }
 
-    fun getAllNotes(): LiveData<List<Note>> {
+    fun getAllNotes(): MediatorLiveData<List<Note>> {
         return allNotes
     }
 

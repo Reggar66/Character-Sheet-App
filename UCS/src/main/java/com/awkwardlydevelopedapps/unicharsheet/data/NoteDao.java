@@ -21,6 +21,12 @@ public interface NoteDao {
     @Query("SELECT * FROM notes WHERE char_id = :charId")
     LiveData<List<Note>> getLiveDataAllNotes(int charId);
 
+    @Query("SELECT * FROM notes WHERE char_id = :charId ORDER BY title ASC")
+    LiveData<List<Note>> getLiveDataAllNotesByNameAsc(int charId);
+
+    @Query("SELECT * FROM notes WHERE char_id = :charId ORDER BY title DESC")
+    LiveData<List<Note>> getLiveDataAllNotesByNameDesc(int charId);
+
     @Query("SELECT * FROM notes WHERE id = :id")
     LiveData<Note> getLiveDataNote(int id);
 

@@ -12,6 +12,8 @@ class NoteRepository(application: Application,
 
     private val noteDao: NoteDao = DbSingleton.Instance(application).noteDao
     val allNotes: LiveData<List<Note>> = noteDao.getLiveDataAllNotes(charId)
+    val allNotesByNameAsc: LiveData<List<Note>> = noteDao.getLiveDataAllNotesByNameAsc(charId)
+    val allNotesByNameDesc: LiveData<List<Note>> = noteDao.getLiveDataAllNotesByNameDesc(charId)
 
     fun insert(note: Note) {
         ExecSingleton.getInstance().execute {

@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
 
@@ -26,6 +27,8 @@ class NotesFragment : Fragment(),
     private lateinit var characterClass: String
     private lateinit var characterRace: String
     private var characterIconID = 0
+
+    var popupOnSortClickListener: PopupOnSortClickListener? = null
 
     private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
 
@@ -94,6 +97,7 @@ class NotesFragment : Fragment(),
     private fun getNewNotesFragmentList(): Fragment {
         val fragmentList = NotesFragmentList()
         fragmentList.changeFragmentCallback = this
+        fragmentList.setTargetFragment(this, 0)
         return fragmentList
     }
 
@@ -129,6 +133,14 @@ class NotesFragment : Fragment(),
                     NavHostFragment
                             .findNavController(this@NotesFragment)
                             .navigate(NotesFragmentDirections.actionNotesFragmentToSettingsFragment())
+                    true
+                }
+                R.id.action_sort_nameAsc -> {
+                    popupOnSortClickListener?.onPopupSortByNameAsc()
+                    true
+                }
+                R.id.action_sort_nameDesc -> {
+                    popupOnSortClickListener?.onPopupSortByNameDesc()
                     true
                 }
                 else -> false

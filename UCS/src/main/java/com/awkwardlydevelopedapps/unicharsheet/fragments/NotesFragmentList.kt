@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
+import com.awkwardlydevelopedapps.unicharsheet.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.NoteBottomSheetDialog
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
@@ -22,7 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NotesFragmentList : Fragment(),
         NotesListAdapter.OnItemClickListener,
-        DeleteDialog.NoticeDialogListener {
+        DeleteDialog.NoticeDialogListener,
+        PopupOnSortClickListener {
 
     val adapter = NotesListAdapter()
     private var characterID = 0
@@ -64,12 +67,14 @@ class NotesFragmentList : Fragment(),
         recyclerView.adapter = this.adapter
         recyclerView.addOnScrollListener(FabHideListener())
 
+        // Set popup menu listener for sorting
+        (targetFragment as NotesFragment).popupOnSortClickListener = this
+
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         viewModel.getAllNotes().observe(viewLifecycleOwner, Observer {
             adapter.setNotes(it)
@@ -93,6 +98,22 @@ class NotesFragmentList : Fragment(),
             changeFragmentCallback?.changeToDisplayNote(notes[position].id)
         }
         return true
+    }
+
+    override fun onPopupSortByNameAsc() {
+        viewModel.orderBy(Sort.BY_NAME_ASC)
+    }
+
+    override fun onPopupSortByNameDesc() {
+        viewModel.orderBy(Sort.BY_NAME_DESC)
+    }
+
+    override fun onPopupSortByValueAsc() {
+        // Not used
+    }
+
+    override fun onPopupSortByValueDesc() {
+        // Not used
     }
 
 
