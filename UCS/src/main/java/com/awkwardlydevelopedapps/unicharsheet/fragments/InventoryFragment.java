@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.google.android.material.tabs.TabLayout;
@@ -46,21 +47,10 @@ public class InventoryFragment extends Fragment {
     private final PocketFragment pocketFragment = new PocketFragment();
     private final BackpackFragment backpackFragment = new BackpackFragment();
 
-    private popupOnSortClickListener popupOnSortClickListener;
+    private PopupOnSortClickListener popupOnSortClickListener;
 
-    public void setPopupOnSortClickListener(InventoryFragment.popupOnSortClickListener popupOnSortClickListener) {
+    public void setPopupOnSortClickListener(PopupOnSortClickListener popupOnSortClickListener) {
         this.popupOnSortClickListener = popupOnSortClickListener;
-    }
-
-    // TODO remove it and use separate interface class
-    public interface popupOnSortClickListener {
-        void onPopupSortByNameAsc();
-
-        void onPopupSortByNameDesc();
-
-        void onPopupSortByValueAsc();
-
-        void onPopupSortByValueDesc();
     }
 
     public InventoryFragment() {

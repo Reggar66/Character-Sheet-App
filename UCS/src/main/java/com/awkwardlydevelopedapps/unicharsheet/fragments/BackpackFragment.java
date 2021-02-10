@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.awkwardlydevelopedapps.unicharsheet.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
@@ -29,7 +30,7 @@ import java.util.Objects;
 
 public class BackpackFragment extends Fragment
         implements DeleteDialog.NoticeDialogListener,
-        InventoryFragment.popupOnSortClickListener {
+        PopupOnSortClickListener {
 
     private View rootView;
     private int characterID;
