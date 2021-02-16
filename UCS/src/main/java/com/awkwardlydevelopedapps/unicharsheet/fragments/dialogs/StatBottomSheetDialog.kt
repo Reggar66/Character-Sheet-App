@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel
 
-class StatBottomSheetDialog(val viewModel: StatsViewModel,
-                            val charId: Int,
+class StatBottomSheetDialog(val charId: Int,
                             val pageNumber: Int) : BottomSheetDialogModel() {
 
     private lateinit var editTextName: EditText
@@ -22,6 +22,14 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
     var option = 0
     var title: String = ""
     lateinit var oldStat: Stat
+
+    var statNoticeDialogListener: StatNoticeDialogListener? = null
+
+    interface StatNoticeDialogListener {
+        fun onPositiveClickAddStat(dialog: DialogFragment, stat: Stat)
+        fun onPositiveClickEditStat(dialog: DialogFragment, stat: Stat)
+        fun onNegativeClick(dialog: DialogFragment)
+    }
 
     companion object {
         private const val DEFAULT_VALUE = "0"
@@ -90,15 +98,17 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
         override fun onClick(v: View?) {
             when (option) {
                 OPTION_ADD -> {
-                    addStat()
+                    statNoticeDialogListener?.onPositiveClickAddStat(this@StatBottomSheetDialog,
+                            getNewStat())
                 }
                 OPTION_EDIT -> {
-                    editStat()
+                    statNoticeDialogListener?.onPositiveClickEditStat(this@StatBottomSheetDialog,
+                            getUpdatedStat())
                 }
             }
         }
 
-        private fun addStat() {
+        private fun getNewStat(): Stat {
             val name = editTextName.text.toString()
             var value = editTextValue.text.toString()
 
@@ -106,12 +116,12 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
                 value = Companion.DEFAULT_VALUE
             }
 
-            viewModel.insert(Stat(name, value, charId, pageNumber))
-
+            val stat = Stat(name, value, charId, pageNumber)
             resetFields()
+            return stat
         }
 
-        private fun editStat() {
+        private fun getUpdatedStat(): Stat {
             val name = editTextName.text.toString()
             var value = editTextValue.text.toString()
 
@@ -119,11 +129,9 @@ class StatBottomSheetDialog(val viewModel: StatsViewModel,
                 value = Companion.DEFAULT_VALUE
             }
 
-            viewModel.updateStatValues(name,
-                    value,
-                    oldStat.charId,
-                    oldStat.id)
-            dialog?.dismiss()
+            val stat = Stat(name, value, oldStat.charId, oldStat.page)
+            stat.id = oldStat.id
+            return stat
         }
 
         private fun resetFields() {

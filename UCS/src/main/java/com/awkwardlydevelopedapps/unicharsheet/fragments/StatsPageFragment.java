@@ -1,22 +1,20 @@
 package com.awkwardlydevelopedapps.unicharsheet.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.awkwardlydevelopedapps.unicharsheet.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.models.Stat;
@@ -26,12 +24,15 @@ import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Objects;
 
 public class StatsPageFragment extends Fragment
         implements StatAdapter.StatUpdateListener,
-        DeleteDialog.NoticeDialogListener {
+        DeleteDialog.NoticeDialogListener,
+        StatBottomSheetDialog.StatNoticeDialogListener {
 
     private View rootView;
     private FloatingActionButton floatingActionButtonAdd;
@@ -90,15 +91,6 @@ public class StatsPageFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*viewModel.getAllStatsOfPage().observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
-            @Override
-            public void onChanged(List<Stat> stats) {
-                // UI update
-                adapter.setStats(stats);
-                statList = stats;
-            }
-        });*/
-
         viewModel.getStatsOfPage().observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
             @Override
             public void onChanged(List<Stat> stats) {
@@ -132,10 +124,11 @@ public class StatsPageFragment extends Fragment
     public void openStatEditDialog(int position) {
         Stat stat = statList.get(position);
         StatBottomSheetDialog bottomSheetDialog =
-                new StatBottomSheetDialog(viewModel, characterID, pageNumber);
+                new StatBottomSheetDialog(characterID, pageNumber);
         bottomSheetDialog.setTitle("Stat Edit");
         bottomSheetDialog.setOption(StatBottomSheetDialog.OPTION_EDIT);
         bottomSheetDialog.setOldStat(stat);
+        bottomSheetDialog.setStatNoticeDialogListener(StatsPageFragment.this);
         bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EDIT");
     }
 
@@ -160,6 +153,30 @@ public class StatsPageFragment extends Fragment
 
     public void sortStatsBy(int sortBy) {
         viewModel.sortBy(sortBy);
+    }
+
+    // StatBottomDialog
+    @Override
+    public void onPositiveClickAddStat(@NotNull DialogFragment dialog, @NotNull Stat stat) {
+        viewModel.insert(stat);
+    }
+
+    @Override
+    public void onPositiveClickEditStat(@NotNull DialogFragment dialog, @NotNull Stat stat) {
+        String msg = stat.getName() + " " + stat.getValue() + " " + stat.getCharId() + " " + stat.id;
+        Log.v("EDIT", msg);
+        viewModel.updateStatValues(
+                stat.getName(),
+                stat.getValue(),
+                stat.getCharId(),
+                stat.id
+        );
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onNegativeClick(@NotNull DialogFragment dialog) {
+
     }
 
     /**
@@ -193,8 +210,9 @@ public class StatsPageFragment extends Fragment
 
         private void showAddStatBottomSheet() {
             StatBottomSheetDialog bottomSheetDialog =
-                    new StatBottomSheetDialog(viewModel, characterID, pageNumber);
+                    new StatBottomSheetDialog(characterID, pageNumber);
             bottomSheetDialog.setTitle("Stat Creation");
+            bottomSheetDialog.setStatNoticeDialogListener(StatsPageFragment.this);
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
         }
     }

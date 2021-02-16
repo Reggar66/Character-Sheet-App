@@ -86,7 +86,7 @@
             android:layout_weight="3"
             android:hint="@string/stat_value_hint_dialog"
             android:inputType="numberSigned|number"
-            android:maxLength="3" />
+            android:maxLength="8" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
