@@ -7,19 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class SpellEditorBottomSheetDialog(private val viewModel: SpellsViewModel,
-                                   private val charId: Int,
-                                   private val spellId: Int) : BottomSheetDialogModel() {
+class SpellEditorBottomSheetDialog(var option: Int) : BottomSheetDialogModel() {
 
 
-    var option = 0
     var oldValue: String = ""
     private lateinit var editText: EditText
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveDialogListener(dialog: DialogFragment,
+                                     option: Int,
+                                     valueToUpdate: String)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_spell_editor, container, false)
@@ -28,7 +33,7 @@ class SpellEditorBottomSheetDialog(private val viewModel: SpellsViewModel,
         val textView: TextView = rootView.findViewById(R.id.dialogSpellEditor_textView_description)
         val fabApply: FloatingActionButton = rootView.findViewById(R.id.dialogSpellEditor_fab_apply)
         fabApply.setOnClickListener {
-            applyChanges()
+            noticeDialogListener?.onPositiveDialogListener(this, option, editText.text.toString())
             dialog?.dismiss()
         }
 
@@ -62,17 +67,6 @@ class SpellEditorBottomSheetDialog(private val viewModel: SpellsViewModel,
         editText.requestFocus()
 
         return rootView
-    }
-
-    private fun applyChanges() {
-        when (option) {
-            DESCRIPTION -> viewModel.updateDescription(editText.text.toString(), charId, spellId)
-            DAMAGE_VALUE -> viewModel.updateDmgValue(editText.text.toString(), charId, spellId)
-            DAMAGE_ADD_EFFECT -> viewModel.updateAddEffectValue(editText.text.toString(), charId, spellId)
-            COST_VALUE -> viewModel.updateCostValue(editText.text.toString(), charId, spellId)
-            COST_ADD_VALUE -> viewModel.updateAddCostValue(editText.text.toString(), charId, spellId)
-            SPECIAL_NOTES -> viewModel.updateSpecialNotes(editText.text.toString(), charId, spellId)
-        }
     }
 
     companion object {

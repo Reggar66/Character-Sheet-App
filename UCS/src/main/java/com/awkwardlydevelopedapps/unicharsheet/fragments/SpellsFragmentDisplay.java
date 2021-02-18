@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,7 +20,10 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel;
 
-public class SpellsFragmentDisplay extends Fragment {
+import org.jetbrains.annotations.NotNull;
+
+public class SpellsFragmentDisplay extends Fragment
+        implements SpellEditorBottomSheetDialog.NoticeDialogListener {
 
     private View rootView;
 
@@ -171,6 +175,31 @@ public class SpellsFragmentDisplay extends Fragment {
         this.spellID = spellID;
     }
 
+    @Override
+    public void onPositiveDialogListener(@NotNull DialogFragment dialog, int option, @NotNull String valueToUpdate) {
+        switch (option) {
+            case SpellEditorBottomSheetDialog.DESCRIPTION:
+                viewModel.updateDescription(valueToUpdate, characterID, spellID);
+                break;
+            case SpellEditorBottomSheetDialog.DAMAGE_VALUE:
+                viewModel.updateDmgValue(valueToUpdate, characterID, spellID);
+                break;
+            case SpellEditorBottomSheetDialog.DAMAGE_ADD_EFFECT:
+                viewModel.updateAddEffectValue(valueToUpdate, characterID, spellID);
+                break;
+            case SpellEditorBottomSheetDialog.COST_VALUE:
+                viewModel.updateCostValue(valueToUpdate, characterID, spellID);
+                break;
+            case SpellEditorBottomSheetDialog.COST_ADD_VALUE:
+                viewModel.updateAddCostValue(valueToUpdate, characterID, spellID);
+                break;
+            case SpellEditorBottomSheetDialog.SPECIAL_NOTES:
+                viewModel.updateSpecialNotes(valueToUpdate, characterID, spellID);
+                break;
+        }
+    }
+
+
     /**
      * Interfaces
      */
@@ -208,8 +237,8 @@ public class SpellsFragmentDisplay extends Fragment {
 
         private void showBottomEditDialog() {
             SpellEditorBottomSheetDialog bottomSheetDialog =
-                    new SpellEditorBottomSheetDialog(viewModel, characterID, spellID);
-            bottomSheetDialog.setOption(option);
+                    new SpellEditorBottomSheetDialog(option);
+            bottomSheetDialog.setNoticeDialogListener(SpellsFragmentDisplay.this);
             bottomSheetDialog.setOldValue(getOldValue());
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_SPELL_EDITOR");
         }
