@@ -11,8 +11,7 @@ import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.PocketViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
-                              private val charId: Int) : BottomSheetDialogModel() {
+class PocketBottomSheetDialog() : BottomSheetDialogModel() {
 
     var option: Int = 0
     var currencyType: String? = ""
@@ -23,6 +22,12 @@ class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
     lateinit var editTextValue: EditText
     lateinit var editTextMaxValue: EditText
 
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveClickListener(option: Int, updateValue: String, updateMaxValue: String, currencyType: String?)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_pocket_fragment, container, false)
         editTextValue = rootView.findViewById(R.id.pocketDialog_editText_value)
@@ -32,7 +37,12 @@ class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
         val textViewMaxVal = rootView.findViewById<TextView>(R.id.pocketDialog_textView_maxValue)
         val fabApply: FloatingActionButton = rootView.findViewById(R.id.pocketDialog_fab_apply)
         fabApply.setOnClickListener {
-            applyChanges()
+            noticeDialogListener?.onPositiveClickListener(
+                    option,
+                    getUpdateValue(),
+                    getUpdateMaxValue(),
+                    currencyType
+            )
             dialog?.dismiss()
         }
 
@@ -47,35 +57,22 @@ class PocketBottomSheetDialog(private val viewModel: PocketViewModel,
         return rootView
     }
 
-    private fun applyChanges() {
-
+    private fun getUpdateValue(): String {
         var updateValue = "0"
-        var updateMaxValue = "0"
-
         if (editTextValue.text.isNotEmpty()) {
             updateValue = editTextValue.text.toString()
         }
 
+        return updateValue
+    }
+
+    private fun getUpdateMaxValue(): String {
+        var updateMaxValue = "0"
         if (editTextMaxValue.text.isNotEmpty()) {
             updateMaxValue = editTextMaxValue.text.toString()
         }
 
-        when (option) {
-            CURRENCY -> {
-                viewModel.updateCurrencyWithMaxValue(updateValue,
-                        updateMaxValue,
-                        charId,
-                        currencyType)
-            }
-            EXPERIENCE -> {
-                viewModel.updateExperienceWithMaxValue(updateValue.toInt(),
-                        updateMaxValue.toInt(),
-                        charId)
-            }
-            LEVEL -> {
-                viewModel.updateLevel(updateValue.toInt(), charId)
-            }
-        }
+        return updateMaxValue
     }
 
     companion object {

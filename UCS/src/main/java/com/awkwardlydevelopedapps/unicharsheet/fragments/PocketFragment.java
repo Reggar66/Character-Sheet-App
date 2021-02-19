@@ -22,9 +22,12 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Level;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.PocketViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
-public class PocketFragment extends Fragment {
+public class PocketFragment extends Fragment
+        implements PocketBottomSheetDialog.NoticeDialogListener {
 
     private View rootView;
     private int characterID;
@@ -254,13 +257,37 @@ public class PocketFragment extends Fragment {
         textViewLvl.setText(levelValue);
     }
 
+    @Override
+    public void onPositiveClickListener(int option, @NotNull String updateValue, @NotNull String updateMaxValue, @NonNull String currencyType) {
+        switch (option) {
+            case PocketBottomSheetDialog.CURRENCY:
+                viewModel.updateCurrencyWithMaxValue(
+                        updateValue,
+                        updateMaxValue,
+                        characterID,
+                        currencyType
+                );
+                break;
+            case PocketBottomSheetDialog.EXPERIENCE:
+                viewModel.updateExperienceWithMaxValue(
+                        Integer.parseInt(updateValue),
+                        Integer.parseInt(updateMaxValue),
+                        characterID
+                );
+                break;
+            case PocketBottomSheetDialog.LEVEL:
+                viewModel.updateLevel(Integer.parseInt(updateValue), characterID);
+                break;
+        }
+    }
+
     /**
      * Inner classes
      */
 
     private class CurrencySeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
-        private String type;
+        private final String type;
 
         CurrencySeekBarListener(String type) {
             this.type = type;
@@ -306,8 +333,8 @@ public class PocketFragment extends Fragment {
 
     private class OnValueClickListener implements View.OnClickListener {
 
-        private int option;
-        private String currencyType;
+        private final int option;
+        private final String currencyType;
 
         private String oldValue = "0";
         private String oldMaxValue = "0";
@@ -359,7 +386,8 @@ public class PocketFragment extends Fragment {
         private void showBottomDialog() {
 
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog(viewModel, characterID);
+                    new PocketBottomSheetDialog();
+            bottomSheetDialog.setNoticeDialogListener(PocketFragment.this);
             bottomSheetDialog.setOption(this.option);
             bottomSheetDialog.setCurrencyType(this.currencyType);
             bottomSheetDialog.setOldValue(oldValue);
@@ -370,7 +398,7 @@ public class PocketFragment extends Fragment {
 
     private class LevelOnClickListener implements View.OnClickListener {
 
-        private int option;
+        private final int option;
 
         public static final int ADD = 0;
         public static final int SUB = 1;
@@ -407,7 +435,8 @@ public class PocketFragment extends Fragment {
 
         private void showBottomDialog() {
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog(viewModel, characterID);
+                    new PocketBottomSheetDialog();
+            bottomSheetDialog.setNoticeDialogListener(PocketFragment.this);
             bottomSheetDialog.setOption(PocketBottomSheetDialog.LEVEL);
             bottomSheetDialog.setOldValue(String.valueOf(viewModel.getLevel().getValue()));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
