@@ -9,19 +9,23 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.adapters.IconsSpellAdapter
-import com.awkwardlydevelopedapps.unicharsheet.data.ImageContract
 import com.awkwardlydevelopedapps.unicharsheet.models.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.models.Icon
 import com.awkwardlydevelopedapps.unicharsheet.models.Spell
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.SpellsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class SpellCreateBottomSheetDialog(private val viewModel: SpellsViewModel,
-                                   private val charId: Int) : BottomSheetDialogModel(),
+class SpellCreateBottomSheetDialog() : BottomSheetDialogModel(),
         IconsSpellAdapter.ItemDataCallback {
 
     lateinit var editTextSpellName: EditText
     lateinit var icon: Icon
+
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveClickListenerSpellCreate(spellName: String, iconName: String)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_spells, container, false)
@@ -30,7 +34,10 @@ class SpellCreateBottomSheetDialog(private val viewModel: SpellsViewModel,
         editTextSpellName.requestFocus()
         val fab: FloatingActionButton = rootView.findViewById(R.id.fab_spellCreation_bottomDialog)
         fab.setOnClickListener {
-            createSpell()
+            noticeDialogListener?.onPositiveClickListenerSpellCreate(
+                    editTextSpellName.text.toString(),
+                    icon.iconName
+            )
             dialog?.dismiss()
         }
 
@@ -46,19 +53,7 @@ class SpellCreateBottomSheetDialog(private val viewModel: SpellsViewModel,
         return rootView
     }
 
-    private fun createSpell() {
-        viewModel.insert(Spell(editTextSpellName.text.toString(),
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                icon.iconName,
-                charId))
-    }
-
-    override fun getIcon(icon: Icon) {
+    override fun setIconForDialog(icon: Icon) {
         this.icon = icon
     }
 }

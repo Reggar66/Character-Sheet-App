@@ -14,7 +14,7 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Icon
 class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<IconsSpellAdapter.ViewHolder>() {
 
     interface ItemDataCallback {
-        fun getIcon(icon: Icon)
+        fun setIconForDialog(icon: Icon)
     }
 
     internal lateinit var callback: ItemDataCallback
@@ -50,7 +50,7 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
             val icon: Icon = mIcons[adapterPosition]
             icon.selected = true
             notifyItemChanged(adapterPosition)
-            callback.getIcon(icon)
+            callback.setIconForDialog(icon)
         }
     }
 

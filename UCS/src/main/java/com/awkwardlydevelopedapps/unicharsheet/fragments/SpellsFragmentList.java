@@ -28,13 +28,16 @@ import android.view.ViewGroup;
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Objects;
 
 public class SpellsFragmentList extends Fragment
         implements
         DeleteDialog.NoticeDialogListener,
-        PopupOnSortClickListener {
+        PopupOnSortClickListener,
+        SpellCreateBottomSheetDialog.NoticeDialogListener {
 
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
@@ -155,6 +158,21 @@ public class SpellsFragmentList extends Fragment
         // No values to sort by
     }
 
+    @Override
+    public void onPositiveClickListenerSpellCreate(@NotNull String spellName, @NotNull String iconName) {
+        viewModel.insert(new Spell(
+                spellName,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                iconName,
+                characterID
+        ));
+    }
+
     /**
      * Interfaces
      */
@@ -176,8 +194,8 @@ public class SpellsFragmentList extends Fragment
 
         private void showCreationBottomDialog() {
             SpellCreateBottomSheetDialog bottomSheetDialog =
-                    new SpellCreateBottomSheetDialog(viewModel, characterID);
-
+                    new SpellCreateBottomSheetDialog();
+            bottomSheetDialog.setNoticeDialogListener(SpellsFragmentList.this);
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
         }
     }
