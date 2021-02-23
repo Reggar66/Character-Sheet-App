@@ -18,6 +18,7 @@ import com.awkwardlydevelopedapps.unicharsheet.adapters.NotesListAdapter
 import com.awkwardlydevelopedapps.unicharsheet.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.fragments.dialogs.NoteBottomSheetDialog
+import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,7 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class NotesFragmentList : Fragment(),
         NotesListAdapter.OnItemClickListener,
         DeleteDialog.NoticeDialogListener,
-        PopupOnSortClickListener {
+        PopupOnSortClickListener,
+        NoteBottomSheetDialog.NoticeDialogListener {
 
     val adapter = NotesListAdapter()
     private var characterID = 0
@@ -116,6 +118,9 @@ class NotesFragmentList : Fragment(),
         // Not used
     }
 
+    override fun onPositiveButtonListener(title: String, note: String) {
+        viewModel.insert(Note(title, note, characterID))
+    }
 
     /**
      * Inner classes
@@ -123,7 +128,9 @@ class NotesFragmentList : Fragment(),
 
     inner class AddNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
-            val bottomDialog = NoteBottomSheetDialog(viewModel, characterID)
+            val bottomDialog = NoteBottomSheetDialog().apply {
+                noticeDialogListener = this@NotesFragmentList
+            }
             bottomDialog.show(parentFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
         }
 

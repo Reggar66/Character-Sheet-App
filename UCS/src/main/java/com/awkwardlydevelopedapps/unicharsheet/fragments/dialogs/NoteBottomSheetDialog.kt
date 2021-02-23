@@ -11,11 +11,16 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Note
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class NoteBottomSheetDialog(private val viewModel: NoteViewModel,
-                            private val charId: Int) : BottomSheetDialogModel() {
+class NoteBottomSheetDialog() : BottomSheetDialogModel() {
 
     private lateinit var editTextTitle: EditText
     private lateinit var editTextNote: EditText
+
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveButtonListener(title: String, note: String)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_note, container, false)
@@ -26,18 +31,14 @@ class NoteBottomSheetDialog(private val viewModel: NoteViewModel,
 
         val fabAdd = rootView.findViewById<FloatingActionButton>(R.id.dialogNote_fab_apply)
         fabAdd.setOnClickListener {
-            createNote()
+            //createNote()
+            noticeDialogListener?.onPositiveButtonListener(
+                    editTextTitle.text.toString(),
+                    editTextNote.text.toString()
+            )
             dismiss() //dismiss dialog
         }
 
         return rootView
     }
-
-    private fun createNote() {
-        val title = editTextTitle.text.toString()
-        val note = editTextNote.text.toString()
-        viewModel.insert(Note(title, note, charId))
-    }
-
-
 }
