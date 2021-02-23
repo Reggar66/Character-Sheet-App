@@ -11,13 +11,18 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Item
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.BackpackViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ItemBottomSheetDialog(private val viewModel: BackpackViewModel,
-                            private val charId: Int) : BottomSheetDialogModel() {
+class ItemBottomSheetDialog() : BottomSheetDialogModel() {
 
     var option = 0
     private lateinit var editTextName: EditText
     private lateinit var editTextQuantity: EditText
     var oldItem: Item? = null
+
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveClickListener(option: Int, itemName: String, quantity: String, oldItem: Item?)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_items, container, false)
@@ -41,30 +46,15 @@ class ItemBottomSheetDialog(private val viewModel: BackpackViewModel,
 
         val fabApply: FloatingActionButton = rootView.findViewById(R.id.itemsDialog_fab_apply)
         fabApply.setOnClickListener {
-            applyChanges()
+            noticeDialogListener?.onPositiveClickListener(
+                    option,
+                    editTextName.text.toString(),
+                    editTextQuantity.text.toString(),
+                    oldItem)
             dialog?.dismiss()
         }
 
         return rootView
-    }
-
-    private fun applyChanges() {
-        when (option) {
-            ADD -> {
-                viewModel.insert(Item(editTextName.text.toString(),
-                        editTextQuantity.text.toString(),
-                        charId))
-            }
-
-            EDIT -> {
-                if (oldItem != null) {
-                    viewModel.updateItem(editTextName.text.toString(),
-                            editTextQuantity.text.toString(),
-                            charId,
-                            oldItem!!.id)
-                }
-            }
-        }
     }
 
     companion object {

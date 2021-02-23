@@ -25,12 +25,15 @@ import com.awkwardlydevelopedapps.unicharsheet.viewModels.BackpackViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Objects;
 
 public class BackpackFragment extends Fragment
         implements DeleteDialog.NoticeDialogListener,
-        PopupOnSortClickListener {
+        PopupOnSortClickListener,
+        ItemBottomSheetDialog.NoticeDialogListener {
 
     private View rootView;
     private int characterID;
@@ -141,6 +144,19 @@ public class BackpackFragment extends Fragment
         viewModel.orderBy(Sort.BY_VALUE_DESC);
     }
 
+    //BottomDialog
+    @Override
+    public void onPositiveClickListener(int option, @NotNull String itemName, @NotNull String quantity, Item oldItem) {
+        switch (option) {
+            case ItemBottomSheetDialog.ADD:
+                viewModel.insert(new Item(itemName, quantity, characterID));
+                break;
+            case ItemBottomSheetDialog.EDIT:
+                viewModel.updateItem(itemName, quantity, characterID, oldItem.id);
+                break;
+        }
+    }
+
     /**
      * Listener private classes
      */
@@ -153,7 +169,8 @@ public class BackpackFragment extends Fragment
 
         private void showBottomDialog() {
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog(viewModel, characterID);
+                    new ItemBottomSheetDialog();
+            bottomSheetDialog.setNoticeDialogListener(BackpackFragment.this);
             bottomSheetDialog.setOption(ItemBottomSheetDialog.ADD);
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_ITEM");
         }
@@ -204,7 +221,8 @@ public class BackpackFragment extends Fragment
 
         private void showBottomDialog(int position) {
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog(viewModel, characterID);
+                    new ItemBottomSheetDialog();
+            bottomSheetDialog.setNoticeDialogListener(BackpackFragment.this);
             bottomSheetDialog.setOption(ItemBottomSheetDialog.EDIT);
             bottomSheetDialog.setOldItem(viewModel.getItemList().get(position));
             bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");
