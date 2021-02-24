@@ -21,9 +21,12 @@ import com.awkwardlydevelopedapps.unicharsheet.models.Equipment;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.viewModels.EquipmentViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
-public class EquipmentFragment extends Fragment {
+public class EquipmentFragment extends Fragment
+        implements EquipmentBottomSheetDialog.NoticeDialogListener {
 
     private View rootView;
     private int characterID;
@@ -275,13 +278,25 @@ public class EquipmentFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPositiveClickListener(@NotNull String name, @NotNull String type, @NotNull String value, @NotNull String additionalEffect, @NotNull String slot) {
+        viewModel.updateEquipment(
+                name,
+                type,
+                value,
+                additionalEffect,
+                slot,
+                characterID
+        );
+    }
+
     /**
      * Inner classes
      */
 
     private class SlotOnClick implements View.OnClickListener {
 
-        private String slot;
+        private final String slot;
 
         SlotOnClick(String slot) {
             this.slot = slot;
@@ -329,8 +344,9 @@ public class EquipmentFragment extends Fragment {
 
         private void showEditBottomDialog() {
             EquipmentBottomSheetDialog bottomSheetDialog =
-                    new EquipmentBottomSheetDialog(requireContext(), viewModel, slotCurrentlySelected, characterID);
+                    new EquipmentBottomSheetDialog(requireContext(), slotCurrentlySelected);
 
+            bottomSheetDialog.setNoticeDialogListener(EquipmentFragment.this);
             bottomSheetDialog.setOldValues(textViewItemName.getText().toString(),
                     textViewItemArmorType.getText().toString(),
                     textViewItemArmorValue.getText().toString(),

@@ -12,9 +12,8 @@ import com.awkwardlydevelopedapps.unicharsheet.viewModels.EquipmentViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EquipmentBottomSheetDialog(private val mContext: Context,
-                                 private val viewModel: EquipmentViewModel,
-                                 private val slot: String,
-                                 private val charId: Int) : BottomSheetDialogModel() {
+                                 private val slot: String
+) : BottomSheetDialogModel() {
 
     lateinit var editTextName: EditText
     lateinit var editTextType: EditText
@@ -26,6 +25,11 @@ class EquipmentBottomSheetDialog(private val mContext: Context,
     var oldValue = ""
     var oldAdditionalEffect = ""
 
+    var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveClickListener(name: String, type: String, value: String, additionalEffect: String, slot: String)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_equipment, container, false)
@@ -64,7 +68,15 @@ class EquipmentBottomSheetDialog(private val mContext: Context,
 
         val fab: FloatingActionButton = rootView.findViewById(R.id.floatingActionButton)
         fab.setOnClickListener {
-            updateEquipment()
+            //updateEquipment()
+            noticeDialogListener?.onPositiveClickListener(
+                    editTextName.text.toString(),
+                    editTextType.text.toString(),
+                    editTextValue.text.toString(),
+                    editTextAdditionalEffects.text.toString(),
+                    slot
+            )
+            dismiss()
         }
 
         return rootView
@@ -85,16 +97,5 @@ class EquipmentBottomSheetDialog(private val mContext: Context,
 
         if (oldAdditionalEffect != mContext.resources.getString(R.string.eq_no_additional_effects))
             this.oldAdditionalEffect = oldAdditionalEffect
-    }
-
-    private fun updateEquipment() {
-        viewModel.updateEquipment(editTextName.text.toString(),
-                editTextType.text.toString(),
-                editTextValue.text.toString(),
-                editTextAdditionalEffects.text.toString(),
-                slot,
-                charId)
-
-        dialog?.dismiss()
     }
 }
