@@ -38,6 +38,8 @@ class NotesFragmentList : Fragment(),
 
     private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
 
+    lateinit var parentNotesFragment: NotesFragment
+
     interface ChangeFragmentCallback {
         fun changeToDisplayNote(noteId: Int)
     }
@@ -69,8 +71,7 @@ class NotesFragmentList : Fragment(),
         recyclerView.adapter = this.adapter
         recyclerView.addOnScrollListener(FabHideListener())
 
-        // Set popup menu listener for sorting
-        (targetFragment as NotesFragment).popupOnSortClickListener = this
+        parentNotesFragment.popupOnSortClickListener = this
 
         return rootView
     }

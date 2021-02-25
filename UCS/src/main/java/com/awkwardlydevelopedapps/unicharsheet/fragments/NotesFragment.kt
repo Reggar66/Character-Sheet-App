@@ -95,10 +95,10 @@ class NotesFragment : Fragment(),
     }
 
     private fun getNewNotesFragmentList(): Fragment {
-        val fragmentList = NotesFragmentList()
-        fragmentList.changeFragmentCallback = this
-        fragmentList.setTargetFragment(this, 0)
-        return fragmentList
+        return NotesFragmentList().apply {
+            changeFragmentCallback = this@NotesFragment
+            parentNotesFragment = this@NotesFragment
+        }
     }
 
     override fun changeToDisplayNote(noteId: Int) {
