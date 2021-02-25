@@ -45,6 +45,8 @@ public class BackpackFragment extends Fragment
 
     private BackpackViewModel viewModel;
 
+    private InventoryFragment parentInventoryFragment;
+
     public BackpackFragment() {
 
     }
@@ -81,6 +83,9 @@ public class BackpackFragment extends Fragment
         viewModel = new ViewModelProvider(this,
                 new BackpackViewModel.BackpackViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(BackpackViewModel.class);
+
+        parentInventoryFragment.setPopupOnSortClickListener(this);
+        
         return rootView;
     }
 
@@ -88,7 +93,7 @@ public class BackpackFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((InventoryFragment) getTargetFragment()).setPopupOnSortClickListener(this);
+        //((InventoryFragment) getTargetFragment()).setPopupOnSortClickListener(this);
 
         viewModel.getAllItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
             @Override
@@ -155,6 +160,10 @@ public class BackpackFragment extends Fragment
                 viewModel.updateItem(itemName, quantity, characterID, oldItem.id);
                 break;
         }
+    }
+
+    public void setParentInventoryFragment(InventoryFragment parentInventoryFragment) {
+        this.parentInventoryFragment = parentInventoryFragment;
     }
 
     /**

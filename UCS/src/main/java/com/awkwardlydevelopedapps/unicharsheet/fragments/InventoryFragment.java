@@ -86,8 +86,8 @@ public class InventoryFragment extends Fragment {
         viewBackpack.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_backpack);
         tabLayout.addTab(tabLayout.newTab().setCustomView(viewBackpack));
 
-        //sets target fragment to this, so we can retrieve it inside backpack and set listener
-        backpackFragment.setTargetFragment(this, 0);
+        //sets parent fragment, so we can retrieve it inside backpack and set listener
+        backpackFragment.setParentInventoryFragment(this);
 
         return rootView;
     }
