@@ -120,7 +120,7 @@ public class SpellsFragment extends Fragment
     private Fragment getNewSpellsFragmentList() {
         SpellsFragmentList spellsFragmentList = new SpellsFragmentList();
         spellsFragmentList.setChangeFragmentCallback(SpellsFragment.this);
-        spellsFragmentList.setTargetFragment(this, 0);
+        spellsFragmentList.setParentSpellsFragment(this);
         return spellsFragmentList;
     }
 

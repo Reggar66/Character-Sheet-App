@@ -54,6 +54,8 @@ public class SpellsFragmentList extends Fragment
 
     private ChangeFragmentCallback callback;
 
+    private SpellsFragment parentSpellsFragment;
+
     public SpellsFragmentList() {
 
     }
@@ -93,7 +95,7 @@ public class SpellsFragmentList extends Fragment
                 new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(SpellsViewModel.class);
 
-        ((SpellsFragment) getTargetFragment()).setPopupOnSortClickListener(this);
+        parentSpellsFragment.setPopupOnSortClickListener(this);
 
         return rootView;
     }
@@ -171,6 +173,10 @@ public class SpellsFragmentList extends Fragment
                 iconName,
                 characterID
         ));
+    }
+
+    public void setParentSpellsFragment(SpellsFragment parentSpellsFragment) {
+        this.parentSpellsFragment = parentSpellsFragment;
     }
 
     /**
