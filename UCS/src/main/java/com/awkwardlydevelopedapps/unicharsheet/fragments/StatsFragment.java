@@ -23,6 +23,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.awkwardlydevelopedapps.unicharsheet.AppReviewSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.ExecSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.MainActivity;
 import com.awkwardlydevelopedapps.unicharsheet.R;
@@ -107,7 +108,7 @@ public class StatsFragment extends Fragment
         }
         viewPager.setAdapter(adapter);
 
-        ((MainActivity) requireActivity()).inAppReview();
+        AppReviewSingleton.INSTANCE.inAppReview(requireContext(), requireActivity());
 
     }
 
