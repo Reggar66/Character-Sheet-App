@@ -9,12 +9,6 @@
 
         <item name="android:alertDialogTheme">@style/AppDialogFragmentTheme</item>
         <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
-        <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
-    </style>
-
-    <!-- Preferences style -->
-    <style name="AppTheme.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
-        <item name="android:layout">@layout/fragment_settings</item>
     </style>
 
     <!-- Style for dialog fragments -->

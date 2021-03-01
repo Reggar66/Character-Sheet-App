@@ -22,15 +22,13 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 
-public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
+public class PreferenceFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
 
     private final static String NUMBER_OF_TABS = "NUMBER_OF_TABS";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        setUpToolbar(view);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
         EditTextPreference editTextPreferenceTabsNumber = findPreference(NUMBER_OF_TABS);
         if (editTextPreferenceTabsNumber != null)
-            editTextPreferenceTabsNumber.setOnPreferenceChangeListener(SettingsFragment.this);
+            editTextPreferenceTabsNumber.setOnPreferenceChangeListener(PreferenceFragment.this);
 
         Preference preferenceConsent = findPreference("consent");
         if (preferenceConsent != null) {
@@ -57,29 +55,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        switch (preference.getKey()) {
-            case NUMBER_OF_TABS:
-                if (Integer.parseInt((String) newValue) >= 3) {
-                    Toast.makeText(requireContext(), "Changed to " + newValue + " pages.", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else {
-                    Toast.makeText(requireContext(), "Not changed. Minimum number is 3.", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            default:
+        if (NUMBER_OF_TABS.equals(preference.getKey())) {
+            if (Integer.parseInt((String) newValue) >= 3) {
+                Toast.makeText(
+                        requireContext(),
+                        "Changed to " + newValue + " pages.",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+            } else {
+                Toast.makeText(
+                        requireContext(),
+                        "Not changed. Minimum number is 3.",
+                        Toast.LENGTH_SHORT)
+                        .show();
                 return false;
+            }
         }
-    }
-
-    private void setUpToolbar(View view) {
-        NavController navController = Navigation.findNavController(view);
-
-        Toolbar toolbar = view.findViewById(R.id.toolbar_settings_fragment);
-        toolbar.setTitle(R.string.settings);
-
-        // Setup with Navigation Controller
-        NavigationUI.setupWithNavController(
-                toolbar, navController);
+        return false;
     }
 
     /**
