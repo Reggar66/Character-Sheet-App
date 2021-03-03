@@ -136,7 +136,7 @@ public class CharacterCreationFragment extends Fragment {
 
 
     private Runnable taskCreateAndAddCharacter() {
-        return () -> createAndAddCharacter();
+        return this::createAndAddCharacter;
     }
 
     private void createAndAddCharacter() {
@@ -157,12 +157,6 @@ public class CharacterCreationFragment extends Fragment {
 
         // Preset check
         checkPresetToAdd();
-
-
-        //Go back to CharacterList
-        NavHostFragment
-                .findNavController(this)
-                .navigate(CharacterCreationFragmentDirections.actionCharacterCreationFragmentToCharacterListFragment());
     }
 
     private void checkPresetToAdd() {
@@ -235,6 +229,11 @@ public class CharacterCreationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             ExecSingleton.getInstance().execute(taskCreateAndAddCharacter());
+
+            //Go back to CharacterList
+            NavHostFragment
+                    .findNavController(CharacterCreationFragment.this)
+                    .navigate(CharacterCreationFragmentDirections.actionCharacterCreationFragmentToCharacterListFragment());
         }
     }
 }
