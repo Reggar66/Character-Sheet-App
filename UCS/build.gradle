@@ -27,8 +27,8 @@ android {
         applicationId "com.awkwardlydevelopedapps.unicharsheet"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 22
-        versionName "1.5.1"
+        versionCode 23
+        versionName "1.5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Fields defined with usage of apikey.properties
