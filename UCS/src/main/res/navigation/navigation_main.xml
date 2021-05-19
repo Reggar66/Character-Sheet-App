@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterCreationFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.CharacterCreationFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.fragments.CharacterCreationFragment"
         tools:layout="@layout/fragment_character_creation">
         <action
             android:id="@+id/action_characterCreationFragment_to_characterListFragment"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterListFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.CharacterListFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.fragments.CharacterListFragment"
         tools:layout="@layout/fragment_character_list">
         <action
             android:id="@+id/action_characterListFragment_to_characterCreationFragment"
@@ -71,12 +71,12 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.AboutFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.common.fragments.AboutFragment"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/statsFragment"
         tools:layout="@layout/fragment_stats"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.StatsFragment">
+        android:name="com.awkwardlydevelopedapps.unicharsheet.stats.StatsFragment">
         <action
             android:id="@+id/action_statsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/inventoryFragment"
         tools:layout="@layout/fragment_inventory"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.InventoryFragment">
+        android:name="com.awkwardlydevelopedapps.unicharsheet.inventory.InventoryFragment">
         <action
             android:id="@+id/action_inventoryFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
@@ -100,7 +100,7 @@
     <fragment
         tools:layout="@layout/fragment_spells"
         android:id="@+id/spellsFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.SpellsFragment">
+        android:name="com.awkwardlydevelopedapps.unicharsheet.abilities.fragments.SpellsFragment">
         <action
             android:id="@+id/action_spellsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
@@ -111,10 +111,10 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.SettingsFragment" />
+        android:name="com.awkwardlydevelopedapps.unicharsheet.settings.SettingsFragment" />
     <fragment
         android:id="@+id/notesFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.fragments.NotesFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.notes.NotesFragment"
         android:label="NotesFragment">
         <action
             android:id="@+id/action_notesFragment_to_aboutFragment"

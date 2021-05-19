@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.View;
 
+import com.awkwardlydevelopedapps.unicharsheet.service.AdSingleton;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //AdSingleton.Instance().enableTestDevice();
+        AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
         AdSingleton.Instance().adInit(this);
         AdView adView = findViewById(R.id.adView);
