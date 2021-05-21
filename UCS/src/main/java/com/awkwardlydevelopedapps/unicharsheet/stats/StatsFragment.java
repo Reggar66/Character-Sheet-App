@@ -19,7 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.awkwardlydevelopedapps.unicharsheet.service.AppReviewSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.common.utils.ExecSingleton;
@@ -36,6 +36,7 @@ import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.PresetAddBottomShee
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatTabNameChangeBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +49,7 @@ public class StatsFragment extends Fragment
         StatTabNameChangeBottomSheetDialog.OnApplyStatTabNameListener {
 
     private StatTabsAdapter adapter;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private TabLayout tabLayout;
 
     private int characterId;
@@ -75,13 +76,11 @@ public class StatsFragment extends Fragment
         characterRace = dataHolderViewModel.getRaceName();
         characterIconId = dataHolderViewModel.getImageResourceID();
 
-        adapter = new StatTabsAdapter(getChildFragmentManager());
-        viewPager = rootView.findViewById(R.id.viewPager);
+        adapter = new StatTabsAdapter(requireActivity());
+        viewPager = rootView.findViewById(R.id.stat_viewPager);
         viewPager.setOffscreenPageLimit(3);
 
         tabLayout = rootView.findViewById(R.id.tabLayout);
-        // Connect TabLayout with a ViewPager
-        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new OnTabSelected());
 
         return rootView;
@@ -101,12 +100,17 @@ public class StatsFragment extends Fragment
             StatsPageFragment statsPage = new StatsPageFragment();
             statsPage.setPage(position + 1); //Page number in DB is stored from #1, so we add 1 to position
             adapter.addFragment(statsPage, tabName, position);
-
         }
+
         viewPager.setAdapter(adapter);
 
-        AppReviewSingleton.INSTANCE.inAppReview(requireContext(), requireActivity());
+        // Connect viewPager with TabLayout via mediator
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(adapter.getTitle(position)))
+                .attach();
 
+        // Initialize app review
+        AppReviewSingleton.INSTANCE.inAppReview(requireContext(), requireActivity());
     }
 
     @Override
@@ -152,7 +156,7 @@ public class StatsFragment extends Fragment
 
     public void createNewTab() {
         // Create new tab
-        int pos = adapter.getCount();
+        int pos = adapter.getItemCount();
         StatsPageFragment statsPage = new StatsPageFragment();
         statsPage.setPage(pos + 1);
         adapter.addFragment(statsPage, "STATS " + pos, pos);
@@ -160,19 +164,19 @@ public class StatsFragment extends Fragment
         // Save number of tabs in SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getCount()));
+        editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getItemCount()));
         editor.apply();
 
         // Notify about changes
         adapter.notifyDataSetChanged();
         // Go to new tab
-        viewPager.setCurrentItem(adapter.getCount());
+        viewPager.setCurrentItem(adapter.getItemCount());
         // Load tab names
         loadTabNames();
     }
 
     public void removeTab() {
-        if (adapter.getCount() == 3)
+        if (adapter.getItemCount() == 3)
             return;
 
         // Remove
@@ -182,7 +186,7 @@ public class StatsFragment extends Fragment
         // Save number of tabs
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getCount()));
+        editor.putString(NUMBER_OF_TABS, String.valueOf(adapter.getItemCount()));
         editor.apply();
 
         // Notify about changes
@@ -205,7 +209,7 @@ public class StatsFragment extends Fragment
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String name;
 
-        for (int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getItemCount(); i++) {
             name = sharedPreferences.getString(TAB_NAME + i, "STATS " + i);
             Objects.requireNonNull(tabLayout.getTabAt(i)).setText(name);
         }
