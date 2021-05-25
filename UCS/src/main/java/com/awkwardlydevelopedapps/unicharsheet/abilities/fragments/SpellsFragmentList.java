@@ -209,8 +209,8 @@ public class SpellsFragmentList extends Fragment
         @Override
         public void onClick(View view) {
             DeleteDialog deleteDialog = new DeleteDialog();
-            deleteDialog.setTargetFragment(SpellsFragmentList.this, 0);
-            deleteDialog.show(getParentFragmentManager(), "DELETE_SPELLS_DIALOG");
+            deleteDialog.setNoticeDialogListener(SpellsFragmentList.this)
+                    .show(getParentFragmentManager(), "DELETE_SPELLS_DIALOG");
         }
     }
 

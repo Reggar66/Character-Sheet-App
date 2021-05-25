@@ -46,11 +46,18 @@ class NotesFragmentList : Fragment(),
         super.onCreate(savedInstanceState)
 
         characterID = dataHolderViewModel.characterID
-        viewModel = ViewModelProvider(this, NoteViewModel.NoteViewModelFactory(requireActivity().application, characterID))
-                .get(NoteViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            NoteViewModel.NoteViewModelFactory(requireActivity().application, characterID)
+        )
+            .get(NoteViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_notes_list, container, false)
 
         fabAddNote = rootView.findViewById(R.id.add_button_notes)
@@ -145,8 +152,8 @@ class NotesFragmentList : Fragment(),
         override fun onClick(p0: View?) {
             val deleteDialog =
                 DeleteDialog()
-            deleteDialog.setTargetFragment(this@NotesFragmentList, 0)
-            deleteDialog.show(parentFragmentManager, "DIALOG_DELETE_NOTES")
+            deleteDialog.setNoticeDialogListener(this@NotesFragmentList)
+                .show(parentFragmentManager, "DIALOG_DELETE_NOTES")
         }
 
     }

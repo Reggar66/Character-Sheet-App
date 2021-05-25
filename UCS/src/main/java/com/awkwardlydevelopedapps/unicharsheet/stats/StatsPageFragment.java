@@ -222,8 +222,8 @@ public class StatsPageFragment extends Fragment
         @Override
         public void onClick(View view) {
             DeleteDialog deleteDialog = new DeleteDialog();
-            deleteDialog.setTargetFragment(StatsPageFragment.this, 0);
-            deleteDialog.show(getParentFragmentManager(), "DELETE_STATS_DIALOG");
+            deleteDialog.setNoticeDialogListener(StatsPageFragment.this)
+                    .show(getParentFragmentManager(), "DELETE_STATS_DIALOG");
         }
     }
 

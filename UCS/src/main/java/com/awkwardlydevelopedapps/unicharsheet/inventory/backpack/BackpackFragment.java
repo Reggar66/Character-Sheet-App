@@ -85,7 +85,7 @@ public class BackpackFragment extends Fragment
                 .get(BackpackViewModel.class);
 
         parentInventoryFragment.setPopupOnSortClickListener(this);
-        
+
         return rootView;
     }
 
@@ -190,8 +190,8 @@ public class BackpackFragment extends Fragment
         @Override
         public void onClick(View view) {
             DeleteDialog deleteDialog = new DeleteDialog();
-            deleteDialog.setTargetFragment(BackpackFragment.this, 0);
-            deleteDialog.show(getParentFragmentManager(), "DELETE_DIALOG");
+            deleteDialog.setNoticeDialogListener(BackpackFragment.this)
+                    .show(getParentFragmentManager(), "DELETE_DIALOG");
         }
     }
 

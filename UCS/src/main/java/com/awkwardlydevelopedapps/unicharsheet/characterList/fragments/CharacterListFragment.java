@@ -210,8 +210,8 @@ public class CharacterListFragment extends Fragment
         @Override
         public void onClick(View view) {
             deleteDialog = new DeleteDialog();
-            deleteDialog.setTargetFragment(CharacterListFragment.this, 0);
-            deleteDialog.show(getParentFragmentManager(), "DELETE_CHAR_DIALOG");
+            deleteDialog.setNoticeDialogListener(CharacterListFragment.this)
+                    .show(getParentFragmentManager(), "DELETE_CHAR_DIALOG");
         }
     }
 
