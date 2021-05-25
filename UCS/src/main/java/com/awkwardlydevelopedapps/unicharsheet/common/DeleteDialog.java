@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,8 +49,8 @@ public class DeleteDialog extends DialogFragment {
 
     public DeleteDialog setNoticeDialogListener(NoticeDialogListener noticeDialogListener) {
         this.listener = noticeDialogListener;
-        Log.v("SETTER", "NoticeDialogListener set: " + listener.toString());
 
+        LogWrapper.Companion.v("SETTER", "NoticeDialogListener set: " + listener.toString());
         return this;
     }
 }

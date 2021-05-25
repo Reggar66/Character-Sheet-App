@@ -3,12 +3,15 @@ package com.awkwardlydevelopedapps.unicharsheet.service
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import java.util.concurrent.TimeUnit
 
-class InAppReview(context: Context,
-                  private val activity: Activity) {
+class InAppReview(
+    context: Context,
+    private val activity: Activity
+) {
 
 
     private val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
@@ -36,15 +39,14 @@ class InAppReview(context: Context,
 
     fun startReviewFlow() {
         reviewInfo?.let {
-
-            Log.v("REVIEW", "TRYING to launch Review Flow")
+            LogWrapper.v("REVIEW", "TRYING to launch Review Flow")
 
             val flow = manager.launchReviewFlow(activity, it)
             flow.addOnCompleteListener { _ ->
-                Log.v("REVIEW", "Launched Review Flow")
+                LogWrapper.v("REVIEW", "Launched Review Flow")
             }
             flow.addOnFailureListener {
-                Log.v("REVIEW", "FAILED to launch Review Flow")
+                LogWrapper.v("REVIEW", "FAILED to launch Review Flow")
             }
         }
 
@@ -55,7 +57,11 @@ class InAppReview(context: Context,
         val lastTimeStamp = sharedPref.getLong(PREF_KEY_DAYS, 0)
         val currentTimeStamp = System.currentTimeMillis()
 
-        Log.v("DAYS", "Days passed " + TimeUnit.MILLISECONDS.toDays((currentTimeStamp - lastTimeStamp)))
+        LogWrapper.v(
+            "DAYS",
+            "Days passed " + TimeUnit.MILLISECONDS.toDays((currentTimeStamp - lastTimeStamp))
+        )
+
         return (currentTimeStamp - lastTimeStamp) >= TimeUnit.DAYS.toMillis(weeks)
     }
 

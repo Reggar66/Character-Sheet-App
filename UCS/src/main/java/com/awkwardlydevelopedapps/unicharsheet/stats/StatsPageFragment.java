@@ -163,8 +163,6 @@ public class StatsPageFragment extends Fragment
 
     @Override
     public void onPositiveClickEditStat(@NotNull DialogFragment dialog, @NotNull Stat stat) {
-        String msg = stat.getName() + " " + stat.getValue() + " " + stat.getCharId() + " " + stat.id;
-        Log.v("EDIT", msg);
         viewModel.updateStatValues(
                 stat.getName(),
                 stat.getValue(),
