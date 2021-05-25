@@ -104,7 +104,8 @@ public class StatsFragment extends Fragment
 
         viewPager.setAdapter(adapter);
 
-        // Connect viewPager with TabLayout via mediator
+        // Connect viewPager with TabLayout via mediator.
+        // Also it is responsible of setting tab names.
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(adapter.getTitle(position)))
                 .attach();
