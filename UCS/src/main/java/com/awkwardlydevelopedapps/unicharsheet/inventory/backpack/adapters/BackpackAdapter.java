@@ -138,7 +138,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if (isShowingChecks()) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (items.get(position).isChecked()) {
                     items.get(position).setChecked(false);
                     mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
@@ -148,7 +148,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
                 }
             } else {
                 if (listener != null) {
-                    int position = getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(v, position);
                     }
@@ -159,7 +159,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
         @Override
         public boolean onLongClick(View v) {
             if (longClickListener != null) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     longClickListener.onItemLongClick(v, position);
                 }
@@ -168,7 +168,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
         }
 
         public void bindCheckBox() {
-            if (items.get(getAdapterPosition()).isChecked()) {
+            if (items.get(getBindingAdapterPosition()).isChecked()) {
                 mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
             } else {
                 mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));

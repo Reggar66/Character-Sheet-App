@@ -174,7 +174,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     if (isShowingChecks())
                         return;
 
-                    Stat stat = stats.get(getAdapterPosition());
+                    Stat stat = stats.get(getBindingAdapterPosition());
                     int temp = 0;
                     if (!stat.getValue().isEmpty()) {
                         temp = Integer.parseInt(stat.getValue());
@@ -191,7 +191,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     if (isShowingChecks())
                         return;
 
-                    Stat stat = stats.get(getAdapterPosition());
+                    Stat stat = stats.get(getBindingAdapterPosition());
                     int temp = 0;
                     if (!stat.getValue().isEmpty()) {
                         temp = Integer.parseInt(stat.getValue());
@@ -208,7 +208,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     if (isShowingChecks())
                         return;
 
-                    statUpdateListener.openStatEditDialog(getAdapterPosition());
+                    statUpdateListener.openStatEditDialog(getBindingAdapterPosition());
                 }
             });
 
@@ -219,7 +219,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             if (isShowingChecks()) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (stats.get(position).isChecked()) {
                     stats.get(position).setChecked(false);
                     mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
@@ -229,7 +229,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                 }
             } else {
                 if (listener != null) {
-                    int position = getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(v, position);
                     }
@@ -240,7 +240,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
         @Override
         public boolean onLongClick(View v) {
             if (longClickListener != null) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     longClickListener.onItemLongClick(v, position);
                 }
@@ -249,7 +249,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
         }
 
         public void bindCheckBox() {
-            if (stats.get(getAdapterPosition()).isChecked()) {
+            if (stats.get(getBindingAdapterPosition()).isChecked()) {
                 mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
             } else {
                 mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));

@@ -152,7 +152,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         @Override
         public void onClick(View v) {
             if (isShowingChecks()) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (characters.get(position).isChecked()) {
                     //mCheckBox.setChecked(false);
                     characters.get(position).setChecked(false);
@@ -165,7 +165,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
             } else { // Works only if Checks are not shown. Other way - listener applied via
                 // interface wont work.
                 if (listener != null) {
-                    int position = getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(v, position);
                     }
@@ -176,7 +176,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         @Override
         public boolean onLongClick(View v) {
             if (longClickListener != null) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     longClickListener.onItemLongClick(v, position);
                 }
@@ -186,7 +186,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
         //To prevent "remembering" the state by adapter
         public void bindCheckBox() {
-            if (characters.get(getAdapterPosition()).isChecked()) {
+            if (characters.get(getBindingAdapterPosition()).isChecked()) {
                 mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
             } else {
                 mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));

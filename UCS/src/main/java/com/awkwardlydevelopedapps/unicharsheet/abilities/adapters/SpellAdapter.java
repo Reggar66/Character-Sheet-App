@@ -141,7 +141,7 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
         public void onClick(View v) {
             //Handle color change during checking item
             if (isShowingChecks()) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (spells.get(position).isChecked()) {
                     spells.get(position).setChecked(false);
                     mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
@@ -151,7 +151,7 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
                 }
             } else {
                 if (listener != null) {
-                    int position = getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(v, position);
                     }
@@ -162,7 +162,7 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
         @Override
         public boolean onLongClick(View v) {
             if (longClickListener != null) {
-                int position = getAdapterPosition();
+                int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     longClickListener.onItemLongClick(v, position);
                 }
@@ -171,7 +171,7 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
         }
 
         public void bindCheckBox() {
-            if (spells.get(getAdapterPosition()).isChecked()) {
+            if (spells.get(getBindingAdapterPosition()).isChecked()) {
                 mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_selected));
             } else {
                 mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
