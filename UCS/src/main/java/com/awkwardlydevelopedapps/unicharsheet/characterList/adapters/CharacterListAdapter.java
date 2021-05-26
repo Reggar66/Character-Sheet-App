@@ -98,10 +98,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
     @Override
     public int getItemCount() {
-        if (characters != null)
-            return characters.size();
-        else
-            return 0;
+        return characters.size();
     }
 
     public void setShowChecks() {
