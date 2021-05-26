@@ -3,6 +3,7 @@ package com.awkwardlydevelopedapps.unicharsheet.characterList.adapters;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,23 +59,21 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
      * MainAdapter implementations
      */
     private Context context;
-    private ArrayList<Character> characters;
+    private final ArrayList<Character> characters;
     private boolean showChecks;
-    private ViewHolder vh;
 
-    public CharacterListAdapter(Context context) {
-        this.context = context;
+    public CharacterListAdapter() {
         characters = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item_character, parent, false);
 
-        vh = new ViewHolder(view);
-        return vh;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -137,12 +136,12 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mIcon = (ImageView) itemView.findViewById(R.id.image);
-            mCharName = (TextView) itemView.findViewById(R.id.character_text_view);
-            mClassName = (TextView) itemView.findViewById(R.id.class_text_view);
-            mRaceName = (TextView) itemView.findViewById(R.id.race_text_view);
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.frameLayout3);
-            mConstraintLayout = (ConstraintLayout) itemView.findViewById(R.id.list_item_character_rootView);
+            mIcon = itemView.findViewById(R.id.image);
+            mCharName = itemView.findViewById(R.id.character_text_view);
+            mClassName = itemView.findViewById(R.id.class_text_view);
+            mRaceName = itemView.findViewById(R.id.race_text_view);
+            mFrameLayout = itemView.findViewById(R.id.frameLayout3);
+            mConstraintLayout = itemView.findViewById(R.id.list_item_character_rootView);
 
             mFrameLayout.setOnLongClickListener(this);
             mFrameLayout.setOnClickListener(this);
@@ -154,15 +153,15 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
             if (isShowingChecks()) {
                 int position = getBindingAdapterPosition();
                 if (characters.get(position).isChecked()) {
-                    //mCheckBox.setChecked(false);
                     characters.get(position).setChecked(false);
-                    mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
+                    mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_ripple));
                 } else {
                     characters.get(position).setChecked(true);
-                    mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                    mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
                 }
 
-            } else { // Works only if Checks are not shown. Other way - listener applied via
+            } else {
+                // Works only if Checks are not shown. Other way - listener applied via
                 // interface wont work.
                 if (listener != null) {
                     int position = getBindingAdapterPosition();
@@ -187,9 +186,9 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         //To prevent "remembering" the state by adapter
         public void bindCheckBox() {
             if (characters.get(getBindingAdapterPosition()).isChecked()) {
-                mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
             } else {
-                mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
+                mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_ripple));
             }
         }
     }

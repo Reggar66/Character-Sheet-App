@@ -66,7 +66,7 @@ public class CharacterListFragment extends Fragment
         floatingActionButtonDelete.setOnClickListener(new FABOnClickListenerDelete());
 
         // Adapter
-        adapter = new CharacterListAdapter(requireContext());
+        adapter = new CharacterListAdapter();
         adapter.setOnItemClickListener(new CharacterItemOnClickListener());
         adapter.setOnItemLongClickListener(new CharacterItemOnLongClickListener());
 
