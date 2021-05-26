@@ -3,6 +3,7 @@ package com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.adapters;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
      * BackpackAdapter implementations
      */
     private Context context;
-    private ArrayList<Item> items;
+    private final ArrayList<Item> items;
     private boolean showChecks;
 
     public BackpackAdapter() {
@@ -79,8 +80,7 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item_items, parent, false);
 
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -141,10 +141,10 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
                 int position = getBindingAdapterPosition();
                 if (items.get(position).isChecked()) {
                     items.get(position).setChecked(false);
-                    mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
+                    mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable));
                 } else {
                     items.get(position).setChecked(true);
-                    mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                    mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
                 }
             } else {
                 if (listener != null) {
@@ -169,9 +169,9 @@ public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ViewHo
 
         public void bindCheckBox() {
             if (items.get(getBindingAdapterPosition()).isChecked()) {
-                mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
             } else {
-                mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
+                mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable));
             }
         }
 
