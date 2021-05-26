@@ -3,6 +3,7 @@ package com.awkwardlydevelopedapps.unicharsheet.stats.adapters;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,15 +67,14 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
      * StatAdapter implementations
      */
     private Context context;
-    private ArrayList<Stat> stats;
+    private final ArrayList<Stat> stats;
     private boolean showChecks;
 
 
     private StatUpdateListener statUpdateListener;
     private boolean isInit = false;
 
-    public StatAdapter(Context context, StatUpdateListener statUpdateListener) {
-        this.context = context;
+    public StatAdapter(StatUpdateListener statUpdateListener) {
         this.statUpdateListener = statUpdateListener;
         this.stats = new ArrayList<>();
     }
@@ -96,10 +96,11 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item_stat, parent, false);
 
-        return new ViewHolder(context, view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -118,10 +119,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (stats != null)
-            return stats.size();
-        else
-            return 0;
+        return stats.size();
     }
 
     public void setShowChecks() {
@@ -147,7 +145,6 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        Context context;
         TextView mStatName;
         TextView mStatValue;
         ImageView mAddImage;
@@ -155,10 +152,8 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
         FrameLayout mFrameLayout;
         ConstraintLayout mConstraintLayout;
 
-        public ViewHolder(final Context context, @NonNull final View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-
-            this.context = context;
 
             mStatName = itemView.findViewById(R.id.item_name);
             mStatValue = itemView.findViewById(R.id.item_quantity);
@@ -168,48 +163,39 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
             mConstraintLayout = itemView.findViewById(R.id.linearLayout4);
 
             // increment stat value by one
-            mAddImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isShowingChecks())
-                        return;
+            mAddImage.setOnClickListener(v -> {
+                if (isShowingChecks())
+                    return;
 
-                    Stat stat = stats.get(getBindingAdapterPosition());
-                    int temp = 0;
-                    if (!stat.getValue().isEmpty()) {
-                        temp = Integer.parseInt(stat.getValue());
-                    }
-                    temp = temp + 1;
-                    statUpdateListener.incAndDecStatValue(stat, temp);
+                Stat stat = stats.get(getBindingAdapterPosition());
+                int temp = 0;
+                if (!stat.getValue().isEmpty()) {
+                    temp = Integer.parseInt(stat.getValue());
                 }
+                temp = temp + 1;
+                statUpdateListener.incAndDecStatValue(stat, temp);
             });
 
             // decrement stat value by one
-            mRemoveImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isShowingChecks())
-                        return;
+            mRemoveImage.setOnClickListener(v -> {
+                if (isShowingChecks())
+                    return;
 
-                    Stat stat = stats.get(getBindingAdapterPosition());
-                    int temp = 0;
-                    if (!stat.getValue().isEmpty()) {
-                        temp = Integer.parseInt(stat.getValue());
-                    }
-                    temp = temp - 1;
-                    statUpdateListener.incAndDecStatValue(stat, temp);
+                Stat stat = stats.get(getBindingAdapterPosition());
+                int temp = 0;
+                if (!stat.getValue().isEmpty()) {
+                    temp = Integer.parseInt(stat.getValue());
                 }
+                temp = temp - 1;
+                statUpdateListener.incAndDecStatValue(stat, temp);
             });
 
             //updates stat value by click on number
-            mStatValue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isShowingChecks())
-                        return;
+            mStatValue.setOnClickListener(v -> {
+                if (isShowingChecks())
+                    return;
 
-                    statUpdateListener.openStatEditDialog(getBindingAdapterPosition());
-                }
+                statUpdateListener.openStatEditDialog(getBindingAdapterPosition());
             });
 
             mFrameLayout.setOnLongClickListener(this);
@@ -222,10 +208,10 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                 int position = getBindingAdapterPosition();
                 if (stats.get(position).isChecked()) {
                     stats.get(position).setChecked(false);
-                    mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
+                    mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable));
                 } else {
                     stats.get(position).setChecked(true);
-                    mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                    mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
                 }
             } else {
                 if (listener != null) {
@@ -250,9 +236,9 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
 
         public void bindCheckBox() {
             if (stats.get(getBindingAdapterPosition()).isChecked()) {
-                mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable_selected));
+                mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable_selected));
             } else {
-                mConstraintLayout.setBackground(context.getDrawable(R.drawable.list_item_stat_drawable));
+                mConstraintLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_stat_drawable));
             }
         }
     }

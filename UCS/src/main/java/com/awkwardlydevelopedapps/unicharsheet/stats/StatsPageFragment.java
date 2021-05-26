@@ -66,7 +66,7 @@ public class StatsPageFragment extends Fragment
         floatingActionButtonDelete.setOnClickListener(new FABDeleteOnClickListener());
         floatingActionButtonDelete.hide();
 
-        adapter = new StatAdapter(getContext(), this);
+        adapter = new StatAdapter(this);
         adapter.setOnItemLongClickListener(new ItemLongClickListener());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
