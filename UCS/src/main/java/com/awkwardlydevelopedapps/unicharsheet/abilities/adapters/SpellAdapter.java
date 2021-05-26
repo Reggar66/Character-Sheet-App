@@ -3,6 +3,7 @@ package com.awkwardlydevelopedapps.unicharsheet.abilities.adapters;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,11 +58,11 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
      * SpellAdapter
      */
     private Context context;
-    private ArrayList<Spell> spells = new ArrayList<>();
+    private final ArrayList<Spell> spells;
     private boolean showChecks;
 
     public SpellAdapter() {
-
+        this.spells = new ArrayList<>();
     }
 
     public void setSpells(List<Spell> spells) {
@@ -80,8 +81,7 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item_spell, parent, false);
 
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -129,9 +129,9 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mSpellName = (TextView) itemView.findViewById(R.id.spell_name);
-            mIcon = (ImageView) itemView.findViewById(R.id.spell_icon);
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.spell_item_name_bar);
+            mSpellName = itemView.findViewById(R.id.spell_name);
+            mIcon = itemView.findViewById(R.id.spell_icon);
+            mFrameLayout = itemView.findViewById(R.id.spell_item_name_bar);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -144,10 +144,10 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
                 int position = getBindingAdapterPosition();
                 if (spells.get(position).isChecked()) {
                     spells.get(position).setChecked(false);
-                    mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
+                    mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_ripple));
                 } else {
                     spells.get(position).setChecked(true);
-                    mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_selected));
+                    mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_selected));
                 }
             } else {
                 if (listener != null) {
@@ -172,9 +172,9 @@ public class SpellAdapter extends RecyclerView.Adapter<SpellAdapter.ViewHolder> 
 
         public void bindCheckBox() {
             if (spells.get(getBindingAdapterPosition()).isChecked()) {
-                mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_selected));
+                mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_selected));
             } else {
-                mFrameLayout.setBackground(context.getDrawable(R.drawable.list_item_spell_background_drawable_ripple));
+                mFrameLayout.setBackground(AppCompatResources.getDrawable(context, R.drawable.list_item_spell_background_drawable_ripple));
             }
         }
     }
