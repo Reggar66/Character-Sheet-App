@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.awkwardlydevelopedapps.unicharsheet.common.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.stats.adapters.StatAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatBottomSheetDialog;
@@ -100,12 +101,24 @@ public class StatsPageFragment extends Fragment
         });
     }
 
+    /**
+     * Clears checks, hides delete button and shows add button for stat page.
+     * Basically "restores" stats page to normal "view mode".
+     */
     public void clearChecks() {
-        if (adapter.isShowingChecks()) {
-            adapter.setShowChecks();
-            floatingActionButtonDelete.hide();
-            floatingActionButtonAdd.show();
-        }
+        if (adapter != null) {
+            LogWrapper
+                    .Companion
+                    .v("INFO", "StatAdapter initialized correctly.");
+            if (adapter.isShowingChecks()) {
+                adapter.setShowChecks();
+                floatingActionButtonDelete.hide();
+                floatingActionButtonAdd.show();
+            }
+        } else
+            LogWrapper
+                    .Companion
+                    .v("INFO", "StatAdapter not yet initialized. Skipped call.");
     }
 
     public void setPage(int pageNumber) {

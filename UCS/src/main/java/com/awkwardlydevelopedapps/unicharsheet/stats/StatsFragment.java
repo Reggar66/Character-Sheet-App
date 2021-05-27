@@ -143,10 +143,6 @@ public class StatsFragment extends Fragment
                 toolbar, navController);
     }
 
-    public int getSelectedTabNumber() {
-        return tabLayout.getSelectedTabPosition();
-    }
-
     public void changeCurrentTabName() {
         StatTabNameChangeBottomSheetDialog bottomSheetDialog =
                 new StatTabNameChangeBottomSheetDialog();
@@ -224,16 +220,13 @@ public class StatsFragment extends Fragment
     }
 
     private void addToPreset(String presetName) {
-        ExecSingleton.getInstance().execute(new Runnable() {
-            @Override
-            public void run() {
-                StatDao statDao = DbSingleton.Instance(requireContext()).getStatDao();
-                PresetDao presetDao = DbSingleton.Instance(requireContext()).getPresetDao();
-                List<Stat> listOfAllStats = new ArrayList<>(statDao.getAllStats(characterId));
-                presetDao.insertPresetListName(new PresetList(presetName));
-                for (Stat stat : listOfAllStats) {
-                    presetDao.insertPresetStats(new Preset(stat.getName(), stat.getPage(), presetName));
-                }
+        ExecSingleton.getInstance().execute(() -> {
+            StatDao statDao = DbSingleton.Instance(requireContext()).getStatDao();
+            PresetDao presetDao = DbSingleton.Instance(requireContext()).getPresetDao();
+            List<Stat> listOfAllStats = new ArrayList<>(statDao.getAllStats(characterId));
+            presetDao.insertPresetListName(new PresetList(presetName));
+            for (Stat stat : listOfAllStats) {
+                presetDao.insertPresetStats(new Preset(stat.getName(), stat.getPage(), presetName));
             }
         });
     }
@@ -250,9 +243,9 @@ public class StatsFragment extends Fragment
         saveTabNameToSharedPrefs(idx, tabName);
     }
 
-    /**
-     * Inner Classes
-     */
+    // ****
+    // Inner classes
+    // ****
 
     private class OnTabSelected implements TabLayout.OnTabSelectedListener {
         // Takes care of:
@@ -261,11 +254,7 @@ public class StatsFragment extends Fragment
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
-            try {
-                adapter.getStatPage(viewPager.getCurrentItem()).clearChecks();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
+            adapter.getStatPage(viewPager.getCurrentItem()).clearChecks();
         }
 
         @Override
