@@ -21,6 +21,7 @@ import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewMo
 import com.awkwardlydevelopedapps.unicharsheet.stats.adapters.StatAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.SortStateViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,6 +39,7 @@ public class StatsPageFragment extends Fragment
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
     private StatsViewModel viewModel;
+    private SortStateViewModel sortStateViewModel;
 
     private int characterID;
     private int pageNumber;
@@ -90,6 +92,8 @@ public class StatsPageFragment extends Fragment
                         pageNumber))
                 .get(StatsViewModel.class);
 
+        sortStateViewModel = new ViewModelProvider(requireActivity()).get(SortStateViewModel.class);
+
         LogWrapper
                 .Companion
                 .v("INFO", "StatPageFragment " + pageNumber + ", onCreateView() - end.");
@@ -101,13 +105,24 @@ public class StatsPageFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getStatsOfPage().observe(getViewLifecycleOwner(), new Observer<List<Stat>>() {
-            @Override
-            public void onChanged(List<Stat> stats) {
-                adapter.setStats(stats);
-                statList = stats;
-            }
-        });
+        viewModel
+                .getStatsOfPage()
+                .observe(getViewLifecycleOwner(), stats -> {
+                    adapter.setStats(stats);
+                    statList = stats;
+                });
+
+        sortStateViewModel
+                .getSortOrderLiveData()
+                .observe(getViewLifecycleOwner(), sortOrder -> {
+                    // TODO pageNumber need to be saved on orientation change or it will be == 0 and this block will be omitted.
+                    if (sortStateViewModel.getCurrentPageIndex() == pageNumber) {
+                        sortStatsBy(sortOrder);
+                        LogWrapper
+                                .Companion
+                                .v("INFO", "StatPageFragment " + pageNumber + ": Updated sorting policy");
+                    }
+                });
 
         LogWrapper
                 .Companion

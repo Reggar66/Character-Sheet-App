@@ -36,6 +36,7 @@ import com.awkwardlydevelopedapps.unicharsheet.stats.dao.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.PresetAddBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatTabNameChangeBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
+import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.SortStateViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -59,6 +60,8 @@ public class StatsFragment extends Fragment
     private String characterRace;
     private int characterIconId;
 
+    SortStateViewModel sortStateViewModel;
+
     private static final String KEY_NUMBER_OF_TABS = "NUMBER_OF_TABS";
     private static final String KEY_TAB_NAME = "TAB_NAME";
 
@@ -71,6 +74,8 @@ public class StatsFragment extends Fragment
         DataHolderViewModel dataHolderViewModel =
                 new ViewModelProvider(requireActivity()).get(DataHolderViewModel.class);
 
+        sortStateViewModel = new ViewModelProvider(requireActivity()).get(SortStateViewModel.class);
+
         characterId = dataHolderViewModel.getCharacterID();
         characterName = dataHolderViewModel.getCharacterName();
         characterClass = dataHolderViewModel.getClassName();
@@ -82,6 +87,7 @@ public class StatsFragment extends Fragment
         adapter = new StatTabsAdapter(requireContext(), requireActivity(), numberOfTabs);
         viewPager = rootView.findViewById(R.id.stat_viewPager);
         viewPager.setOffscreenPageLimit(3);
+        viewPager.registerOnPageChangeCallback(new OnTabSelectedListener());
 
         tabLayout = rootView.findViewById(R.id.tabLayout);
         return rootView;
@@ -206,6 +212,18 @@ public class StatsFragment extends Fragment
     // Inner classes
     // ****
 
+    /**
+     * Listens to tab changes and saves currently selected stat page number inside viewModel
+     */
+    private class OnTabSelectedListener extends ViewPager2.OnPageChangeCallback {
+        @Override
+        public void onPageSelected(int position) {
+            // Position in tabview starts from 0,
+            // hence adding 1 be cause we numerate stat pages from 1 in database
+            sortStateViewModel.setCurrentPageIndex(position + 1);
+        }
+    }
+
     private class ToolbarOnMenuClickListener implements Toolbar.OnMenuItemClickListener {
 
         @Override
@@ -234,17 +252,16 @@ public class StatsFragment extends Fragment
                         .navigate(StatsFragmentDirections.actionStatsFragmentToSettingsFragment());
                 return true;
             } else if (itemId == R.id.action_sort_nameAsc) {
-                // TODO right now any of sorting won't work since we have no reference to given fragment
-//                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_NAME_ASC);
+                sortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_nameDesc) {
-//                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_NAME_DESC);
+                sortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC);
                 return true;
             } else if (itemId == R.id.action_sort_valueAsc) {
-//                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_VALUE_ASC);
+                sortStateViewModel.changeSortOrder(Sort.BY_VALUE_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_valueDesc) {
-//                adapter.getStatPage(viewPager.getCurrentItem()).sortStatsBy(Sort.BY_VALUE_DESC);
+                sortStateViewModel.changeSortOrder(Sort.BY_VALUE_DESC);
                 return true;
             }
             return false;
