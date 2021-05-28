@@ -1,9 +1,12 @@
 package com.awkwardlydevelopedapps.unicharsheet.stats.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "stats")
 public class Stat {
@@ -63,5 +66,16 @@ public class Stat {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    @NonNull
+    @NotNull
+    @Override
+    public String toString() {
+        return "[id=" + id
+                + ", name=" + name
+                + ", value=" + value
+                + ", charId=" + charId
+                + ", page=" + page + "]";
     }
 }
