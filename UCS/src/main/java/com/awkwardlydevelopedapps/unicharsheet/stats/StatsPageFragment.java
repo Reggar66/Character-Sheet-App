@@ -1,7 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.stats;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +52,13 @@ public class StatsPageFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogWrapper
+                .Companion
+                .v("INFO", "StatPageFragment " + pageNumber + ", onCreateView() - star.");
+        LogWrapper
+                .Companion
+                .v("INFO", "Fragment:" + this.toString());
+
         rootView = inflater.inflate(R.layout.fragment_stats_page, container, false);
 
         DataHolderViewModel dataHolderViewModel = new ViewModelProvider(requireActivity())
@@ -84,6 +90,9 @@ public class StatsPageFragment extends Fragment
                         pageNumber))
                 .get(StatsViewModel.class);
 
+        LogWrapper
+                .Companion
+                .v("INFO", "StatPageFragment " + pageNumber + ", onCreateView() - end.");
 
         return rootView;
     }
@@ -99,6 +108,10 @@ public class StatsPageFragment extends Fragment
                 statList = stats;
             }
         });
+
+        LogWrapper
+                .Companion
+                .v("INFO", "StatPageFragment " + pageNumber + ", onViewCreated().");
     }
 
     /**
@@ -122,7 +135,14 @@ public class StatsPageFragment extends Fragment
     }
 
     public void setPage(int pageNumber) {
+        LogWrapper
+                .Companion
+                .v("INFO", "StatsPageFragment: setting pageNumber to '" + pageNumber + "'");
         this.pageNumber = pageNumber;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
     }
 
     @Override
@@ -172,6 +192,10 @@ public class StatsPageFragment extends Fragment
     @Override
     public void onPositiveClickAddStat(@NotNull DialogFragment dialog, @NotNull Stat stat) {
         viewModel.insert(stat);
+        LogWrapper
+                .Companion
+                .v("INFO",
+                        "Added stat: " + stat.toString());
     }
 
     @Override
