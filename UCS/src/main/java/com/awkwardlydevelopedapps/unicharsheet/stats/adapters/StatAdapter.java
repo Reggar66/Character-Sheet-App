@@ -56,7 +56,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
     }
 
     public interface StatUpdateListener {
-        void incAndDecStatValue(Stat stat, int value);
+        void updateStat(Stat stat, int value);
 
         void openStatEditDialog(int position);
 
@@ -173,7 +173,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     temp = Integer.parseInt(stat.getValue());
                 }
                 temp = temp + 1;
-                statUpdateListener.incAndDecStatValue(stat, temp);
+                statUpdateListener.updateStat(stat, temp);
             });
 
             // decrement stat value by one
@@ -187,7 +187,7 @@ public class StatAdapter extends RecyclerView.Adapter<StatAdapter.ViewHolder> {
                     temp = Integer.parseInt(stat.getValue());
                 }
                 temp = temp - 1;
-                statUpdateListener.incAndDecStatValue(stat, temp);
+                statUpdateListener.updateStat(stat, temp);
             });
 
             //updates stat value by click on number

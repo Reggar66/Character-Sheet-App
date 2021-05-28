@@ -146,7 +146,7 @@ public class StatsPageFragment extends Fragment
     }
 
     @Override
-    public void incAndDecStatValue(Stat stat, int value) {
+    public void updateStat(Stat stat, int value) {
         viewModel.updateStatValues(stat.getName(),
                 String.valueOf(value),
                 stat.getCharId(),
