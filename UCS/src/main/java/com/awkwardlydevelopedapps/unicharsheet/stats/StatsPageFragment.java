@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,13 +42,22 @@ public class StatsPageFragment extends Fragment
 
     private int characterID;
     private int pageNumber;
-    private int position;
     private List<Stat> statList;
 
     //RecyclerView
     private RecyclerView recyclerView;
     private StatAdapter adapter;
 
+    private static final String KEY_PAGE_NUMBER = "PAGE_NUMBER";
+
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            pageNumber = savedInstanceState.getInt(KEY_PAGE_NUMBER);
+        }
+    }
 
     @Nullable
     @Override
@@ -115,7 +123,6 @@ public class StatsPageFragment extends Fragment
         sortStateViewModel
                 .getSortOrderLiveData()
                 .observe(getViewLifecycleOwner(), sortOrder -> {
-                    // TODO pageNumber need to be saved on orientation change or it will be == 0 and this block will be omitted.
                     if (sortStateViewModel.getCurrentPageIndex() == pageNumber) {
                         sortStatsBy(sortOrder);
                         LogWrapper
@@ -127,6 +134,12 @@ public class StatsPageFragment extends Fragment
         LogWrapper
                 .Companion
                 .v("INFO", "StatPageFragment " + pageNumber + ", onViewCreated().");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_PAGE_NUMBER, pageNumber);
     }
 
     /**
