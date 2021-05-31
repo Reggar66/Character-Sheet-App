@@ -11,32 +11,29 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener
 import com.awkwardlydevelopedapps.unicharsheet.R
-import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.common.DeleteDialog
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel
 import com.awkwardlydevelopedapps.unicharsheet.notes.adapters.NotesListAdapter
 import com.awkwardlydevelopedapps.unicharsheet.notes.model.Note
+import com.awkwardlydevelopedapps.unicharsheet.notes.viewModel.NoteSortStateViewModel
 import com.awkwardlydevelopedapps.unicharsheet.notes.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NotesFragmentList : Fragment(),
     NotesListAdapter.OnItemClickListener,
     DeleteDialog.NoticeDialogListener,
-    PopupOnSortClickListener,
     NoteBottomSheetDialog.NoticeDialogListener {
 
     val adapter = NotesListAdapter()
     private var characterID = 0
     private lateinit var fabAddNote: FloatingActionButton
     private lateinit var fabDeleteNote: FloatingActionButton
-    lateinit var viewModel: NoteViewModel
     var changeFragmentCallback: ChangeFragmentCallback? = null
 
+    lateinit var viewModel: NoteViewModel
+    private lateinit var noteSortStateViewModel: NoteSortStateViewModel
     private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
-
-    lateinit var parentNotesFragment: NotesFragment
 
     interface ChangeFragmentCallback {
         fun changeToDisplayNote(noteId: Int)
@@ -51,6 +48,10 @@ class NotesFragmentList : Fragment(),
             NoteViewModel.NoteViewModelFactory(requireActivity().application, characterID)
         )
             .get(NoteViewModel::class.java)
+
+        noteSortStateViewModel =
+            ViewModelProvider(requireActivity()).get(NoteSortStateViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -76,8 +77,6 @@ class NotesFragmentList : Fragment(),
         recyclerView.adapter = this.adapter
         recyclerView.addOnScrollListener(FabHideListener())
 
-        parentNotesFragment.popupOnSortClickListener = this
-
         return rootView
     }
 
@@ -86,6 +85,10 @@ class NotesFragmentList : Fragment(),
 
         viewModel.getAllNotes().observe(viewLifecycleOwner, Observer {
             adapter.setNotes(it)
+        })
+
+        noteSortStateViewModel.sortOrderLiveData.observe(viewLifecycleOwner, Observer { orderBy ->
+            viewModel.orderBy(orderBy)
         })
 
     }
@@ -106,22 +109,6 @@ class NotesFragmentList : Fragment(),
             changeFragmentCallback?.changeToDisplayNote(notes[position].id)
         }
         return true
-    }
-
-    override fun onPopupSortByNameAsc() {
-        viewModel.orderBy(Sort.BY_NAME_ASC)
-    }
-
-    override fun onPopupSortByNameDesc() {
-        viewModel.orderBy(Sort.BY_NAME_DESC)
-    }
-
-    override fun onPopupSortByValueAsc() {
-        // Not used
-    }
-
-    override fun onPopupSortByValueDesc() {
-        // Not used
     }
 
     override fun onPositiveButtonListener(title: String, note: String) {

@@ -11,12 +11,15 @@ import androidx.appcompat.widget.Toolbar
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener
 import com.awkwardlydevelopedapps.unicharsheet.R
+import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel
+import com.awkwardlydevelopedapps.unicharsheet.notes.viewModel.NoteSortStateViewModel
 
 class NotesFragment : Fragment(),
     NotesFragmentList.ChangeFragmentCallback,
@@ -28,15 +31,14 @@ class NotesFragment : Fragment(),
     private lateinit var characterRace: String
     private var characterIconID = 0
 
-    var popupOnSortClickListener: PopupOnSortClickListener? = null
-
     private val dataHolderViewModel: DataHolderViewModel by activityViewModels()
+    private val noteSortStateViewModel: NoteSortStateViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         characterID = dataHolderViewModel.characterID
         characterName = dataHolderViewModel.characterName
@@ -46,7 +48,10 @@ class NotesFragment : Fragment(),
 
 
         val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container, getNewNotesFragmentList())
+        fragmentTransaction.replace(
+            R.id.frameLayout_notes_fragment_container,
+            getNewNotesFragmentList()
+        )
         fragmentTransaction.commit()
 
 
@@ -58,10 +63,6 @@ class NotesFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar(view)
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     private fun setupToolbar(view: View) {
@@ -97,21 +98,24 @@ class NotesFragment : Fragment(),
     private fun getNewNotesFragmentList(): Fragment {
         return NotesFragmentList().apply {
             changeFragmentCallback = this@NotesFragment
-            parentNotesFragment = this@NotesFragment
         }
     }
 
     override fun changeToDisplayNote(noteId: Int) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container,
-                getNewNoteFragmentDisplay(noteId))
+        fragmentTransaction.replace(
+            R.id.frameLayout_notes_fragment_container,
+            getNewNoteFragmentDisplay(noteId)
+        )
         fragmentTransaction.commit()
     }
 
     override fun changeToList() {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout_notes_fragment_container,
-                getNewNotesFragmentList())
+        fragmentTransaction.replace(
+            R.id.frameLayout_notes_fragment_container,
+            getNewNotesFragmentList()
+        )
         fragmentTransaction.commit()
     }
 
@@ -125,22 +129,22 @@ class NotesFragment : Fragment(),
             return when (item?.itemId) {
                 R.id.action_about -> {
                     NavHostFragment
-                            .findNavController(this@NotesFragment)
-                            .navigate(NotesFragmentDirections.actionNotesFragmentToAboutFragment())
+                        .findNavController(this@NotesFragment)
+                        .navigate(NotesFragmentDirections.actionNotesFragmentToAboutFragment())
                     true
                 }
                 R.id.action_settings -> {
                     NavHostFragment
-                            .findNavController(this@NotesFragment)
-                            .navigate(NotesFragmentDirections.actionNotesFragmentToSettingsFragment())
+                        .findNavController(this@NotesFragment)
+                        .navigate(NotesFragmentDirections.actionNotesFragmentToSettingsFragment())
                     true
                 }
                 R.id.action_sort_nameAsc -> {
-                    popupOnSortClickListener?.onPopupSortByNameAsc()
+                    noteSortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC)
                     true
                 }
                 R.id.action_sort_nameDesc -> {
-                    popupOnSortClickListener?.onPopupSortByNameDesc()
+                    noteSortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC)
                     true
                 }
                 else -> false
