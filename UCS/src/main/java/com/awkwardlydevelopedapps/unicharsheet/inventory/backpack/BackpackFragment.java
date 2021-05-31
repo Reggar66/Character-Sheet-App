@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,11 +19,13 @@ import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.InventoryFragment;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.adapters.BackpackAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.model.Item;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.viewModel.BackpackViewModel;
+import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.viewModel.ItemSortStateViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +35,6 @@ import java.util.Objects;
 
 public class BackpackFragment extends Fragment
         implements DeleteDialog.NoticeDialogListener,
-        PopupOnSortClickListener,
         ItemBottomSheetDialog.NoticeDialogListener {
 
     private View rootView;
@@ -44,8 +46,7 @@ public class BackpackFragment extends Fragment
     private BackpackAdapter adapter;
 
     private BackpackViewModel viewModel;
-
-    private InventoryFragment parentInventoryFragment;
+    private ItemSortStateViewModel itemSortStateViewModel;
 
     public BackpackFragment() {
 
@@ -79,12 +80,12 @@ public class BackpackFragment extends Fragment
         recyclerView.addOnScrollListener(new FABOnScrollListener());
         recyclerView.setAdapter(adapter);
 
-
         viewModel = new ViewModelProvider(this,
                 new BackpackViewModel.BackpackViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(BackpackViewModel.class);
 
-        parentInventoryFragment.setPopupOnSortClickListener(this);
+        itemSortStateViewModel = new ViewModelProvider(requireActivity())
+                .get(ItemSortStateViewModel.class);
 
         return rootView;
     }
@@ -93,8 +94,6 @@ public class BackpackFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //((InventoryFragment) getTargetFragment()).setPopupOnSortClickListener(this);
-
         viewModel.getAllItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
             @Override
             public void onChanged(List<Item> items) {
@@ -102,6 +101,11 @@ public class BackpackFragment extends Fragment
                 adapter.setItems(items);
             }
         });
+
+        itemSortStateViewModel.getSortOrderLiveData()
+                .observe(getViewLifecycleOwner(), sortOrder -> {
+                    viewModel.orderBy(sortOrder);
+                });
     }
 
     @Override
@@ -129,26 +133,6 @@ public class BackpackFragment extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    @Override
-    public void onPopupSortByNameAsc() {
-        viewModel.orderBy(Sort.BY_NAME_ASC);
-    }
-
-    @Override
-    public void onPopupSortByNameDesc() {
-        viewModel.orderBy(Sort.BY_NAME_DESC);
-    }
-
-    @Override
-    public void onPopupSortByValueAsc() {
-        viewModel.orderBy(Sort.BY_VALUE_ASC);
-    }
-
-    @Override
-    public void onPopupSortByValueDesc() {
-        viewModel.orderBy(Sort.BY_VALUE_DESC);
-    }
-
     //BottomDialog
     @Override
     public void onPositiveClickListener(int option, @NotNull String itemName, @NotNull String quantity, Item oldItem) {
@@ -160,10 +144,6 @@ public class BackpackFragment extends Fragment
                 viewModel.updateItem(itemName, quantity, characterID, oldItem.id);
                 break;
         }
-    }
-
-    public void setParentInventoryFragment(InventoryFragment parentInventoryFragment) {
-        this.parentInventoryFragment = parentInventoryFragment;
     }
 
     /**

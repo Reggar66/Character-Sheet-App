@@ -20,7 +20,7 @@ import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewMo
 import com.awkwardlydevelopedapps.unicharsheet.stats.adapters.StatAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.SortStateViewModel;
+import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.StatSortStateViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.StatsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,7 +38,7 @@ public class StatsPageFragment extends Fragment
     private FloatingActionButton floatingActionButtonAdd;
     private FloatingActionButton floatingActionButtonDelete;
     private StatsViewModel viewModel;
-    private SortStateViewModel sortStateViewModel;
+    private StatSortStateViewModel statSortStateViewModel;
 
     private int characterID;
     private int pageNumber;
@@ -100,7 +100,7 @@ public class StatsPageFragment extends Fragment
                         pageNumber))
                 .get(StatsViewModel.class);
 
-        sortStateViewModel = new ViewModelProvider(requireActivity()).get(SortStateViewModel.class);
+        statSortStateViewModel = new ViewModelProvider(requireActivity()).get(StatSortStateViewModel.class);
 
         LogWrapper
                 .Companion
@@ -120,10 +120,10 @@ public class StatsPageFragment extends Fragment
                     statList = stats;
                 });
 
-        sortStateViewModel
+        statSortStateViewModel
                 .getSortOrderLiveData()
                 .observe(getViewLifecycleOwner(), sortOrder -> {
-                    if (sortStateViewModel.getCurrentPageIndex() == pageNumber) {
+                    if (statSortStateViewModel.getCurrentPageIndex() == pageNumber) {
                         sortStatsBy(sortOrder);
                         LogWrapper
                                 .Companion

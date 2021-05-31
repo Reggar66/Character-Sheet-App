@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort
 
-class SortStateViewModel : ViewModel() {
+class StatSortStateViewModel : ViewModel() {
 
     var currentPageIndex: Int = 1
 

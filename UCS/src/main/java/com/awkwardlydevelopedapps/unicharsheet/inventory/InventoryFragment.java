@@ -23,8 +23,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.BackpackFragment;
+import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.viewModel.ItemSortStateViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.equipment.EquipmentFragment;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.pocket.PocketFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -50,11 +52,7 @@ public class InventoryFragment extends Fragment {
     private final PocketFragment pocketFragment = new PocketFragment();
     private final BackpackFragment backpackFragment = new BackpackFragment();
 
-    private PopupOnSortClickListener popupOnSortClickListener;
-
-    public void setPopupOnSortClickListener(PopupOnSortClickListener popupOnSortClickListener) {
-        this.popupOnSortClickListener = popupOnSortClickListener;
-    }
+    private ItemSortStateViewModel itemSortStateViewModel;
 
     public InventoryFragment() {
 
@@ -89,8 +87,8 @@ public class InventoryFragment extends Fragment {
         viewBackpack.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_backpack);
         tabLayout.addTab(tabLayout.newTab().setCustomView(viewBackpack));
 
-        //sets parent fragment, so we can retrieve it inside backpack and set listener
-        backpackFragment.setParentInventoryFragment(this);
+        itemSortStateViewModel = new ViewModelProvider(requireActivity())
+                .get(ItemSortStateViewModel.class);
 
         return rootView;
     }
@@ -231,19 +229,18 @@ public class InventoryFragment extends Fragment {
                         .navigate(InventoryFragmentDirections.actionInventoryFragmentToSettingsFragment());
                 return true;
             } else if (itemId == R.id.action_sort_nameAsc) {
-                popupOnSortClickListener.onPopupSortByNameAsc();
+                itemSortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_nameDesc) {
-                popupOnSortClickListener.onPopupSortByNameDesc();
+                itemSortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC);
                 return true;
             } else if (itemId == R.id.action_sort_valueAsc) {
-                popupOnSortClickListener.onPopupSortByValueAsc();
+                itemSortStateViewModel.changeSortOrder(Sort.BY_VALUE_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_valueDesc) {
-                popupOnSortClickListener.onPopupSortByValueDesc();
+                itemSortStateViewModel.changeSortOrder(Sort.BY_VALUE_DESC);
                 return true;
             }
-
 
             return false;
         }

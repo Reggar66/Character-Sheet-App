@@ -36,7 +36,7 @@ import com.awkwardlydevelopedapps.unicharsheet.stats.dao.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.PresetAddBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dialogs.StatTabNameChangeBottomSheetDialog;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
-import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.SortStateViewModel;
+import com.awkwardlydevelopedapps.unicharsheet.stats.viewModel.StatSortStateViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -60,7 +60,7 @@ public class StatsFragment extends Fragment
     private String characterRace;
     private int characterIconId;
 
-    SortStateViewModel sortStateViewModel;
+    StatSortStateViewModel statSortStateViewModel;
 
     private static final String KEY_NUMBER_OF_TABS = "NUMBER_OF_TABS";
     private static final String KEY_TAB_NAME = "TAB_NAME";
@@ -74,7 +74,7 @@ public class StatsFragment extends Fragment
         DataHolderViewModel dataHolderViewModel =
                 new ViewModelProvider(requireActivity()).get(DataHolderViewModel.class);
 
-        sortStateViewModel = new ViewModelProvider(requireActivity()).get(SortStateViewModel.class);
+        statSortStateViewModel = new ViewModelProvider(requireActivity()).get(StatSortStateViewModel.class);
 
         characterId = dataHolderViewModel.getCharacterID();
         characterName = dataHolderViewModel.getCharacterName();
@@ -220,7 +220,7 @@ public class StatsFragment extends Fragment
         public void onPageSelected(int position) {
             // Position in tabview starts from 0,
             // hence adding 1 be cause we numerate stat pages from 1 in database
-            sortStateViewModel.setCurrentPageIndex(position + 1);
+            statSortStateViewModel.setCurrentPageIndex(position + 1);
         }
     }
 
@@ -252,16 +252,16 @@ public class StatsFragment extends Fragment
                         .navigate(StatsFragmentDirections.actionStatsFragmentToSettingsFragment());
                 return true;
             } else if (itemId == R.id.action_sort_nameAsc) {
-                sortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC);
+                statSortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_nameDesc) {
-                sortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC);
+                statSortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC);
                 return true;
             } else if (itemId == R.id.action_sort_valueAsc) {
-                sortStateViewModel.changeSortOrder(Sort.BY_VALUE_ASC);
+                statSortStateViewModel.changeSortOrder(Sort.BY_VALUE_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_valueDesc) {
-                sortStateViewModel.changeSortOrder(Sort.BY_VALUE_DESC);
+                statSortStateViewModel.changeSortOrder(Sort.BY_VALUE_DESC);
                 return true;
             }
             return false;
