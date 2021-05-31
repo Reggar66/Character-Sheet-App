@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.awkwardlydevelopedapps.unicharsheet.abilities.viewModel.SpellSortStateViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.abilities.model.Spell;
 import com.awkwardlydevelopedapps.unicharsheet.abilities.viewModel.SpellsViewModel;
@@ -42,6 +43,7 @@ public class SpellsFragmentList extends Fragment
 
     private SpellsViewModel viewModel;
     private DataHolderViewModel dataHolderViewModel;
+    private SpellSortStateViewModel spellSortStateViewModel;
 
     //RecyclerView
     private RecyclerView recyclerView;
@@ -51,8 +53,6 @@ public class SpellsFragmentList extends Fragment
     private int characterID;
 
     private ChangeFragmentCallback callback;
-
-    private SpellsFragment parentSpellsFragment;
 
     public SpellsFragmentList() {
 
@@ -93,7 +93,9 @@ public class SpellsFragmentList extends Fragment
                 new SpellsViewModel.SpellsViewModelFactory(requireActivity().getApplication(), characterID))
                 .get(SpellsViewModel.class);
 
-        parentSpellsFragment.setPopupOnSortClickListener(this);
+        spellSortStateViewModel = new ViewModelProvider(requireActivity())
+                .get(SpellSortStateViewModel.class);
+
 
         return rootView;
     }
@@ -106,6 +108,9 @@ public class SpellsFragmentList extends Fragment
             adapter.setSpells(spells);
             viewModel.setSpellList(spells);
         });
+
+        spellSortStateViewModel.getSortOrderLiveData()
+                .observe(getViewLifecycleOwner(), sortOrder -> viewModel.orderBy(sortOrder));
     }
 
     @Override
@@ -171,10 +176,6 @@ public class SpellsFragmentList extends Fragment
                 iconName,
                 characterID
         ));
-    }
-
-    public void setParentSpellsFragment(SpellsFragment parentSpellsFragment) {
-        this.parentSpellsFragment = parentSpellsFragment;
     }
 
     /**

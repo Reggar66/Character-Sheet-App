@@ -20,8 +20,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.awkwardlydevelopedapps.unicharsheet.abilities.viewModel.SpellSortStateViewModel;
 import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
 
 public class SpellsFragment extends Fragment
@@ -39,11 +41,7 @@ public class SpellsFragment extends Fragment
 
     private FragmentManager fragmentManager;
 
-    private PopupOnSortClickListener popupOnSortClickListener;
-
-    public void setPopupOnSortClickListener(PopupOnSortClickListener popupOnSortClickListener) {
-        this.popupOnSortClickListener = popupOnSortClickListener;
-    }
+    private SpellSortStateViewModel spellSortStateViewModel;
 
     public SpellsFragment() {
 
@@ -69,6 +67,8 @@ public class SpellsFragment extends Fragment
         fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentList());
         fragmentTransaction.commit();
 
+        spellSortStateViewModel = new ViewModelProvider(requireActivity())
+                .get(SpellSortStateViewModel.class);
 
         return rootView;
     }
@@ -119,7 +119,6 @@ public class SpellsFragment extends Fragment
     private Fragment getNewSpellsFragmentList() {
         SpellsFragmentList spellsFragmentList = new SpellsFragmentList();
         spellsFragmentList.setChangeFragmentCallback(SpellsFragment.this);
-        spellsFragmentList.setParentSpellsFragment(this);
         return spellsFragmentList;
     }
 
@@ -166,10 +165,10 @@ public class SpellsFragment extends Fragment
                         .navigate(SpellsFragmentDirections.actionSpellsFragmentToSettingsFragment());
                 return true;
             } else if (itemId == R.id.action_sort_nameAsc) {
-                popupOnSortClickListener.onPopupSortByNameAsc();
+                spellSortStateViewModel.changeSortOrder(Sort.BY_NAME_ASC);
                 return true;
             } else if (itemId == R.id.action_sort_nameDesc) {
-                popupOnSortClickListener.onPopupSortByNameDesc();
+                spellSortStateViewModel.changeSortOrder(Sort.BY_NAME_DESC);
                 return true;
             }
             return false;
