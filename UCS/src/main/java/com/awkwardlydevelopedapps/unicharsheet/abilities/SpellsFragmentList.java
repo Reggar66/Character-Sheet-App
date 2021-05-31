@@ -1,4 +1,4 @@
-package com.awkwardlydevelopedapps.unicharsheet.abilities.fragments;
+package com.awkwardlydevelopedapps.unicharsheet.abilities;
 
 import android.os.Bundle;
 

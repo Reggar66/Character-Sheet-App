@@ -100,7 +100,7 @@
     <fragment
         tools:layout="@layout/fragment_spells"
         android:id="@+id/spellsFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.abilities.fragments.SpellsFragment">
+        android:name="com.awkwardlydevelopedapps.unicharsheet.abilities.SpellsFragment">
         <action
             android:id="@+id/action_spellsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
