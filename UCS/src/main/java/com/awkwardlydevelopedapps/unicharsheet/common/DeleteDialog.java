@@ -47,6 +47,12 @@ public class DeleteDialog extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismiss();
+    }
+
     public DeleteDialog setNoticeDialogListener(NoticeDialogListener noticeDialogListener) {
         this.listener = noticeDialogListener;
 
