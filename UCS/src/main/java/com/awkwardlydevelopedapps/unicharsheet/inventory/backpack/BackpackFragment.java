@@ -9,19 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
-import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.DeleteDialog;
 import com.awkwardlydevelopedapps.unicharsheet.R;
-import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.InventoryFragment;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.adapters.BackpackAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.model.Item;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.viewModel.BackpackViewModel;
@@ -30,7 +24,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 
 public class BackpackFragment extends Fragment
@@ -42,7 +35,6 @@ public class BackpackFragment extends Fragment
     private FloatingActionButton floatingActionButtonAddItem;
     private FloatingActionButton floatingActionButtonDelete;
 
-    private RecyclerView recyclerView;
     private BackpackAdapter adapter;
 
     private BackpackViewModel viewModel;
@@ -74,7 +66,7 @@ public class BackpackFragment extends Fragment
         adapter.setOnItemClickListener(new ItemClickListener());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        recyclerView = rootView.findViewById(R.id.recyclerView_BackpackItems);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView_BackpackItems);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new FABOnScrollListener());
@@ -94,18 +86,13 @@ public class BackpackFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getAllItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
-            @Override
-            public void onChanged(List<Item> items) {
-                viewModel.setItemList(items);
-                adapter.setItems(items);
-            }
+        viewModel.getAllItems().observe(getViewLifecycleOwner(), items -> {
+            viewModel.setItemList(items);
+            adapter.setItems(items);
         });
 
         itemSortStateViewModel.getSortOrderLiveData()
-                .observe(getViewLifecycleOwner(), sortOrder -> {
-                    viewModel.orderBy(sortOrder);
-                });
+                .observe(getViewLifecycleOwner(), sortOrder -> viewModel.orderBy(sortOrder));
     }
 
     public void removeChecks() {

@@ -21,7 +21,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener;
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
