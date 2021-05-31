@@ -108,12 +108,6 @@ public class BackpackFragment extends Fragment
                 });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        removeChecks();
-    }
-
     public void removeChecks() {
         if (adapter.isShowingChecks()) {
             adapter.setShowChecks();
