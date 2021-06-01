@@ -105,7 +105,6 @@ public class StatsPageFragment extends Fragment
         LogWrapper
                 .Companion
                 .v("INFO", "StatPageFragment " + pageNumber + ", onCreateView() - end.");
-
         return rootView;
     }
 
@@ -185,12 +184,15 @@ public class StatsPageFragment extends Fragment
     public void openStatEditDialog(int position) {
         Stat stat = statList.get(position);
         StatBottomSheetDialog bottomSheetDialog =
-                new StatBottomSheetDialog(characterID, pageNumber);
-        bottomSheetDialog.setTitle("Stat Edit");
-        bottomSheetDialog.setOption(StatBottomSheetDialog.OPTION_EDIT);
-        bottomSheetDialog.setOldStat(stat);
-        bottomSheetDialog.setStatNoticeDialogListener(StatsPageFragment.this);
-        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EDIT");
+                new StatBottomSheetDialog()
+                        .newInstance(characterID,
+                                pageNumber,
+                                StatBottomSheetDialog.OPTION_EDIT,
+                                stat.id,
+                                stat.getName(),
+                                stat.getValue());
+//        bottomSheetDialog.setOldStat(stat);
+        bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_EDIT");
     }
 
     @Override
@@ -273,10 +275,14 @@ public class StatsPageFragment extends Fragment
 
         private void showAddStatBottomSheet() {
             StatBottomSheetDialog bottomSheetDialog =
-                    new StatBottomSheetDialog(characterID, pageNumber);
-            bottomSheetDialog.setTitle("Stat Creation");
-            bottomSheetDialog.setStatNoticeDialogListener(StatsPageFragment.this);
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
+                    new StatBottomSheetDialog()
+                            .newInstance(characterID,
+                                    pageNumber,
+                                    StatBottomSheetDialog.OPTION_ADD,
+                                    null,
+                                    null,
+                                    null);
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_ADD_STAT");
         }
     }
 
