@@ -180,8 +180,7 @@ public class StatsFragment extends Fragment
     private void showPresetBottomDialog() {
         PresetAddBottomSheetDialog bottomSheetDialog =
                 new PresetAddBottomSheetDialog();
-        bottomSheetDialog.setListener(this);
-        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_PRESET");
+        bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_ADD_PRESET");
     }
 
     private void addToPreset(String presetName) {

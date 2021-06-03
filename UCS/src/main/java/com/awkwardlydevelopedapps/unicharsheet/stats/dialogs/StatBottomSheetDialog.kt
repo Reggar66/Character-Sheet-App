@@ -11,7 +11,6 @@ import androidx.fragment.app.DialogFragment
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.model.BottomSheetDialogModel
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat
-import java.lang.ClassCastException
 
 class StatBottomSheetDialog : BottomSheetDialogModel() {
 

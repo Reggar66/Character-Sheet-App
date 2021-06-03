@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.stats.dialogs
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.model.BottomSheetDialogModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class PresetAddBottomSheetDialog() : BottomSheetDialogModel() {
+class PresetAddBottomSheetDialog : BottomSheetDialogModel() {
 
     lateinit var listener: OnApplyListener
 
@@ -18,7 +19,21 @@ class PresetAddBottomSheetDialog() : BottomSheetDialogModel() {
         fun applyPreset(presetName: String)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            listener = parentFragment as OnApplyListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(parentFragment.toString() + " must implement OnApplyListener.")
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.dialog_preset, container, false)
         val editTextName: EditText = rootView.findViewById(R.id.presetDialog_editText_name)
         val fabApply: FloatingActionButton = rootView.findViewById(R.id.presetDialog_fab_apply)
