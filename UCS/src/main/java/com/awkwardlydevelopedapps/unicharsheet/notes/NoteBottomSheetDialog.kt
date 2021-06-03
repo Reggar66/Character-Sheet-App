@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.notes
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,34 @@ import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.model.BottomSheetDialogModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class NoteBottomSheetDialog() : BottomSheetDialogModel() {
+class NoteBottomSheetDialog : BottomSheetDialogModel() {
 
     private lateinit var editTextTitle: EditText
     private lateinit var editTextNote: EditText
 
-    var noticeDialogListener: NoticeDialogListener? = null
+    private var noticeDialogListener: NoticeDialogListener? = null
 
     interface NoticeDialogListener {
         fun onPositiveButtonListener(title: String, note: String)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            noticeDialogListener = parentFragment as NoticeDialogListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                parentFragment.toString()
+                        + " must implement NoteBottomSheetDialog.NoticeDialogListener."
+            )
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.dialog_note, container, false)
 
         editTextTitle = rootView.findViewById(R.id.dialogNote_editText_title)
@@ -31,8 +48,8 @@ class NoteBottomSheetDialog() : BottomSheetDialogModel() {
         fabAdd.setOnClickListener {
             //createNote()
             noticeDialogListener?.onPositiveButtonListener(
-                    editTextTitle.text.toString(),
-                    editTextNote.text.toString()
+                editTextTitle.text.toString(),
+                editTextNote.text.toString()
             )
             dismiss() //dismiss dialog
         }

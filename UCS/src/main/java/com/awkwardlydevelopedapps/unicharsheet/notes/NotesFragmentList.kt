@@ -127,10 +127,8 @@ class NotesFragmentList : Fragment(),
 
     inner class AddNoteOnClickListener : View.OnClickListener {
         override fun onClick(p0: View?) {
-            val bottomDialog = NoteBottomSheetDialog().apply {
-                noticeDialogListener = this@NotesFragmentList
-            }
-            bottomDialog.show(parentFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
+            val bottomDialog = NoteBottomSheetDialog()
+            bottomDialog.show(childFragmentManager, "BOTTOM_DIALOG_CREATE_NOTE")
         }
 
     }
