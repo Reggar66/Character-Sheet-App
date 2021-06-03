@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class PresetAddBottomSheetDialog : BottomSheetDialogModel() {
 
-    lateinit var listener: OnApplyListener
+    var listener: OnApplyListener? = null
 
     interface OnApplyListener {
         fun applyPreset(presetName: String)
@@ -41,7 +41,7 @@ class PresetAddBottomSheetDialog : BottomSheetDialogModel() {
             if (editTextName.text.isEmpty()) {
                 Toast.makeText(requireContext(), "Enter a name", Toast.LENGTH_SHORT).show()
             } else {
-                listener.applyPreset(editTextName.text.toString())
+                listener?.applyPreset(editTextName.text.toString())
                 dialog?.dismiss()
             }
         }
