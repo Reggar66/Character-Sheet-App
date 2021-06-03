@@ -154,8 +154,7 @@ public class StatsFragment extends Fragment
     public void changeCurrentTabName() {
         StatTabNameChangeBottomSheetDialog bottomSheetDialog =
                 new StatTabNameChangeBottomSheetDialog();
-        bottomSheetDialog.setListener(this);
-        bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CHANGE_TAB_NAME");
+        bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_CHANGE_TAB_NAME");
 
     }
 
