@@ -47,31 +47,31 @@ class StatBottomSheetDialog : BottomSheetDialogModel() {
         private const val KEY_OLD_ID = "OLD_ID"
         private const val KEY_OLD_NAME = "OLD_NAME"
         private const val KEY_OLD_VALUE = "OLD_VALUE"
-    }
 
-    /**
-     * Creates new instance of StatBottomDialog.
-     * Parameters for old stat can be null if option is OPTION_EDIT.
-     * @param option use OPTION_ADD or OPTION_EDIT.
-     */
-    fun newInstance(
-        charId: Int,
-        pageNumber: Int,
-        option: Int,
-        oldStatId: Int?,
-        oldStatName: String?,
-        oldStatValue: String?
-    ): StatBottomSheetDialog {
-        return StatBottomSheetDialog().apply {
-            arguments = Bundle().apply {
-                putInt(KEY_CHAR_ID, charId)
-                putInt(KEY_PAGE_NUMBER, pageNumber)
-                putInt(KEY_OPTION, option)
+        /**
+         * Creates new instance of StatBottomDialog.
+         * Parameters for old stat can be null if option is OPTION_EDIT.
+         * @param option use OPTION_ADD or OPTION_EDIT.
+         */
+        fun newInstance(
+            charId: Int,
+            pageNumber: Int,
+            option: Int,
+            oldStatId: Int?,
+            oldStatName: String?,
+            oldStatValue: String?
+        ): StatBottomSheetDialog {
+            return StatBottomSheetDialog().apply {
+                arguments = Bundle().apply {
+                    putInt(KEY_CHAR_ID, charId)
+                    putInt(KEY_PAGE_NUMBER, pageNumber)
+                    putInt(KEY_OPTION, option)
 
-                if (oldStatId != null) {
-                    putInt(KEY_OLD_ID, oldStatId)
-                    putString(KEY_OLD_NAME, oldStatName)
-                    putString(KEY_OLD_VALUE, oldStatValue)
+                    if (oldStatId != null) {
+                        putInt(KEY_OLD_ID, oldStatId)
+                        putString(KEY_OLD_NAME, oldStatName)
+                        putString(KEY_OLD_VALUE, oldStatValue)
+                    }
                 }
             }
         }

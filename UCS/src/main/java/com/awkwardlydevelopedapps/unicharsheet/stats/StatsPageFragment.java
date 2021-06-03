@@ -184,14 +184,13 @@ public class StatsPageFragment extends Fragment
     public void openStatEditDialog(int position) {
         Stat stat = statList.get(position);
         StatBottomSheetDialog bottomSheetDialog =
-                new StatBottomSheetDialog()
+                StatBottomSheetDialog.Companion
                         .newInstance(characterID,
                                 pageNumber,
                                 StatBottomSheetDialog.OPTION_EDIT,
                                 stat.id,
                                 stat.getName(),
                                 stat.getValue());
-//        bottomSheetDialog.setOldStat(stat);
         bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_EDIT");
     }
 
@@ -275,7 +274,7 @@ public class StatsPageFragment extends Fragment
 
         private void showAddStatBottomSheet() {
             StatBottomSheetDialog bottomSheetDialog =
-                    new StatBottomSheetDialog()
+                    StatBottomSheetDialog.Companion
                             .newInstance(characterID,
                                     pageNumber,
                                     StatBottomSheetDialog.OPTION_ADD,
