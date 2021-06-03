@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.abilities.dialogs
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +14,35 @@ import com.awkwardlydevelopedapps.unicharsheet.common.model.BottomSheetDialogMod
 import com.awkwardlydevelopedapps.unicharsheet.common.model.Icon
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class SpellCreateBottomSheetDialog() : BottomSheetDialogModel(),
-        IconsSpellAdapter.ItemDataCallback {
+class SpellCreateBottomSheetDialog : BottomSheetDialogModel(),
+    IconsSpellAdapter.ItemDataCallback {
 
-    lateinit var editTextSpellName: EditText
+    private lateinit var editTextSpellName: EditText
     lateinit var icon: Icon
 
-    var noticeDialogListener: NoticeDialogListener? = null
+    private var noticeDialogListener: NoticeDialogListener? = null
 
     interface NoticeDialogListener {
         fun onPositiveClickListenerSpellCreate(spellName: String, iconName: String)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            noticeDialogListener = parentFragment as NoticeDialogListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                parentFragment.toString()
+                        + " must implement SpellCreateBottomSheetDialog.NoticeDialogListener."
+            )
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.dialog_spells, container, false)
 
         editTextSpellName = rootView.findViewById(R.id.dialogSpells_name)
@@ -33,8 +50,8 @@ class SpellCreateBottomSheetDialog() : BottomSheetDialogModel(),
         val fab: FloatingActionButton = rootView.findViewById(R.id.fab_spellCreation_bottomDialog)
         fab.setOnClickListener {
             noticeDialogListener?.onPositiveClickListenerSpellCreate(
-                    editTextSpellName.text.toString(),
-                    icon.iconName
+                editTextSpellName.text.toString(),
+                icon.iconName
             )
             dialog?.dismiss()
         }

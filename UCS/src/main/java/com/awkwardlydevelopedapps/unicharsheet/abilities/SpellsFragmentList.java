@@ -200,8 +200,7 @@ public class SpellsFragmentList extends Fragment
         private void showCreationBottomDialog() {
             SpellCreateBottomSheetDialog bottomSheetDialog =
                     new SpellCreateBottomSheetDialog();
-            bottomSheetDialog.setNoticeDialogListener(SpellsFragmentList.this);
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_CREATE_SPELL");
         }
     }
 
