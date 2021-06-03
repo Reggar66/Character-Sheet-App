@@ -343,15 +343,16 @@ public class EquipmentFragment extends Fragment
 
         private void showEditBottomDialog() {
             EquipmentBottomSheetDialog bottomSheetDialog =
-                    new EquipmentBottomSheetDialog(requireContext(), slotCurrentlySelected);
-
-            bottomSheetDialog.setNoticeDialogListener(EquipmentFragment.this);
-            bottomSheetDialog.setOldValues(textViewItemName.getText().toString(),
-                    textViewItemArmorType.getText().toString(),
-                    textViewItemArmorValue.getText().toString(),
-                    textViewItemAdditionalEffectsValue.getText().toString());
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_EQ_EDIT");
-
+                    EquipmentBottomSheetDialog
+                            .Companion
+                            .newInstance(
+                                    slotCurrentlySelected,
+                                    textViewItemName.getText().toString(),
+                                    textViewItemArmorType.getText().toString(),
+                                    textViewItemArmorValue.getText().toString(),
+                                    textViewItemAdditionalEffectsValue.getText().toString()
+                            );
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_EQ_EDIT");
         }
     }
 }
