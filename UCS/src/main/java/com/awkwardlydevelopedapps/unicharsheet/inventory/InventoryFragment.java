@@ -12,29 +12,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort;
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.BackpackFragment;
+import com.awkwardlydevelopedapps.unicharsheet.inventory.adapters.InventoryTabsAdapter;
 import com.awkwardlydevelopedapps.unicharsheet.inventory.backpack.viewModel.ItemSortStateViewModel;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.equipment.EquipmentFragment;
-import com.awkwardlydevelopedapps.unicharsheet.inventory.pocket.PocketFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class InventoryFragment extends Fragment {
 
     private View rootView;
-    private TabLayout tabLayout;
-    private ImageView lastTabIcon;
     private Menu popupMenu;
 
     private int characterID;
@@ -46,10 +42,6 @@ public class InventoryFragment extends Fragment {
     private final static int TAB_EQUIPMENT = 0;
     private final static int TAB_POCKET = 1;
     private final static int TAB_BACKPACK = 2;
-
-    private final EquipmentFragment equipmentFragment = new EquipmentFragment();
-    private final PocketFragment pocketFragment = new PocketFragment();
-    private final BackpackFragment backpackFragment = new BackpackFragment();
 
     private ItemSortStateViewModel itemSortStateViewModel;
 
@@ -71,20 +63,43 @@ public class InventoryFragment extends Fragment {
         characterRace = dataHolderViewModel.getRaceName();
         characterIconID = dataHolderViewModel.getImageResourceID();
 
-        tabLayout = rootView.findViewById(R.id.tabLayout_inventory);
-        tabLayout.addOnTabSelectedListener(new TabOnClick());
+        // Inflating custom views that contains icons for tabs
+        View viewEquipment = inflater
+                .inflate(R.layout.inventory_custom_tab_view, container, false);
+        viewEquipment.findViewById(R.id.icon)
+                .setBackgroundResource(R.drawable.inventory_tabs_eq_selector);
 
-        View viewEquipment = getLayoutInflater().inflate(R.layout.inventory_custom_tab_view, null);
-        viewEquipment.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_robe);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(viewEquipment));
+        View viewSack = inflater
+                .inflate(R.layout.inventory_custom_tab_view, container, false);
+        viewSack.findViewById(R.id.icon)
+                .setBackgroundResource(R.drawable.inventory_tabs_pocket_selector);
 
-        View viewSack = getLayoutInflater().inflate(R.layout.inventory_custom_tab_view, null);
-        viewSack.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_cash);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(viewSack));
+        View viewBackpack = inflater
+                .inflate(R.layout.inventory_custom_tab_view, container, false);
+        viewBackpack.findViewById(R.id.icon)
+                .setBackgroundResource(R.drawable.inventory_tabs_backpack_selector);
 
-        View viewBackpack = getLayoutInflater().inflate(R.layout.inventory_custom_tab_view, null);
-        viewBackpack.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_backpack);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(viewBackpack));
+        // ViewPager setup with TabLayout
+        TabLayout tabLayout = rootView.findViewById(R.id.tabLayout_inventory);
+        InventoryTabsAdapter inventoryTabsAdapter = new InventoryTabsAdapter(this);
+        ViewPager2 viewPager = rootView.findViewById(R.id.fragmentContainer_inventory);
+        viewPager.setAdapter(inventoryTabsAdapter);
+        viewPager.registerOnPageChangeCallback(new PageChangeListener());
+
+        // Setting tab icons by CustomView with mediator
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setCustomView(viewEquipment);
+                    break;
+                case 1:
+                    tab.setCustomView(viewSack);
+                    break;
+                case 2:
+                    tab.setCustomView(viewBackpack);
+                    break;
+            }
+        }).attach();
 
         itemSortStateViewModel = new ViewModelProvider(requireActivity())
                 .get(ItemSortStateViewModel.class);
@@ -97,25 +112,6 @@ public class InventoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setupToolbar(view);
-
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer_inventory, new EquipmentFragment()).commit();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        lastTabIcon.getBackground().setTintList(null);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // So it wont clear icon tint color selected when screen gets locked and unlocked.
-        int iconColorSelected = ContextCompat.getColor(requireContext(), R.color.colorAccent);
-        lastTabIcon.getBackground().setTint(iconColorSelected);
     }
 
     private void setupToolbar(View view) {
@@ -148,67 +144,23 @@ public class InventoryFragment extends Fragment {
                 toolbar, navController);
     }
 
+    private void popupMenuVisibilityHandler(int position) {
+        if (popupMenu == null)
+            return;
+
+        MenuItem sortGroupItem = popupMenu.findItem(R.id.action_group_sortOrder);
+
+        sortGroupItem.setVisible(position == TAB_BACKPACK);
+    }
+
     /**
      * Inner Classes
      */
 
-    private class TabOnClick implements TabLayout.OnTabSelectedListener {
-
+    private class PageChangeListener extends ViewPager2.OnPageChangeCallback {
         @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            // Icon color change (indicator)
-            ImageView icon = tab.getCustomView().findViewById(R.id.icon);
-            lastTabIcon = icon;
-            int iconColorSelected = ContextCompat.getColor(requireContext(), R.color.colorAccent);
-            icon.getBackground().setTint(iconColorSelected);
-
-            Fragment fragmentToReplaceWith = equipmentFragment;
-            switch (tab.getPosition()) {
-                case TAB_EQUIPMENT:
-                    fragmentToReplaceWith = equipmentFragment;
-                    break;
-                case TAB_POCKET:
-                    fragmentToReplaceWith = pocketFragment;
-                    break;
-                case TAB_BACKPACK:
-                    fragmentToReplaceWith = backpackFragment;
-                    break;
-            }
-
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainer_inventory, fragmentToReplaceWith).commit();
-
-            popupMenuVisibilityHandler(tab);
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-            // Remove icon color(indicator)
-            ImageView icon = tab.getCustomView().findViewById(R.id.icon);
-            icon.getBackground().setTintList(null);
-
-            // Disable checks on items to delete when changing tab
-            if (tab.getPosition() == 2) {
-                backpackFragment.removeChecks();
-            }
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-
-        private void popupMenuVisibilityHandler(TabLayout.Tab tab) {
-            if (popupMenu == null)
-                return;
-
-            MenuItem sortGroupItem = popupMenu.findItem(R.id.action_group_sortOrder);
-
-            if (tab.getPosition() == TAB_BACKPACK) {
-                sortGroupItem.setVisible(true);
-            } else {
-                sortGroupItem.setVisible(false);
-            }
+        public void onPageSelected(int position) {
+            popupMenuVisibilityHandler(position);
         }
     }
 
