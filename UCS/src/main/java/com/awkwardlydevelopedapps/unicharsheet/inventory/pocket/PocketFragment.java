@@ -47,8 +47,6 @@ public class PocketFragment extends Fragment
     private TextView textViewExp;
 
     private TextView textViewLvl;
-    private ImageView imageViewAddLvl;
-    private ImageView imageViewSubLvl;
 
     public PocketFragment() {
 
@@ -88,9 +86,9 @@ public class PocketFragment extends Fragment
 
         textViewLvl = rootView.findViewById(R.id.textView_value_lvl);
         textViewLvl.setOnClickListener(new LevelOnClickListener(LevelOnClickListener.CHANGE_VALUE));
-        imageViewAddLvl = rootView.findViewById(R.id.imageView_plus_lvl);
+        ImageView imageViewAddLvl = rootView.findViewById(R.id.imageView_plus_lvl);
         imageViewAddLvl.setOnClickListener(new LevelOnClickListener(LevelOnClickListener.ADD));
-        imageViewSubLvl = rootView.findViewById(R.id.imageView_minus_lvl);
+        ImageView imageViewSubLvl = rootView.findViewById(R.id.imageView_minus_lvl);
         imageViewSubLvl.setOnClickListener(new LevelOnClickListener(LevelOnClickListener.SUB));
 
         viewModel = new ViewModelProvider(this,
@@ -104,51 +102,42 @@ public class PocketFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getAllCurrency().observe(getViewLifecycleOwner(), new Observer<List<Currency>>() {
-            @Override
-            public void onChanged(List<Currency> currencies) {
-                viewModel.setCurrencies(currencies);
-                checkForCurrencies();
+        viewModel.getAllCurrency().observe(getViewLifecycleOwner(), currencies -> {
+            viewModel.setCurrencies(currencies);
+            checkForCurrencies();
 
-                updateCurrencyText(currencies);
-                updateCurrencySeekBarProgress(currencies);
+            updateCurrencyText(currencies);
+            updateCurrencySeekBarProgress(currencies);
 
-                for (Currency c : currencies) {
-                    switch (c.getType()) {
-                        case Currency.TYPE_GOLD:
-                            viewModel.setGold(c);
-                            break;
-                        case Currency.TYPE_SILVER:
-                            viewModel.setSilver(c);
-                            break;
-                        case Currency.TYPE_COPPER:
-                            viewModel.setCopper(c);
-                            break;
-                    }
+            for (Currency c : currencies) {
+                switch (c.getType()) {
+                    case Currency.TYPE_GOLD:
+                        viewModel.setGold(c);
+                        break;
+                    case Currency.TYPE_SILVER:
+                        viewModel.setSilver(c);
+                        break;
+                    case Currency.TYPE_COPPER:
+                        viewModel.setCopper(c);
+                        break;
                 }
             }
         });
 
-        viewModel.getExperienceLiveData().observe(getViewLifecycleOwner(), new Observer<Experience>() {
-            @Override
-            public void onChanged(Experience experience) {
-                checkForExperience(experience);
+        viewModel.getExperienceLiveData().observe(getViewLifecycleOwner(), experience -> {
+            checkForExperience(experience);
 
-                updateExperienceText(experience);
-                updateExperienceSeekBarProgress(experience);
+            updateExperienceText(experience);
+            updateExperienceSeekBarProgress(experience);
 
-                viewModel.setExperience(experience);
-            }
+            viewModel.setExperience(experience);
         });
 
-        viewModel.getLevelLiveData().observe(getViewLifecycleOwner(), new Observer<Level>() {
-            @Override
-            public void onChanged(Level level) {
-                checkForLevel(level);
+        viewModel.getLevelLiveData().observe(getViewLifecycleOwner(), level -> {
+            checkForLevel(level);
 
-                viewModel.setLevel(level);
-                updateLevelText(level);
-            }
+            viewModel.setLevel(level);
+            updateLevelText(level);
         });
     }
 
@@ -257,7 +246,7 @@ public class PocketFragment extends Fragment
     }
 
     @Override
-    public void onPositiveClickListener(int option, @NotNull String updateValue, @NotNull String updateMaxValue, @NonNull String currencyType) {
+    public void onPositiveClickListener(int option, @NotNull String updateValue, @NotNull String updateMaxValue, String currencyType) {
         switch (option) {
             case PocketBottomSheetDialog.CURRENCY:
                 viewModel.updateCurrencyWithMaxValue(
@@ -385,13 +374,13 @@ public class PocketFragment extends Fragment
         private void showBottomDialog() {
 
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog();
-            bottomSheetDialog.setNoticeDialogListener(PocketFragment.this);
-            bottomSheetDialog.setOption(this.option);
-            bottomSheetDialog.setCurrencyType(this.currencyType);
-            bottomSheetDialog.setOldValue(oldValue);
-            bottomSheetDialog.setOldMaxValue(oldMaxValue);
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
+                    PocketBottomSheetDialog.Companion.newInstance(
+                            this.option,
+                            this.currencyType,
+                            oldValue,
+                            oldMaxValue
+                    );
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }
 
@@ -434,11 +423,13 @@ public class PocketFragment extends Fragment
 
         private void showBottomDialog() {
             PocketBottomSheetDialog bottomSheetDialog =
-                    new PocketBottomSheetDialog();
-            bottomSheetDialog.setNoticeDialogListener(PocketFragment.this);
-            bottomSheetDialog.setOption(PocketBottomSheetDialog.LEVEL);
-            bottomSheetDialog.setOldValue(String.valueOf(viewModel.getLevel().getValue()));
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_POCKET");
+                    PocketBottomSheetDialog.Companion.newInstance(
+                            PocketBottomSheetDialog.LEVEL,
+                            null,
+                            String.valueOf(viewModel.getLevel().getValue()),
+                            null
+                    );
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_POCKET");
         }
     }
 }
