@@ -82,7 +82,10 @@ class StatBottomSheetDialog : BottomSheetDialogModel() {
         try {
             statNoticeDialogListener = parentFragment as StatNoticeDialogListener
         } catch (e: ClassCastException) {
-            throw ClassCastException(parentFragment.toString() + "must implement StatNoticeDialogListener")
+            throw ClassCastException(
+                parentFragment.toString()
+                        + " must implement StatNoticeDialogListener"
+            )
         }
     }
 

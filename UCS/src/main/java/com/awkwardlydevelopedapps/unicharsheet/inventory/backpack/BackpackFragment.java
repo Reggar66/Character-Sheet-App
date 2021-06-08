@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -116,13 +117,21 @@ public class BackpackFragment extends Fragment
 
     //BottomDialog
     @Override
-    public void onPositiveClickListener(int option, @NotNull String itemName, @NotNull String quantity, Item oldItem) {
+    public void onPositiveClickListener(int option, @NotNull String itemName, @NotNull String quantity, @Nullable Integer oldItemId) {
         switch (option) {
             case ItemBottomSheetDialog.ADD:
                 viewModel.insert(new Item(itemName, quantity, characterID));
                 break;
             case ItemBottomSheetDialog.EDIT:
-                viewModel.updateItem(itemName, quantity, characterID, oldItem.id);
+                if (oldItemId == null) {
+                    Toast.makeText(
+                            requireContext(),
+                            "Error: item not updated.",
+                            Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                viewModel.updateItem(itemName, quantity, characterID, oldItemId);
                 break;
         }
     }
@@ -139,10 +148,14 @@ public class BackpackFragment extends Fragment
 
         private void showBottomDialog() {
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog();
-            bottomSheetDialog.setNoticeDialogListener(BackpackFragment.this);
-            bottomSheetDialog.setOption(ItemBottomSheetDialog.ADD);
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ADD_ITEM");
+                    ItemBottomSheetDialog.Companion
+                            .newInstance(
+                                    ItemBottomSheetDialog.ADD,
+                                    null,
+                                    null,
+                                    null
+                            );
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_ADD_ITEM");
         }
     }
 
@@ -190,12 +203,16 @@ public class BackpackFragment extends Fragment
         }
 
         private void showBottomDialog(int position) {
+            Item item = viewModel.getItemList().get(position);
             ItemBottomSheetDialog bottomSheetDialog =
-                    new ItemBottomSheetDialog();
-            bottomSheetDialog.setNoticeDialogListener(BackpackFragment.this);
-            bottomSheetDialog.setOption(ItemBottomSheetDialog.EDIT);
-            bottomSheetDialog.setOldItem(viewModel.getItemList().get(position));
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");
+                    ItemBottomSheetDialog.Companion
+                            .newInstance(
+                                    ItemBottomSheetDialog.EDIT,
+                                    item.id,
+                                    item.getName(),
+                                    item.getQuantity()
+                            );
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_ITEM_EDIT");
         }
     }
 
