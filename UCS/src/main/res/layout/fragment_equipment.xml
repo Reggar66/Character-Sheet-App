@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+<!--                android:background="@drawable/slot_selected_drawable"-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -28,7 +29,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:background="@drawable/slot_selected_drawable"
                 android:contentDescription="@string/eq_slot_description_head"
                 android:paddingStart="8dp"
                 android:paddingTop="8dp"

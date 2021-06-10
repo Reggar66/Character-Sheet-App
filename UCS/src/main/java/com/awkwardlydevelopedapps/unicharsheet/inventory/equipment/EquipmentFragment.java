@@ -22,6 +22,7 @@ import com.awkwardlydevelopedapps.unicharsheet.inventory.equipment.viewModel.Equ
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class EquipmentFragment extends Fragment
@@ -32,9 +33,9 @@ public class EquipmentFragment extends Fragment
 
     private EquipmentViewModel viewModel;
 
-    private String slotCurrentlySelected = SLOT_HEAD;
-
-    private ImageView lastSlotButton;
+    private String slotCurrentlySelected;
+    private String lastSlotSelected;
+    private final HashMap<String, ImageView> buttonMap = new HashMap<>();
 
     // Item details texts.
     private TextView textViewSlotItemArmorOrDamage;
@@ -56,9 +57,21 @@ public class EquipmentFragment extends Fragment
     private final static String SLOT_EARS = "Ears";
     private final static String SLOT_FINGER = "FINGER";
 
+    private final static String KEY_SLOT_SELECTED = "SLOT_SELECTED";
+
 
     public EquipmentFragment() {
 
+    }
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            slotCurrentlySelected = SLOT_HEAD;
+        } else {
+            slotCurrentlySelected = savedInstanceState.getString(KEY_SLOT_SELECTED);
+        }
     }
 
     @Nullable
@@ -74,48 +87,61 @@ public class EquipmentFragment extends Fragment
         // Head
         // Slot buttons
         ImageView imageViewHead = rootView.findViewById(R.id.imageView_slot_head);
-        imageViewHead.setOnClickListener(new SlotOnClick(SLOT_HEAD, imageViewHead));
+        imageViewHead.setOnClickListener(new SlotOnClick(SLOT_HEAD));
+        buttonMap.put(SLOT_HEAD, imageViewHead);
 
         // Neck
         ImageView imageViewNeck = rootView.findViewById(R.id.imageView_slot_neck);
-        imageViewNeck.setOnClickListener(new SlotOnClick(SLOT_NECK, imageViewNeck));
+        imageViewNeck.setOnClickListener(new SlotOnClick(SLOT_NECK));
+        buttonMap.put(SLOT_NECK, imageViewNeck);
 
         // Chest
         ImageView imageViewChest = rootView.findViewById(R.id.imageView_slot_chest);
-        imageViewChest.setOnClickListener(new SlotOnClick(SLOT_CHEST, imageViewChest));
+        imageViewChest.setOnClickListener(new SlotOnClick(SLOT_CHEST));
+        buttonMap.put(SLOT_CHEST, imageViewChest);
 
         // Right arm
         ImageView imageViewRight = rootView.findViewById(R.id.imageView_slot_right_arm);
-        imageViewRight.setOnClickListener(new SlotOnClick(SLOT_RIGHT_ARM, imageViewRight));
+        imageViewRight.setOnClickListener(new SlotOnClick(SLOT_RIGHT_ARM));
+        buttonMap.put(SLOT_RIGHT_ARM, imageViewRight);
 
         // Left arm
         ImageView imageViewLeft = rootView.findViewById(R.id.imageView_slot_left_arm);
-        imageViewLeft.setOnClickListener(new SlotOnClick(SLOT_LEFT_ARM, imageViewLeft));
+        imageViewLeft.setOnClickListener(new SlotOnClick(SLOT_LEFT_ARM));
+        buttonMap.put(SLOT_LEFT_ARM, imageViewLeft);
 
         // Legs
         ImageView imageViewLegs = rootView.findViewById(R.id.imageView_slot_legs);
-        imageViewLegs.setOnClickListener(new SlotOnClick(SLOT_LEGS, imageViewLegs));
+        imageViewLegs.setOnClickListener(new SlotOnClick(SLOT_LEGS));
+        buttonMap.put(SLOT_LEGS, imageViewLegs);
+
         // Feet
         ImageView imageViewFeet = rootView.findViewById(R.id.imageView_slot_feet);
-        imageViewFeet.setOnClickListener(new SlotOnClick(SLOT_FEET, imageViewFeet));
+        imageViewFeet.setOnClickListener(new SlotOnClick(SLOT_FEET));
+        buttonMap.put(SLOT_FEET, imageViewFeet);
 
         // Weapon
         ImageView imageViewWeapon = rootView.findViewById(R.id.imageView_slot_weapon);
-        imageViewWeapon.setOnClickListener(new SlotOnClick(SLOT_WEAPON, imageViewWeapon));
+        imageViewWeapon.setOnClickListener(new SlotOnClick(SLOT_WEAPON));
+        buttonMap.put(SLOT_WEAPON, imageViewWeapon);
 
         // Off hand
         ImageView imageViewOffHand = rootView.findViewById(R.id.imageView_slot_off_hand);
-        imageViewOffHand.setOnClickListener(new SlotOnClick(SLOT_OFF_HAND, imageViewOffHand));
+        imageViewOffHand.setOnClickListener(new SlotOnClick(SLOT_OFF_HAND));
+        buttonMap.put(SLOT_OFF_HAND, imageViewOffHand);
 
         // Ears
         ImageView imageViewEars = rootView.findViewById(R.id.imageView_slot_ears);
-        imageViewEars.setOnClickListener(new SlotOnClick(SLOT_EARS, imageViewEars));
+        imageViewEars.setOnClickListener(new SlotOnClick(SLOT_EARS));
+        buttonMap.put(SLOT_EARS, imageViewEars);
 
         //Finger
         ImageView imageViewFinger = rootView.findViewById(R.id.imageView_slot_finger);
-        imageViewFinger.setOnClickListener(new SlotOnClick(SLOT_FINGER, imageViewFinger));
+        imageViewFinger.setOnClickListener(new SlotOnClick(SLOT_FINGER));
+        buttonMap.put(SLOT_FINGER, imageViewFinger);
 
-        lastSlotButton = imageViewHead;
+        // Set selected state for current button
+        slotChangeState(slotCurrentlySelected);
 
         // Item details edit button
         ImageView imageViewEditButton = rootView.findViewById(R.id.imageView_editDetails);
@@ -166,6 +192,12 @@ public class EquipmentFragment extends Fragment
         });
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_SLOT_SELECTED, slotCurrentlySelected);
+    }
+
     private void updateTextDetails(Equipment e) {
         // Name
         if (e.getName() == null || e.getName().isEmpty()) {
@@ -207,11 +239,18 @@ public class EquipmentFragment extends Fragment
         return false;
     }
 
-    private void slotChangeState(ImageView slotButton) {
-        lastSlotButton.setBackground(null);
-        slotButton.setBackground(ContextCompat.getDrawable(requireContext(),
-                R.drawable.slot_selected_drawable));
-        lastSlotButton = slotButton;
+    private void slotChangeState(String slotKey) {
+        ImageView lastButton = buttonMap.get(lastSlotSelected);
+        if (lastButton != null)
+            lastButton.setBackground(null);
+
+        ImageView currentButton = buttonMap.get(slotKey);
+        if (currentButton != null) {
+            currentButton.setBackground(ContextCompat.getDrawable(requireContext(),
+                    R.drawable.slot_selected_drawable));
+
+            lastSlotSelected = slotKey;
+        }
     }
 
     @Override
@@ -233,11 +272,9 @@ public class EquipmentFragment extends Fragment
     private class SlotOnClick implements View.OnClickListener {
 
         private final String slotKey;
-        private final ImageView slotButton;
 
-        SlotOnClick(String slotKey, ImageView slotButton) {
+        SlotOnClick(String slotKey) {
             this.slotKey = slotKey;
-            this.slotButton = slotButton;
         }
 
         @Override
@@ -251,7 +288,6 @@ public class EquipmentFragment extends Fragment
         }
 
         private void enterSlotState() {
-
             slotCurrentlySelected = slotKey;
 
             if (!checkForSlot(slotCurrentlySelected)) {
@@ -269,7 +305,7 @@ public class EquipmentFragment extends Fragment
                 textViewSlotItemArmorOrDamage.setText(R.string.eq_armor);
             }
 
-            slotChangeState(slotButton);
+            slotChangeState(slotKey);
         }
     }
 
