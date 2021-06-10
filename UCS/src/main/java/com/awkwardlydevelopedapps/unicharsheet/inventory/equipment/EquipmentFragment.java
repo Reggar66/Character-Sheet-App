@@ -34,18 +34,7 @@ public class EquipmentFragment extends Fragment
 
     private String slotCurrentlySelected = SLOT_HEAD;
 
-    // Slot buttons
-    private ImageView imageViewHead;
-    private ImageView imageViewNeck;
-    private ImageView imageViewChest;
-    private ImageView imageViewRight;
-    private ImageView imageViewLeft;
-    private ImageView imageViewLegs;
-    private ImageView imageViewFeet;
-    private ImageView imageViewWeapon;
-    private ImageView imageViewOffHand;
-    private ImageView imageViewEars;
-    private ImageView imageViewFinger;
+    private ImageView lastSlotButton;
 
     // Item details texts.
     private TextView textViewSlotItemArmorOrDamage;
@@ -54,8 +43,7 @@ public class EquipmentFragment extends Fragment
     private TextView textViewItemArmorValue;
     private TextView textViewItemAdditionalEffectsValue;
 
-    private ImageView imageViewEditButton;
-
+    // KEYs
     private final static String SLOT_HEAD = "Head";
     private final static String SLOT_NECK = "Neck";
     private final static String SLOT_CHEST = "Chest";
@@ -84,50 +72,53 @@ public class EquipmentFragment extends Fragment
         characterID = dataHolderViewModel.getCharacterID();
 
         // Head
-        imageViewHead = rootView.findViewById(R.id.imageView_slot_head);
-        imageViewHead.setOnClickListener(new SlotOnClick(SLOT_HEAD));
+        // Slot buttons
+        ImageView imageViewHead = rootView.findViewById(R.id.imageView_slot_head);
+        imageViewHead.setOnClickListener(new SlotOnClick(SLOT_HEAD, imageViewHead));
 
         // Neck
-        imageViewNeck = rootView.findViewById(R.id.imageView_slot_neck);
-        imageViewNeck.setOnClickListener(new SlotOnClick(SLOT_NECK));
+        ImageView imageViewNeck = rootView.findViewById(R.id.imageView_slot_neck);
+        imageViewNeck.setOnClickListener(new SlotOnClick(SLOT_NECK, imageViewNeck));
 
         // Chest
-        imageViewChest = rootView.findViewById(R.id.imageView_slot_chest);
-        imageViewChest.setOnClickListener(new SlotOnClick(SLOT_CHEST));
+        ImageView imageViewChest = rootView.findViewById(R.id.imageView_slot_chest);
+        imageViewChest.setOnClickListener(new SlotOnClick(SLOT_CHEST, imageViewChest));
 
         // Right arm
-        imageViewRight = rootView.findViewById(R.id.imageView_slot_right_arm);
-        imageViewRight.setOnClickListener(new SlotOnClick(SLOT_RIGHT_ARM));
+        ImageView imageViewRight = rootView.findViewById(R.id.imageView_slot_right_arm);
+        imageViewRight.setOnClickListener(new SlotOnClick(SLOT_RIGHT_ARM, imageViewRight));
 
         // Left arm
-        imageViewLeft = rootView.findViewById(R.id.imageView_slot_left_arm);
-        imageViewLeft.setOnClickListener(new SlotOnClick(SLOT_LEFT_ARM));
+        ImageView imageViewLeft = rootView.findViewById(R.id.imageView_slot_left_arm);
+        imageViewLeft.setOnClickListener(new SlotOnClick(SLOT_LEFT_ARM, imageViewLeft));
 
         // Legs
-        imageViewLegs = rootView.findViewById(R.id.imageView_slot_legs);
-        imageViewLegs.setOnClickListener(new SlotOnClick(SLOT_LEGS));
+        ImageView imageViewLegs = rootView.findViewById(R.id.imageView_slot_legs);
+        imageViewLegs.setOnClickListener(new SlotOnClick(SLOT_LEGS, imageViewLegs));
         // Feet
-        imageViewFeet = rootView.findViewById(R.id.imageView_slot_feet);
-        imageViewFeet.setOnClickListener(new SlotOnClick(SLOT_FEET));
+        ImageView imageViewFeet = rootView.findViewById(R.id.imageView_slot_feet);
+        imageViewFeet.setOnClickListener(new SlotOnClick(SLOT_FEET, imageViewFeet));
 
         // Weapon
-        imageViewWeapon = rootView.findViewById(R.id.imageView_slot_weapon);
-        imageViewWeapon.setOnClickListener(new SlotOnClick(SLOT_WEAPON));
+        ImageView imageViewWeapon = rootView.findViewById(R.id.imageView_slot_weapon);
+        imageViewWeapon.setOnClickListener(new SlotOnClick(SLOT_WEAPON, imageViewWeapon));
 
         // Off hand
-        imageViewOffHand = rootView.findViewById(R.id.imageView_slot_off_hand);
-        imageViewOffHand.setOnClickListener(new SlotOnClick(SLOT_OFF_HAND));
+        ImageView imageViewOffHand = rootView.findViewById(R.id.imageView_slot_off_hand);
+        imageViewOffHand.setOnClickListener(new SlotOnClick(SLOT_OFF_HAND, imageViewOffHand));
 
         // Ears
-        imageViewEars = rootView.findViewById(R.id.imageView_slot_ears);
-        imageViewEars.setOnClickListener(new SlotOnClick(SLOT_EARS));
+        ImageView imageViewEars = rootView.findViewById(R.id.imageView_slot_ears);
+        imageViewEars.setOnClickListener(new SlotOnClick(SLOT_EARS, imageViewEars));
 
         //Finger
-        imageViewFinger = rootView.findViewById(R.id.imageView_slot_finger);
-        imageViewFinger.setOnClickListener(new SlotOnClick(SLOT_FINGER));
+        ImageView imageViewFinger = rootView.findViewById(R.id.imageView_slot_finger);
+        imageViewFinger.setOnClickListener(new SlotOnClick(SLOT_FINGER, imageViewFinger));
+
+        lastSlotButton = imageViewHead;
 
         // Item details edit button
-        imageViewEditButton = rootView.findViewById(R.id.imageView_editDetails);
+        ImageView imageViewEditButton = rootView.findViewById(R.id.imageView_editDetails);
         imageViewEditButton.setOnClickListener(new ItemDetailOnClick());
 
         // Item descriptions texts
@@ -216,65 +207,11 @@ public class EquipmentFragment extends Fragment
         return false;
     }
 
-    private void slotChangeState(String slot) {
-        imageViewHead.setBackground(null);
-        imageViewNeck.setBackground(null);
-        imageViewChest.setBackground(null);
-        imageViewRight.setBackground(null);
-        imageViewLeft.setBackground(null);
-        imageViewLegs.setBackground(null);
-        imageViewFeet.setBackground(null);
-        imageViewWeapon.setBackground(null);
-        imageViewOffHand.setBackground(null);
-        imageViewEars.setBackground(null);
-        imageViewFinger.setBackground(null);
-
-        switch (slot) {
-            case SLOT_HEAD:
-                imageViewHead.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_CHEST:
-                imageViewChest.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_RIGHT_ARM:
-                imageViewRight.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_LEFT_ARM:
-                imageViewLeft.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_FEET:
-                imageViewFeet.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_NECK:
-                imageViewNeck.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_LEGS:
-                imageViewLegs.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_WEAPON:
-                imageViewWeapon.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_OFF_HAND:
-                imageViewOffHand.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_EARS:
-                imageViewEars.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-            case SLOT_FINGER:
-                imageViewFinger.setBackground(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.slot_selected_drawable));
-                break;
-        }
+    private void slotChangeState(ImageView slotButton) {
+        lastSlotButton.setBackground(null);
+        slotButton.setBackground(ContextCompat.getDrawable(requireContext(),
+                R.drawable.slot_selected_drawable));
+        lastSlotButton = slotButton;
     }
 
     @Override
@@ -295,17 +232,19 @@ public class EquipmentFragment extends Fragment
 
     private class SlotOnClick implements View.OnClickListener {
 
-        private final String slot;
+        private final String slotKey;
+        private final ImageView slotButton;
 
-        SlotOnClick(String slot) {
-            this.slot = slot;
+        SlotOnClick(String slotKey, ImageView slotButton) {
+            this.slotKey = slotKey;
+            this.slotButton = slotButton;
         }
 
         @Override
         public void onClick(View view) {
             enterSlotState();
             for (Equipment e : viewModel.getEquipmentList()) {
-                if (e.getSlot().equals(slot)) {
+                if (e.getSlot().equals(slotKey)) {
                     updateTextDetails(e);
                 }
             }
@@ -313,7 +252,7 @@ public class EquipmentFragment extends Fragment
 
         private void enterSlotState() {
 
-            slotCurrentlySelected = slot;
+            slotCurrentlySelected = slotKey;
 
             if (!checkForSlot(slotCurrentlySelected)) {
                 viewModel.insertEq(new Equipment(getResources().getString(R.string.eq_no_item_name),
@@ -324,13 +263,13 @@ public class EquipmentFragment extends Fragment
                         characterID));
             }
 
-            if (slot.equals(SLOT_WEAPON) || slot.equals(SLOT_OFF_HAND)) {
+            if (slotKey.equals(SLOT_WEAPON) || slotKey.equals(SLOT_OFF_HAND)) {
                 textViewSlotItemArmorOrDamage.setText(R.string.eq_value);
             } else {
                 textViewSlotItemArmorOrDamage.setText(R.string.eq_armor);
             }
 
-            slotChangeState(slot);
+            slotChangeState(slotButton);
         }
     }
 
