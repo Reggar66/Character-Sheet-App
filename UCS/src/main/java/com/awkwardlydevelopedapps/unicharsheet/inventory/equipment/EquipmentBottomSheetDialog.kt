@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.inventory.equipment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,16 @@ class EquipmentBottomSheetDialog : BottomSheetDialogModel() {
     var oldAdditionalEffect = ""
 
     private var noticeDialogListener: NoticeDialogListener? = null
+
+    interface NoticeDialogListener {
+        fun onPositiveClickListener(
+            name: String,
+            type: String,
+            value: String,
+            additionalEffect: String,
+            slot: String
+        )
+    }
 
     companion object {
         private const val KEY_SLOT = "SLOT"
@@ -52,14 +63,16 @@ class EquipmentBottomSheetDialog : BottomSheetDialogModel() {
         }
     }
 
-    interface NoticeDialogListener {
-        fun onPositiveClickListener(
-            name: String,
-            type: String,
-            value: String,
-            additionalEffect: String,
-            slot: String
-        )
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            noticeDialogListener = parentFragment as NoticeDialogListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                parentFragment.toString()
+                        + " must implement EquipmentBottomSheetDialog.NoticeDialogListener."
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
