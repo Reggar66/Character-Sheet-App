@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.notes
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class NotesFragmentList : Fragment(),
     private var characterID = 0
     private lateinit var fabAddNote: FloatingActionButton
     private lateinit var fabDeleteNote: FloatingActionButton
-    var changeFragmentCallback: ChangeFragmentCallback? = null
+    private var changeFragmentCallback: ChangeFragmentCallback? = null
 
     lateinit var viewModel: NoteViewModel
     private lateinit var noteSortStateViewModel: NoteSortStateViewModel
@@ -52,6 +53,18 @@ class NotesFragmentList : Fragment(),
         noteSortStateViewModel =
             ViewModelProvider(requireActivity()).get(NoteSortStateViewModel::class.java)
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            changeFragmentCallback = parentFragment as ChangeFragmentCallback
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                parentFragment.toString()
+                        + " must implement NotesFragment.ChangeFragmentCallback"
+            )
+        }
     }
 
     override fun onCreateView(

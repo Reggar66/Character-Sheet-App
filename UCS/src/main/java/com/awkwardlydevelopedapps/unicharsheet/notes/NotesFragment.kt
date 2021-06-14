@@ -11,11 +11,11 @@ import androidx.appcompat.widget.Toolbar
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.awkwardlydevelopedapps.unicharsheet.common.PopupOnSortClickListener
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.data.Sort
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel
@@ -46,14 +46,11 @@ class NotesFragment : Fragment(),
         characterRace = dataHolderViewModel.raceName
         characterIconID = dataHolderViewModel.imageResourceID
 
-
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(
-            R.id.frameLayout_notes_fragment_container,
-            getNewNotesFragmentList()
-        )
-        fragmentTransaction.commit()
-
+        if (savedInstanceState == null) {
+            childFragmentManager.commit {
+                replace<NotesFragmentList>(R.id.frameLayout_notes_fragment_container)
+            }
+        }
 
         return inflater.inflate(R.layout.fragment_notes, container, false)
     }
@@ -61,7 +58,6 @@ class NotesFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupToolbar(view)
     }
 
@@ -88,35 +84,21 @@ class NotesFragment : Fragment(),
         NavigationUI.setupWithNavController(toolbar, navController)
     }
 
-    private fun getNewNoteFragmentDisplay(noteId: Int): Fragment {
-        val fragmentDisplay = NotesFragmentDisplay()
-        fragmentDisplay.changeFragmentCallback = this
-        fragmentDisplay.noteID = noteId
-        return fragmentDisplay
-    }
-
-    private fun getNewNotesFragmentList(): Fragment {
-        return NotesFragmentList().apply {
-            changeFragmentCallback = this@NotesFragment
+    override fun changeToDisplayNote(noteId: Int) {
+        childFragmentManager.commit {
+            replace<NotesFragmentDisplay>(
+                R.id.frameLayout_notes_fragment_container,
+                args = Bundle().apply {
+                    putInt(NotesFragmentDisplay.KEY_NOTE_ID, noteId)
+                })
+            setReorderingAllowed(true)
+            addToBackStack(null)
         }
     }
 
-    override fun changeToDisplayNote(noteId: Int) {
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(
-            R.id.frameLayout_notes_fragment_container,
-            getNewNoteFragmentDisplay(noteId)
-        )
-        fragmentTransaction.commit()
-    }
 
     override fun changeToList() {
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(
-            R.id.frameLayout_notes_fragment_container,
-            getNewNotesFragmentList()
-        )
-        fragmentTransaction.commit()
+        childFragmentManager.popBackStack()
     }
 
     /**
