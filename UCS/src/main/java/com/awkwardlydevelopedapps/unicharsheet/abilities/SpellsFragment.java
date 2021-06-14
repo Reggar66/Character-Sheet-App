@@ -62,10 +62,15 @@ public class SpellsFragment extends Fragment
         characterRace = dataHolderViewModel.getRaceName();
         characterIconID = dataHolderViewModel.getImageResourceID();
 
-        fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentList());
-        fragmentTransaction.commit();
+        fragmentManager = getChildFragmentManager();
+
+        if (savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction
+                    .setReorderingAllowed(true)
+                    .replace(R.id.frameLayout_spells_fragment_container, SpellsFragmentList.class, null)
+                    .commit();
+        }
 
         spellSortStateViewModel = new ViewModelProvider(requireActivity())
                 .get(SpellSortStateViewModel.class);
@@ -116,31 +121,21 @@ public class SpellsFragment extends Fragment
                 toolbar, navController);
     }
 
-    private Fragment getNewSpellsFragmentList() {
-        SpellsFragmentList spellsFragmentList = new SpellsFragmentList();
-        spellsFragmentList.setChangeFragmentCallback(SpellsFragment.this);
-        return spellsFragmentList;
-    }
-
-    private Fragment getNewSpellsFragmentDisplay() {
-        SpellsFragmentDisplay spellsFragmentDisplay = new SpellsFragmentDisplay();
-        spellsFragmentDisplay.setChangeFragmentCallback(SpellsFragment.this);
-        return spellsFragmentDisplay;
-    }
-
     @Override
     public void changeToDisplay() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentDisplay());
-        fragmentTransaction.commit();
+        fragmentTransaction
+                .replace(R.id.frameLayout_spells_fragment_container, SpellsFragmentDisplay.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
         sortItemGroup.setVisible(false);
     }
 
     @Override
     public void changeToList() {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout_spells_fragment_container, getNewSpellsFragmentList());
-        fragmentTransaction.commit();
+        // Just popping backstack
+        fragmentManager.popBackStack();
         sortItemGroup.setVisible(true);
     }
 

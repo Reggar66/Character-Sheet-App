@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.abilities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,23 @@ public class SpellsFragmentDisplay extends Fragment
 
     public SpellsFragmentDisplay() {
 
+    }
+
+    public interface ChangeFragmentCallback {
+        void changeToList();
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        try {
+            callback = (ChangeFragmentCallback) getParentFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    getParentFragment().toString()
+                            + " must implement SpellsFragmentDisplay.ChangeFragmentCallback"
+            );
+        }
     }
 
     @Nullable
@@ -167,10 +185,6 @@ public class SpellsFragmentDisplay extends Fragment
         }
     }
 
-    public void setChangeFragmentCallback(ChangeFragmentCallback callback) {
-        this.callback = callback;
-    }
-
     public void setSpellID(int spellID) {
         this.spellID = spellID;
     }
@@ -197,15 +211,6 @@ public class SpellsFragmentDisplay extends Fragment
                 viewModel.updateSpecialNotes(valueToUpdate, characterID, spellID);
                 break;
         }
-    }
-
-
-    /**
-     * Interfaces
-     */
-
-    public interface ChangeFragmentCallback {
-        void changeToList();
     }
 
     /**

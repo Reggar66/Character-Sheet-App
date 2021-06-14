@@ -1,5 +1,6 @@
 package com.awkwardlydevelopedapps.unicharsheet.abilities;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,17 +46,31 @@ public class SpellsFragmentList extends Fragment
     private DataHolderViewModel dataHolderViewModel;
     private SpellSortStateViewModel spellSortStateViewModel;
 
-    //RecyclerView
-    private RecyclerView recyclerView;
     private SpellAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private int characterID;
 
     private ChangeFragmentCallback callback;
 
+    public interface ChangeFragmentCallback {
+        void changeToDisplay();
+    }
+
     public SpellsFragmentList() {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        try {
+            callback = (ChangeFragmentCallback) getParentFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    getParentFragment().toString()
+                            + " must implement SpellsFragmentList.ChangeFragmentCallback"
+            );
+        }
     }
 
     @Nullable
@@ -80,9 +95,10 @@ public class SpellsFragmentList extends Fragment
         adapter.setOnItemLongClickListener(new OnSpellItemLongClickListener());
         adapter.setOnItemClickListener(new OnSpellItemClickListener());
 
-        layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        recyclerView = rootView.findViewById(R.id.spells_recyclerView);
+        //RecyclerView
+        RecyclerView recyclerView = rootView.findViewById(R.id.spells_recyclerView);
         recyclerView.addOnScrollListener(new FABHideListener());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -139,10 +155,6 @@ public class SpellsFragmentList extends Fragment
         Objects.requireNonNull(dialog.getDialog()).cancel();
     }
 
-    public void setChangeFragmentCallback(ChangeFragmentCallback callback) {
-        this.callback = callback;
-    }
-
     @Override
     public void onPopupSortByNameAsc() {
         viewModel.orderBy(Sort.BY_NAME_ASC);
@@ -176,14 +188,6 @@ public class SpellsFragmentList extends Fragment
                 iconName,
                 characterID
         ));
-    }
-
-    /**
-     * Interfaces
-     */
-
-    public interface ChangeFragmentCallback {
-        void changeToDisplay();
     }
 
     /**
