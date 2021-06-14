@@ -242,10 +242,8 @@ public class SpellsFragmentDisplay extends Fragment
 
         private void showBottomEditDialog() {
             SpellEditorBottomSheetDialog bottomSheetDialog =
-                    new SpellEditorBottomSheetDialog(option);
-            bottomSheetDialog.setNoticeDialogListener(SpellsFragmentDisplay.this);
-            bottomSheetDialog.setOldValue(getOldValue());
-            bottomSheetDialog.show(getParentFragmentManager(), "BOTTOM_DIALOG_SPELL_EDITOR");
+                    SpellEditorBottomSheetDialog.Companion.newInstance(option, getOldValue());
+            bottomSheetDialog.show(getChildFragmentManager(), "BOTTOM_DIALOG_SPELL_EDITOR");
         }
 
 
