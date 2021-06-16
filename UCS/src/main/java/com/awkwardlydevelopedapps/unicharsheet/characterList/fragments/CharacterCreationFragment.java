@@ -31,6 +31,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.common.model.Icon;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.ImageContract;
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dao.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -95,7 +96,7 @@ public class CharacterCreationFragment extends Fragment {
         textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
 
         RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
-        ArrayList<PresetList> presetList = PresetList.presetList();
+        ArrayList<PresetList> presetList = PresetList.presetList(requireContext());
         PresetListAdapter presetListAdapter = new PresetListAdapter(presetList,
                 textViewPreset,
                 bottomSheetBehaviorPreset,
@@ -160,24 +161,27 @@ public class CharacterCreationFragment extends Fragment {
     }
 
     private void checkPresetToAdd() {
+        String preNone = getString(R.string.none);
+        String preBlade = getString(R.string.blade);
+
         String presetName = textViewPreset.getText().toString();
-        if (!presetName.equals("Blade") && !presetName.equals("None")) {
+        if (!presetName.equals(preBlade) && !presetName.equals(preNone)) {
             presetName = "Custom";
         }
-        switch (presetName) {
-            case "None":
-                showToast("Character created without preset.");
-                break;
-            case "Blade":
-                Snackbar.make(rootView, "Character created with Blade preset.", BaseTransientBottomBar.LENGTH_SHORT).show();
-                bladePreset();
-            case "Custom":
-                showToast("Custom preset.");
-                loadCustomPreset(textViewPreset.getText().toString());
-                break;
-            default:
-                showToast("Something wrong with preset.");
-                break;
+
+        if (presetName.equals(preNone)) {
+            showToast("Character created without preset.");
+        } else if (presetName.equals(preBlade)) {
+            showToast("Character created with 'Blade' preset.");
+            bladePreset();
+        } else if (presetName.equals("Custom")) {
+            // For some reason IDE shows warning that above statement is always true. It's not.
+            // We check preset name based on localization string,
+            // if it doesn't match 'None' && 'Blade' THEN we set it to 'Custom'.
+            showToast("Character created with custom preset.");
+            loadCustomPreset(textViewPreset.getText().toString());
+        } else {
+            showToast("Something wrong with preset.");
         }
     }
 

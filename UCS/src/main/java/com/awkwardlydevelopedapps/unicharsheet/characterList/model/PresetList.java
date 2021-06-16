@@ -1,7 +1,12 @@
 package com.awkwardlydevelopedapps.unicharsheet.characterList.model;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.awkwardlydevelopedapps.unicharsheet.R;
 
 import java.util.ArrayList;
 
@@ -20,10 +25,10 @@ public class PresetList {
         return name;
     }
 
-    public static ArrayList<PresetList> presetList() {
+    public static ArrayList<PresetList> presetList(Context context) {
         ArrayList<PresetList> presetList = new ArrayList<>();
-        presetList.add(new PresetList("None"));
-        presetList.add(new PresetList("Blade"));
+        presetList.add(new PresetList(context.getString(R.string.none)));
+        presetList.add(new PresetList(context.getString(R.string.blade)));
 
         return presetList;
     }
