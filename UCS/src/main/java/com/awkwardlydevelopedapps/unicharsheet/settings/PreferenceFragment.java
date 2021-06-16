@@ -1,6 +1,8 @@
 package com.awkwardlydevelopedapps.unicharsheet.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,16 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.service.AdSingleton;
 import com.google.ads.consent.ConsentInformation;
 import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import com.awkwardlydevelopedapps.unicharsheet.R;
+import com.takisoft.preferencex.SwitchPreferenceCompat;
 
-public class PreferenceFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
+public class PreferenceFragment
+        extends PreferenceFragmentCompat
+        implements Preference.OnPreferenceChangeListener {
 
-    private final static String NUMBER_OF_TABS = "NUMBER_OF_TABS";
+    private final static String KEY_NUMBER_OF_TABS = "NUMBER_OF_TABS";
+    private final static String KEY_CONSENT = "CONSENT";
+    private final static String KEY_FEEDBACK = "FEEDBACK";
+    public final static String KEY_ORIENTATION_LOCK = "ORIENTATION_LOCK";
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -31,11 +40,16 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        EditTextPreference editTextPreferenceTabsNumber = findPreference(NUMBER_OF_TABS);
+        SwitchPreferenceCompat switchPreferenceCompatOrientationLock = findPreference(KEY_ORIENTATION_LOCK);
+        if (switchPreferenceCompatOrientationLock != null) {
+            switchPreferenceCompatOrientationLock.setOnPreferenceChangeListener(new OrientationLockListener());
+        }
+
+        EditTextPreference editTextPreferenceTabsNumber = findPreference(KEY_NUMBER_OF_TABS);
         if (editTextPreferenceTabsNumber != null)
             editTextPreferenceTabsNumber.setOnPreferenceChangeListener(PreferenceFragment.this);
 
-        Preference preferenceConsent = findPreference("consent");
+        Preference preferenceConsent = findPreference(KEY_CONSENT);
         if (preferenceConsent != null) {
             preferenceConsent.setOnPreferenceClickListener(new ConsentOnClickListener());
             if (ConsentInformation.getInstance(requireContext()).isRequestLocationInEeaOrUnknown())
@@ -43,7 +57,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
 
         }
 
-        Preference preferenceFeedback = findPreference("feedback");
+        Preference preferenceFeedback = findPreference(KEY_FEEDBACK);
         if (preferenceFeedback != null) {
             preferenceFeedback.setOnPreferenceClickListener(new SendFeedbackListener());
         }
@@ -51,7 +65,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (NUMBER_OF_TABS.equals(preference.getKey())) {
+        if (KEY_NUMBER_OF_TABS.equals(preference.getKey())) {
             if (Integer.parseInt((String) newValue) >= 3) {
                 Toast.makeText(
                         requireContext(),
@@ -71,10 +85,13 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
         return false;
     }
 
-    /**
-     * Inner classes
-     */
+    //****
+    //Inner classes
+    //****
 
+    /**
+     * Responsible for handling clicks on "Reset Consent" option
+     */
     private class ConsentOnClickListener implements Preference.OnPreferenceClickListener {
 
         @Override
@@ -84,6 +101,9 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
         }
     }
 
+    /**
+     * Responsible for handling clicks on "Send Feedback" option
+     */
     private class SendFeedbackListener implements Preference.OnPreferenceClickListener {
 
         String[] addresses = {"awkwardly.developed.apps@gmail.com"};
@@ -99,6 +119,32 @@ public class PreferenceFragment extends PreferenceFragmentCompat implements Pref
             mailIntent.putExtra(Intent.EXTRA_TEXT, extraText);
             if (mailIntent.resolveActivity(requireContext().getPackageManager()) != null) {
                 startActivity(mailIntent);
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Responsible for handling preference change for "Lock orientation" option
+     */
+    private class OrientationLockListener implements Preference.OnPreferenceChangeListener {
+
+        // Since we let user to choose either to lock orientation or not, we suppress code check.
+        @SuppressLint("SourceLockedOrientationActivity")
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            if ((boolean) newValue) {
+                requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                LogWrapper.Companion.v(
+                        "INFO",
+                        "Preference Orientation Lock: now should lock orientation"
+                );
+            } else {
+                requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+                LogWrapper.Companion.v(
+                        "INFO",
+                        "Preference Orientation Lock: now should unlock orientation"
+                );
             }
             return true;
         }

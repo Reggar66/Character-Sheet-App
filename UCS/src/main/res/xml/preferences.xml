@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory android:title="General">
+
+        <SwitchPreferenceCompat
+            android:key="ORIENTATION_LOCK"
+            android:title="Lock orientation"
+            app:defaultValue="true"
+            app:summary="Will lock app to portrait mode if set." />
+
         <EditTextPreference
             android:defaultValue="3"
             android:inputType="number"
@@ -17,12 +24,12 @@
 
         <Preference
             app:isPreferenceVisible="false"
-            app:key="consent"
+            app:key="CONSENT"
             app:summary="Reset preferences for AD consent."
             app:title="Reset consent" />
 
         <Preference
-            app:key="feedback"
+            app:key="FEEDBACK"
             app:summary="Report technical issues or suggest new features."
             app:title="Send feedback" />
     </PreferenceCategory>

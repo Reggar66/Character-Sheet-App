@@ -7,11 +7,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 import com.awkwardlydevelopedapps.unicharsheet.service.AdSingleton;
+import com.awkwardlydevelopedapps.unicharsheet.settings.PreferenceFragment;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        orientationCheck();
 
         AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
@@ -42,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         // No need to set manually fragment transaction. Starting point is set automatically by NavComponent.
+    }
+
+    // Since we let user to choose either to lock orientation or not, we suppress code check.
+    @SuppressLint("SourceLockedOrientationActivity")
+    private void orientationCheck() {
+        SharedPreferences sharedPreferences
+                = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean orientationLock = sharedPreferences
+                .getBoolean(PreferenceFragment.KEY_ORIENTATION_LOCK, true);
+
+        if (orientationLock) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
     }
 
     /**
