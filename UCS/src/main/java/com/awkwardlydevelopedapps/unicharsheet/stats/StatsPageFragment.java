@@ -141,6 +141,12 @@ public class StatsPageFragment extends Fragment
         outState.putInt(KEY_PAGE_NUMBER, pageNumber);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clearChecks();
+    }
+
     /**
      * Clears checks, hides delete button and shows add button for stat page.
      * Basically "restores" stats page to normal "view mode".

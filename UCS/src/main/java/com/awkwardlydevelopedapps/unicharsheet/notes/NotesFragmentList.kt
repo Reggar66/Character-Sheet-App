@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -104,6 +105,19 @@ class NotesFragmentList : Fragment(),
             viewModel.orderBy(orderBy)
         })
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        clearChecks()
+    }
+
+    private fun clearChecks() {
+        if (adapter.showChecks) {
+            adapter.setShowChecks()
+            fabDeleteNote.hide()
+            fabAddNote.show()
+        }
     }
 
     override fun onDeleteDialogPositiveClick(dialog: DialogFragment?) {

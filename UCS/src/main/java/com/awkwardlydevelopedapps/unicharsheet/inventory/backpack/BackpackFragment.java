@@ -96,10 +96,17 @@ public class BackpackFragment extends Fragment
                 .observe(getViewLifecycleOwner(), sortOrder -> viewModel.orderBy(sortOrder));
     }
 
-    public void removeChecks() {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clearChecks();
+    }
+
+    private void clearChecks() {
         if (adapter.isShowingChecks()) {
             adapter.setShowChecks();
             floatingActionButtonDelete.hide();
+            floatingActionButtonAddItem.show();
         }
     }
 

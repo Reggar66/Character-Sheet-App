@@ -130,8 +130,8 @@ public class SpellsFragmentList extends Fragment
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroyView() {
+        super.onDestroyView();
         clearChecks();
     }
 
