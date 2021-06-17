@@ -106,7 +106,7 @@ public class CharacterCreationFragment extends Fragment {
         recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ExecSingleton.getInstance().execute(() -> {
-            presetList.addAll(presetDao.getPresetList());
+            presetList.addAll(presetDao.getPresetListByNameAsc());
             presetListAdapter.notifyDataSetChanged();
         });
 

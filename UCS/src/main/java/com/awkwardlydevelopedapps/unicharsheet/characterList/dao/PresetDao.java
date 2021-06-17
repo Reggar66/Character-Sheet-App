@@ -23,6 +23,9 @@ public interface PresetDao {
     @Query("SELECT * FROM presetList")
     List<PresetList> getPresetList();
 
+    @Query("SELECT * FROM presetList ORDER BY name ASC")
+    List<PresetList> getPresetListByNameAsc();
+
     @Query("SELECT * FROM Preset WHERE presetName = :preName")
     List<Preset> getPresetStats(String preName);
 
