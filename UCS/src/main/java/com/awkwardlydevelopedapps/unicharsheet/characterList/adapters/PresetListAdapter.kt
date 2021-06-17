@@ -16,18 +16,27 @@ import com.awkwardlydevelopedapps.unicharsheet.characterList.dao.PresetDao
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.ArrayList
 
-class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
-                        private val textViewPresetToSet: TextView,
-                        private val bottomSheetBehavior: BottomSheetBehavior<View>,
-                        private val presetDao: PresetDao,
-                        private val activity: Activity) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
+class PresetListAdapter(
+    private val mPresetList: ArrayList<PresetList>,
+    private val textViewPresetToSet: TextView,
+    private val bottomSheetBehavior: BottomSheetBehavior<View>,
+    private val presetDao: PresetDao,
+    private val activity: Activity
+) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
 
+    companion object {
+        private const val SEPARATOR_POSITION = 1
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-            View.OnClickListener,
-            View.OnLongClickListener {
+        View.OnClickListener,
+        View.OnLongClickListener {
+
         val textViewPresetName: TextView = itemView.findViewById(R.id.textView_presetList_name)
-        val frameLayout: FrameLayout = itemView.findViewById(R.id.frameLayout_presetListName_container)
+        val frameLayout: FrameLayout =
+            itemView.findViewById(R.id.frameLayout_presetListName_container)
+
+        val separatorView: View = itemView.findViewById(R.id.separator_presetList)
 
         init {
             frameLayout.setOnClickListener(this)
@@ -53,15 +62,17 @@ class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
             }
 
             builder.setMessage("Would you like to delete \'" + textViewPresetName.text + "\' preset?")
-                    .setTitle("Delete preset")
+                .setTitle("Delete preset")
 
             builder.setPositiveButton("Ok", DialogInterface.OnClickListener { dialogInterface, i ->
                 deletePreset()
             })
 
-            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, i ->
-                dialogInterface.dismiss()
-            })
+            builder.setNegativeButton(
+                "Cancel",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
 
             val dialog: AlertDialog? = builder.create()
             dialog?.show()
@@ -84,9 +95,11 @@ class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
         val context = parent.context
         val inflater = LayoutInflater.from(context)
 
-        val rootView = inflater.inflate(R.layout.bottom_sheet_preset_list_item,
-                parent,
-                false)
+        val rootView = inflater.inflate(
+            R.layout.bottom_sheet_preset_list_item,
+            parent,
+            false
+        )
 
         return ViewHolder(rootView)
     }
@@ -99,5 +112,11 @@ class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
         val preset: PresetList = mPresetList[position]
         val presetName = holder.textViewPresetName
         presetName.text = preset.name
+
+        // Showing separator just before custom presets
+        if (position == SEPARATOR_POSITION)
+            holder.separatorView.visibility = View.VISIBLE
+        else
+            holder.separatorView.visibility = View.GONE
     }
 }
