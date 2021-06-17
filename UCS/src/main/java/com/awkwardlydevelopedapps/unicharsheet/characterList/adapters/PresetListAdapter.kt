@@ -68,7 +68,7 @@ class PresetListAdapter(private val mPresetList: ArrayList<PresetList>,
         }
 
         private fun deletePreset() {
-            val position = adapterPosition
+            val position = bindingAdapterPosition
             mPresetList.removeAt(position)
             notifyItemRemoved(position)
 
