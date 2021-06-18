@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Inner classes
+     * Inner listener class responsible for managing visibility of navigation bar.
      */
     private class BottomNavAppearanceListener implements NavController.OnDestinationChangedListener {
 
