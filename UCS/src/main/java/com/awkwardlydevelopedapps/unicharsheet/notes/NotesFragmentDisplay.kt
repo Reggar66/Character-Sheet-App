@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper
 import com.awkwardlydevelopedapps.unicharsheet.common.viewModel.DataHolderViewModel
-import com.awkwardlydevelopedapps.unicharsheet.notes.model.Note
 import com.awkwardlydevelopedapps.unicharsheet.notes.viewModel.NoteViewModel
 
 class NotesFragmentDisplay : Fragment() {
@@ -110,7 +109,7 @@ class NotesFragmentDisplay : Fragment() {
                 editTextNote.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.TextOnSecondary
+                        R.color.textOnSecondary_day
                     )
                 )
                 editTextNote.requestFocus()
@@ -129,7 +128,7 @@ class NotesFragmentDisplay : Fragment() {
                 editTextNote.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.colorSecondaryDark
+                        R.color.colorSecondaryDark_day
                     )
                 )
 

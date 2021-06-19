@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_16dp"
     android:background="@drawable/equipment_details_background_drawable"
-    android:backgroundTint="@color/colorPrimary"
+    android:backgroundTint="?attr/colorPrimary"
     android:elevation="8dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="auto"
@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:background="@drawable/list_item_stat_drawable_selected"
-            android:backgroundTint="@color/colorSecondaryDark"
+            android:backgroundTint="?attr/colorSecondaryVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -2,13 +2,18 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary_day</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_day</item>
+        <item name="colorSecondary">@color/colorSecondary_day</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDark_day</item>
+        <item name="colorAccent">@color/colorAccent_day</item>
 
         <item name="android:alertDialogTheme">@style/AppDialogFragmentTheme</item>
-        <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="android:colorControlHighlight">@color/colorPrimaryDark_day</item>
+
+        <!-- My attrs -->
+        <item name="textOnPrimary">@color/textOnPrimary_day</item>
+        <item name="textOnSecondary">@color/textOnSecondary_day</item>
     </style>
 
     <!-- Splash screen theme -->

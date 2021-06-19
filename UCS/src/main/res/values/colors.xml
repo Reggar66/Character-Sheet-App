@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- TODO figure out dark theme colors-->
-    <color name="colorPrimary">#293241</color>
-    <color name="colorPrimaryDark">#0F0F0F</color>
+    <!-- Day colors-->
+    <color name="colorPrimary_day">#293241</color>
+    <color name="colorPrimaryDark_day">#0F0F0F</color>
 
-    <color name="colorAccent">#D33E43</color>
-    <color name="colorSecondary">#E8E9EB</color>
-    <color name="colorSecondaryDark">#474448</color>
+    <color name="colorAccent_day">#D33E43</color>
+    <color name="colorSecondary_day">#E8E9EB</color>
+    <color name="colorSecondaryDark_day">#474448</color>
 
-    <color name="TextOnPrimary">#FFFFFF</color>
-    <color name="TextOnPrimaryDarker">#CCCCCC</color>
-    <color name="TextOnSecondary">#000000</color>
+    <!--    <color name="textOnPrimaryDarker_day">#CCCCCC</color>-->
+    <color name="textOnPrimary_day">#FFFFFF</color>
+    <color name="textOnSecondary_day">#000000</color>
+
+    <!-- Night colors -->
+    <color name="colorPrimary_night">#05071B</color>
+    <color name="colorPrimaryDark_night">#020202</color>
+
+    <color name="colorAccent_night">#D33E43</color>
+    <color name="colorSecondary_night">#1D1D1F</color>
+    <color name="colorSecondaryDark_night">#0C090C</color>
+
+    <!--    <color name="textOnPrimaryDarker_night">#CCCCCC</color>-->
+    <color name="textOnPrimary_night">#FFFFFF</color>
+    <color name="textOnSecondary_night">#FFFFFF</color>
+
 </resources>

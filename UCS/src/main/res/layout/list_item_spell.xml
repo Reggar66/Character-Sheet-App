@@ -39,7 +39,7 @@
         android:fontFamily="@font/almendra"
         android:maxLines="1"
         android:textAllCaps="false"
-        android:textColor="@color/TextOnSecondary"
+        android:textColor="?attr/textOnSecondary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spell_item_name_bar"

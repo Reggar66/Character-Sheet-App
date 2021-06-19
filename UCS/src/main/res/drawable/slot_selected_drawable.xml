@@ -5,7 +5,7 @@
         android:bottomLeftRadius="50dp"
         android:topLeftRadius="50dp" />
 
-    <solid android:color="@color/colorSecondary" />
+    <solid android:color="?attr/colorSecondary" />
 
     <size
         android:width="50dp"

@@ -25,24 +25,24 @@
         android:id="@+id/image"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:padding="8dp"
         android:layout_marginStart="8dp"
+        android:background="@drawable/ic_background_hex"
+        android:backgroundTint="?attr/colorPrimaryDark"
         android:contentDescription="@string/char_select_icon_desc"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/ic_background_hex"
         tools:src="@drawable/ic_kenku_head" />
 
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fontFamily="@font/almendra"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/textOnSecondary"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Character Name" />
@@ -68,7 +68,7 @@
             android:fontFamily="@font/almendra"
             android:textAlignment="textStart"
             android:textAllCaps="true"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/textOnSecondary"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:text="Class" />
@@ -79,7 +79,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fontFamily="@font/almendra"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/textOnSecondary"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:text="Human" />

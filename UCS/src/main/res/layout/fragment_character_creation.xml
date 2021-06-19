@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout_createCharacter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryDark">
+    android:background="?attr/colorSecondaryVariant">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/parent_classBasics"
@@ -35,7 +35,7 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/char_add_activity_raceName"
-                    android:textColor="@color/TextOnSecondary"
+                    android:textColor="?attr/textOnSecondary"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/edit_character_race"
@@ -50,7 +50,7 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/char_add_activity_className"
-                    android:textColor="@color/TextOnSecondary"
+                    android:textColor="?attr/textOnSecondary"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/edit_character_class"
@@ -104,7 +104,7 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/char_add_activity_name"
-                    android:textColor="@color/TextOnSecondary"
+                    android:textColor="?attr/textOnSecondary"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/edit_character_name"
@@ -131,7 +131,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/character_creation_icon_selection_ripple"
-                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:backgroundTint="?attr/colorPrimaryDark"
                     android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +156,7 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-medium"
                     android:text="Preset: "
-                    android:textColor="@color/TextOnSecondary"
+                    android:textColor="?attr/textOnSecondary"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -172,7 +172,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/none"
                     android:textAlignment="textStart"
-                    android:textColor="@color/TextOnSecondary"
+                    android:textColor="?attr/textOnSecondary"
                     android:textSize="30sp"
                     android:textStyle="bold" />
             </LinearLayout>

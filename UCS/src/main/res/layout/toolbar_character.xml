@@ -5,7 +5,7 @@
     android:id="@+id/toolbar_character"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="?attr/colorPrimary"
     android:elevation="4dp"
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="8dp"
             android:background="@drawable/ic_background_hex"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="?attr/colorPrimaryDark"
             tools:srcCompat="@drawable/ic_kenku_head" />
 
         <LinearLayout
@@ -51,7 +51,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/almendra"
-                android:textColor="@color/TextOnPrimary"
+                android:textColor="?attr/textOnPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="Arthur" />
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/almendra"
                 android:textAllCaps="true"
-                android:textColor="@color/TextOnPrimary"
+                android:textColor="?attr/textOnPrimary"
                 android:textSize="14sp"
                 tools:text="Knight" />
 
@@ -73,7 +73,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/almendra"
-                android:textColor="@color/TextOnPrimary"
+                android:textColor="?attr/textOnPrimary"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 tools:text="Human" />

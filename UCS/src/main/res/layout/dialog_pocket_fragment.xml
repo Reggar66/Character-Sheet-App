@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Value"
-            android:textColor="@color/TextOnSecondary"
+            android:textColor="?attr/textOnSecondary"
             android:textStyle="bold" />
 
         <EditText
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Max value"
-            android:textColor="@color/TextOnSecondary"
+            android:textColor="?attr/textOnSecondary"
             android:textStyle="bold" />
 
 

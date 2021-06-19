@@ -32,10 +32,10 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
             val icon: Icon = mIcons[adapterPosition]
             if (icon.selected) {
                 frame.backgroundTintList = ColorStateList
-                        .valueOf(ContextCompat.getColor(itemView.context, R.color.colorAccent))
+                    .valueOf(ContextCompat.getColor(itemView.context, R.color.colorAccent_day))
             } else {
                 frame.backgroundTintList = ColorStateList
-                        .valueOf(ContextCompat.getColor(itemView.context, R.color.colorPrimaryDark))
+                    .valueOf(ContextCompat.getColor(itemView.context, R.color.colorPrimaryDark_day))
             }
         }
 
