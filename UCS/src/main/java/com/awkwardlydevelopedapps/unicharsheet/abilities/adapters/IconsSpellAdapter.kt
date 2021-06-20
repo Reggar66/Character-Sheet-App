@@ -29,7 +29,7 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
         }
 
         fun chooseBinding() {
-            val icon: Icon = mIcons[adapterPosition]
+            val icon: Icon = mIcons[bindingAdapterPosition]
             if (icon.selected) {
                 frame.backgroundTintList = ColorStateList
                     .valueOf(ContextCompat.getColor(itemView.context, R.color.colorAccent_day))
@@ -47,9 +47,9 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
                 }
             }
 
-            val icon: Icon = mIcons[adapterPosition]
+            val icon: Icon = mIcons[bindingAdapterPosition]
             icon.selected = true
-            notifyItemChanged(adapterPosition)
+            notifyItemChanged(bindingAdapterPosition)
             callback.setIconForDialog(icon)
         }
     }
