@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <item android:gravity="fill" android:width="88dp" android:height="88dp">
+                <bitmap android:src="@drawable/ic_background_hex" android:tint="?attr/colorAccent" />
+            </item>
+            <item android:gravity="center" android:width="80dp" android:height="80dp">
+                <bitmap android:src="@drawable/ic_background_hex" android:tint="?attr/colorPrimaryDark" />
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_selected="false">
+        <bitmap android:gravity="fill" android:src="@drawable/ic_background_hex" android:tint="?attr/colorPrimaryDark" />
+    </item>
+</selector>

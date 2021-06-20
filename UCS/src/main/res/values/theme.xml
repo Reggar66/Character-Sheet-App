@@ -10,6 +10,8 @@
 
         <item name="android:alertDialogTheme">@style/AppDialogFragmentTheme</item>
         <item name="android:colorControlHighlight">@color/colorPrimaryDark_day</item>
+        <!-- Disabling elevation overlay -->
+        <item name="elevationOverlayEnabled">false</item>
 
         <!-- My attrs -->
         <item name="textOnPrimary">@color/textOnPrimary_day</item>

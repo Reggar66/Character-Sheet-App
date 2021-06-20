@@ -1,17 +1,16 @@
 package com.awkwardlydevelopedapps.unicharsheet.abilities.adapters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.awkwardlydevelopedapps.unicharsheet.R
 import com.awkwardlydevelopedapps.unicharsheet.common.model.Icon
 
-class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<IconsSpellAdapter.ViewHolder>() {
+class IconsSpellAdapter(private val mIcons: List<Icon>) :
+    RecyclerView.Adapter<IconsSpellAdapter.ViewHolder>() {
 
     interface ItemDataCallback {
         fun setIconForDialog(icon: Icon)
@@ -19,7 +18,8 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
 
     internal lateinit var callback: ItemDataCallback
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         val iconImage = itemView.findViewById<ImageView>(R.id.bottomSheetSpellIconItem_icon)
         val frame = itemView.findViewById<FrameLayout>(R.id.bottomSheetSpellIconItem_frame)
@@ -30,13 +30,7 @@ class IconsSpellAdapter(private val mIcons: List<Icon>) : RecyclerView.Adapter<I
 
         fun chooseBinding() {
             val icon: Icon = mIcons[bindingAdapterPosition]
-            if (icon.selected) {
-                frame.backgroundTintList = ColorStateList
-                    .valueOf(ContextCompat.getColor(itemView.context, R.color.colorAccent_day))
-            } else {
-                frame.backgroundTintList = ColorStateList
-                    .valueOf(ContextCompat.getColor(itemView.context, R.color.colorPrimaryDark_day))
-            }
+            itemView.isSelected = icon.selected
         }
 
         override fun onClick(v: View?) {
