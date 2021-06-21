@@ -2,4 +2,7 @@
 <resources>
     <attr name="textOnPrimary" format="color" />
     <attr name="textOnSecondary" format="color" />
+    <attr name="panelElevation" format="dimension" />
+    <attr name="colorTextEnabled" format="color" />
+    <attr name="colorTextDisabled" format="color" />
 </resources>

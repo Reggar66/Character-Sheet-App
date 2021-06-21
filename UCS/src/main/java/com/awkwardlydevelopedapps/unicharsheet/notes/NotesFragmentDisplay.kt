@@ -106,12 +106,7 @@ class NotesFragmentDisplay : Fragment() {
         override fun onClick(p0: View?) {
             if (!edit) {
                 editTextNote.isEnabled = true
-                editTextNote.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.textOnSecondary_day
-                    )
-                )
+
                 editTextNote.requestFocus()
                 editTextNote.setSelection(editTextNote.length())
 
@@ -125,12 +120,6 @@ class NotesFragmentDisplay : Fragment() {
                 edit = true
             } else if (edit) {
                 editTextNote.isEnabled = false
-                editTextNote.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorSecondaryDark_day
-                    )
-                )
 
                 editButton.setImageDrawable(
                     ContextCompat.getDrawable(

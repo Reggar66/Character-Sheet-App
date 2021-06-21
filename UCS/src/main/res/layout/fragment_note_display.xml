@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    android:background="@drawable/note_background_drawable">
+    android:background="@drawable/note_background_drawable"
+    android:elevation="?attr/panelElevation">
 
     <ImageView
         android:id="@+id/imageView_close_note_display"
@@ -72,7 +73,7 @@
                 android:fontFamily="@font/almendra"
                 android:inputType="textMultiLine"
                 android:textAlignment="textStart"
-                android:textColor="?attr/colorSecondaryVariant"
+                android:textColor="@color/text_enable_disable_color"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="visible"

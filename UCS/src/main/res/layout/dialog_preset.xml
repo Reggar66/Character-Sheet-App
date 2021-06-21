@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/preset_name"
+        android:textColor="?attr/textOnSecondary"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/presetDialog_editText_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +28,7 @@
         android:ems="10"
         android:hint="@string/preset_hint_name"
         android:inputType="none|textCapWords"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_presetName"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,5 +45,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/presetDialog_editText_name"
-        app:srcCompat="@drawable/ic_done_black_24dp" />
+        app:srcCompat="@drawable/ic_done_black_24dp"
+        android:focusable="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/eq_name_dialog"
+        android:textColor="?attr/textOnSecondary"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText_name"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,6 +34,7 @@
         android:hint="@string/eq_name_hint_dialog"
         android:inputType="textCapWords"
         android:maxLength="100"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/type"
+        android:textColor="?attr/textOnSecondary"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/editText_type"
         app:layout_constraintStart_toStartOf="parent" />
@@ -56,6 +59,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toBottomOf="@+id/editText_name" />
@@ -66,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/eq_value_dialog"
+        android:textColor="?attr/textOnSecondary"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/editText_value"
         app:layout_constraintStart_toStartOf="parent" />
@@ -80,6 +85,7 @@
         android:hint="@string/stat_value_hint_dialog"
         android:inputType="numberSigned|number|numberDecimal"
         android:maxLength="20"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toBottomOf="@+id/editText_type" />
@@ -92,6 +98,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/additional_effects"
+        android:textColor="?attr/textOnSecondary"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +114,7 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_additionalEffects" />

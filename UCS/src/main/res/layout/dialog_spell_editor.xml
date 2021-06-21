@@ -26,6 +26,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:textAlignment="textStart"
+        android:textColor="?attr/textOnSecondary"
         app:layout_constraintBottom_toBottomOf="@+id/dialogSpellEditor_fab_apply"
         app:layout_constraintEnd_toStartOf="@+id/dialogSpellEditor_fab_apply"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,11 +39,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_done_black_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_done_black_24dp" />
 
     <TextView
         android:id="@+id/textView"

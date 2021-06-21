@@ -36,7 +36,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_slot_head" />
+                app:srcCompat="@drawable/ic_slot_head"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_neck"
@@ -52,7 +53,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_head"
-                app:srcCompat="@drawable/ic_slot_neck" />
+                app:srcCompat="@drawable/ic_slot_neck"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_chest"
@@ -68,7 +70,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_neck"
-                app:srcCompat="@drawable/ic_slot_chest" />
+                app:srcCompat="@drawable/ic_slot_chest"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_right_arm"
@@ -84,7 +87,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_chest"
-                app:srcCompat="@drawable/ic_slot_arm_right" />
+                app:srcCompat="@drawable/ic_slot_arm_right"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_left_arm"
@@ -100,7 +104,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_right_arm"
-                app:srcCompat="@drawable/ic_slot_arm_left" />
+                app:srcCompat="@drawable/ic_slot_arm_left"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_legs"
@@ -116,7 +121,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_left_arm"
-                app:srcCompat="@drawable/ic_slot_legs" />
+                app:srcCompat="@drawable/ic_slot_legs"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_feet"
@@ -132,7 +138,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_legs"
-                app:srcCompat="@drawable/ic_slot_feet" />
+                app:srcCompat="@drawable/ic_slot_feet"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_weapon"
@@ -148,7 +155,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_feet"
-                app:srcCompat="@drawable/ic_slot_weapon" />
+                app:srcCompat="@drawable/ic_slot_weapon"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_off_hand"
@@ -164,7 +172,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_weapon"
-                app:srcCompat="@drawable/ic_slot_off_hand" />
+                app:srcCompat="@drawable/ic_slot_off_hand"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_ears"
@@ -180,7 +189,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_off_hand"
-                app:srcCompat="@drawable/ic_slot_ears" />
+                app:srcCompat="@drawable/ic_slot_ears"
+                android:elevation="?attr/panelElevation" />
 
             <ImageView
                 android:id="@+id/imageView_slot_finger"
@@ -196,7 +206,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView_slot_ears"
-                app:srcCompat="@drawable/ic_slot_finger" />
+                app:srcCompat="@drawable/ic_slot_finger"
+                android:elevation="?attr/panelElevation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -212,7 +223,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ScrollView_slots_container"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="?attr/panelElevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

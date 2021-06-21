@@ -16,7 +16,9 @@
         <!-- My attrs -->
         <item name="textOnPrimary">@color/textOnPrimary_night</item>
         <item name="textOnSecondary">@color/textOnSecondary_night</item>
-
+        <item name="panelElevation">@dimen/panelElevation_4dp</item>
+        <item name="colorTextEnabled">@color/textOnSecondary_night</item>
+        <item name="colorTextDisabled">@color/colorTextDisabled_night</item>
     </style>
 
     <!-- Splash screen theme -->

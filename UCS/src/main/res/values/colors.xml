@@ -8,9 +8,10 @@
     <color name="colorSecondary_day">#E8E9EB</color>
     <color name="colorSecondaryDark_day">#474448</color>
 
-    <!--    <color name="textOnPrimaryDarker_day">#CCCCCC</color>-->
     <color name="textOnPrimary_day">#FFFFFF</color>
     <color name="textOnSecondary_day">#000000</color>
+    <color name="colorTextEnabled_day">#000000</color>
+    <color name="colorTextDisabled_day">#474448</color>
 
     <!-- Night colors -->
     <color name="colorPrimary_night">#1c1c1d</color>
@@ -22,5 +23,7 @@
 
     <color name="textOnPrimary_night">#FFFFFF</color>
     <color name="textOnSecondary_night">#FFFFFF</color>
+    <color name="colorTextEnabled_night">#FFFFFF</color>
+    <color name="colorTextDisabled_night">#B3B6BD</color>
 
 </resources>

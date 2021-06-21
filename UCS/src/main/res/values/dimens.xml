@@ -7,4 +7,7 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="margin_16dp">16dp</dimen>
+
+    <!-- Panel elevation (list items, spells notes, stats etc.) -->
+    <dimen name="panelElevation_4dp">4dp</dimen>
 </resources>

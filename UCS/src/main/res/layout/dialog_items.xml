@@ -19,6 +19,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/item_name_dialog"
+            android:textColor="?attr/textOnSecondary"
             android:textStyle="bold" />
 
         <EditText
@@ -30,7 +31,8 @@
             android:layout_weight="5"
             android:hint="@string/item_name"
             android:inputType="textCapSentences"
-            android:maxLength="20" />
+            android:maxLength="20"
+            android:textColor="?attr/textOnSecondary" />
     </LinearLayout>
 
 
@@ -45,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/item_quantity_dialog"
+            android:textColor="?attr/textOnSecondary"
             android:textStyle="bold" />
 
         <EditText
@@ -54,7 +57,8 @@
             android:layout_marginStart="8dp"
             android:layout_weight="5"
             android:hint="@string/item_quantity_example"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textColor="?attr/textOnSecondary" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

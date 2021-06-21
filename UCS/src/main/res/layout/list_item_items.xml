@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/list_item_stat_drawable">
+    android:background="@drawable/list_item_stat_drawable"
+    android:elevation="?attr/panelElevation">
 
     <TextView
         android:id="@+id/item_name"
