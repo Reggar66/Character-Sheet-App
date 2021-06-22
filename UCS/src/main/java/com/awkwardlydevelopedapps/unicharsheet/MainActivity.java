@@ -3,6 +3,7 @@ package com.awkwardlydevelopedapps.unicharsheet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         orientationCheck();
+        appThemeCheck();
 
         AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
@@ -62,6 +64,27 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
+    }
+
+    private void appThemeCheck() {
+        SharedPreferences sharedPreferences
+                = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Get chosen theme from prefs with default value same as device
+        String themeOption = sharedPreferences
+                .getString(PreferenceFragment.KEY_APP_THEME, PreferenceFragment.THEME_OPTION_DEVICE);
+
+        switch (themeOption) {
+            case PreferenceFragment.THEME_OPTION_LIGHT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case PreferenceFragment.THEME_OPTION_DARK:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case PreferenceFragment.THEME_OPTION_DEVICE:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
         }
     }
 

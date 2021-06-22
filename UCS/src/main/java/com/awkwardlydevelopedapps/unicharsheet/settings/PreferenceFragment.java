@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
 import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
@@ -29,7 +31,15 @@ public class PreferenceFragment
     private final static String KEY_NUMBER_OF_TABS = "NUMBER_OF_TABS";
     private final static String KEY_CONSENT = "CONSENT";
     private final static String KEY_FEEDBACK = "FEEDBACK";
+
+    public final static String KEY_APP_THEME = "APP_THEME";
+    public final static String THEME_OPTION_LIGHT = "THEME_LIGHT";
+    public final static String THEME_OPTION_DARK = "THEME_DARK";
+    public final static String THEME_OPTION_NIGHT = "THEME_NIGHT";
+    public final static String THEME_OPTION_DEVICE = "THEME_DEVICE";
+
     public final static String KEY_ORIENTATION_LOCK = "ORIENTATION_LOCK";
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -43,6 +53,11 @@ public class PreferenceFragment
         SwitchPreferenceCompat switchPreferenceCompatOrientationLock = findPreference(KEY_ORIENTATION_LOCK);
         if (switchPreferenceCompatOrientationLock != null) {
             switchPreferenceCompatOrientationLock.setOnPreferenceChangeListener(new OrientationLockListener());
+        }
+
+        ListPreference listPreferenceAppTheme = findPreference(KEY_APP_THEME);
+        if (listPreferenceAppTheme != null) {
+            listPreferenceAppTheme.setOnPreferenceChangeListener(new AppThemeOptionListener());
         }
 
         EditTextPreference editTextPreferenceTabsNumber = findPreference(KEY_NUMBER_OF_TABS);
@@ -145,6 +160,28 @@ public class PreferenceFragment
                         "INFO",
                         "Preference Orientation Lock: now should unlock orientation"
                 );
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Responsible for handling preference change for "App theme" option
+     */
+    private class AppThemeOptionListener implements Preference.OnPreferenceChangeListener {
+
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            switch ((String) newValue) {
+                case THEME_OPTION_LIGHT:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    break;
+                case THEME_OPTION_DARK:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    break;
+                case THEME_OPTION_DEVICE:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    break;
             }
             return true;
         }

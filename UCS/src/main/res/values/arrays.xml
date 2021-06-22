@@ -14,4 +14,19 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+
+    <!-- TODO use string resources instead of hard coded values -->
+    <string-array name="app_theme_names">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Same as device</item>
+        <!-- <item>Night</item> -->
+    </string-array>
+    <string-array name="app_theme_values">
+        <item>THEME_LIGHT</item>
+        <item>THEME_DARK</item>
+        <item>THEME_DEVICE</item>
+        <!-- <item>THEME_NIGHT</item> -->
+    </string-array>
 </resources>
