@@ -109,12 +109,6 @@ class NotesFragment : Fragment(),
         override fun onMenuItemClick(item: MenuItem?): Boolean {
 
             return when (item?.itemId) {
-                R.id.action_about -> {
-                    NavHostFragment
-                        .findNavController(this@NotesFragment)
-                        .navigate(NotesFragmentDirections.actionNotesFragmentToAboutFragment())
-                    true
-                }
                 R.id.action_settings -> {
                     NavHostFragment
                         .findNavController(this@NotesFragment)

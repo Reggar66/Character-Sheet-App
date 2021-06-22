@@ -149,12 +149,7 @@ public class SpellsFragment extends Fragment
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             int itemId = item.getItemId();
-            if (itemId == R.id.action_about) {
-                NavHostFragment
-                        .findNavController(SpellsFragment.this)
-                        .navigate(SpellsFragmentDirections.actionSpellsFragmentToAboutFragment());
-                return true;
-            } else if (itemId == R.id.action_settings) {
+            if (itemId == R.id.action_settings) {
                 NavHostFragment
                         .findNavController(SpellsFragment.this)
                         .navigate(SpellsFragmentDirections.actionSpellsFragmentToSettingsFragment());

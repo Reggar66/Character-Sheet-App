@@ -233,11 +233,6 @@ public class StatsFragment extends Fragment
             } else if (itemId == R.id.action_changeTabName) {
                 changeCurrentTabName();
                 return true;
-            } else if (itemId == R.id.action_about) {
-                NavHostFragment
-                        .findNavController(StatsFragment.this)
-                        .navigate(StatsFragmentDirections.actionStatsFragmentToAboutFragment());
-                return true;
             } else if (itemId == R.id.action_createTab) {
                 createNewTab();
                 return true;

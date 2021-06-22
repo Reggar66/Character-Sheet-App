@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
@@ -31,6 +32,7 @@ public class PreferenceFragment
     private final static String KEY_NUMBER_OF_TABS = "NUMBER_OF_TABS";
     private final static String KEY_CONSENT = "CONSENT";
     private final static String KEY_FEEDBACK = "FEEDBACK";
+    private final static String KEY_ABOUT = "ABOUT_SCREEN";
 
     public final static String KEY_APP_THEME = "APP_THEME";
     public final static String THEME_OPTION_LIGHT = "THEME_LIGHT";
@@ -69,12 +71,22 @@ public class PreferenceFragment
             preferenceConsent.setOnPreferenceClickListener(new ConsentOnClickListener());
             if (ConsentInformation.getInstance(requireContext()).isRequestLocationInEeaOrUnknown())
                 preferenceConsent.setVisible(true);
-
         }
 
         Preference preferenceFeedback = findPreference(KEY_FEEDBACK);
         if (preferenceFeedback != null) {
             preferenceFeedback.setOnPreferenceClickListener(new SendFeedbackListener());
+        }
+
+        Preference preferenceAboutScreen = findPreference(KEY_ABOUT);
+        if (preferenceAboutScreen != null) {
+            preferenceAboutScreen.setOnPreferenceClickListener(preference -> {
+                // Navigates to 'About' screen when option is clicked
+                NavHostFragment
+                        .findNavController(PreferenceFragment.this)
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment());
+                return true;
+            });
         }
     }
 

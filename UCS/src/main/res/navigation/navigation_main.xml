@@ -31,13 +31,6 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <action
-            android:id="@+id/action_characterListFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-        <action
             android:id="@+id/action_characterListFragment_to_statsFragment"
             app:destination="@id/statsFragment"
             app:enterAnim="@android:anim/slide_in_left"
@@ -78,9 +71,6 @@
         tools:layout="@layout/fragment_stats"
         android:name="com.awkwardlydevelopedapps.unicharsheet.stats.StatsFragment">
         <action
-            android:id="@+id/action_statsFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
-        <action
             android:id="@+id/action_statsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/characterListFragment" />
@@ -89,9 +79,6 @@
         android:id="@+id/inventoryFragment"
         tools:layout="@layout/fragment_inventory"
         android:name="com.awkwardlydevelopedapps.unicharsheet.inventory.InventoryFragment">
-        <action
-            android:id="@+id/action_inventoryFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
         <action
             android:id="@+id/action_inventoryFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
@@ -102,23 +89,21 @@
         android:id="@+id/spellsFragment"
         android:name="com.awkwardlydevelopedapps.unicharsheet.abilities.SpellsFragment">
         <action
-            android:id="@+id/action_spellsFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
-        <action
             android:id="@+id/action_spellsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/characterListFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.settings.SettingsFragment" />
+        android:name="com.awkwardlydevelopedapps.unicharsheet.settings.SettingsFragment">
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.awkwardlydevelopedapps.unicharsheet.notes.NotesFragment"
         android:label="NotesFragment">
-        <action
-            android:id="@+id/action_notesFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
         <action
             android:id="@+id/action_notesFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />

@@ -11,12 +11,12 @@
             app:title="Lock orientation" />
 
         <ListPreference
+            android:defaultValue="THEME_LIGHT"
             android:entryValues="@array/app_theme_values"
             app:entries="@array/app_theme_names"
             app:key="APP_THEME"
             app:summary="Choose your app theme."
-            app:title="App theme"
-            android:defaultValue="THEME_LIGHT" />
+            app:title="App theme" />
 
         <EditTextPreference
             android:inputType="number"
@@ -41,5 +41,9 @@
             app:summary="Report technical issues or suggest new features."
             app:title="Send feedback" />
     </PreferenceCategory>
+
+    <Preference
+        app:title="About"
+        app:key="ABOUT_SCREEN" />
 
 </PreferenceScreen>

@@ -235,12 +235,7 @@ public class CharacterListFragment extends Fragment
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             int itemId = item.getItemId();
-            if (itemId == R.id.action_about) {
-                NavHostFragment
-                        .findNavController(CharacterListFragment.this)
-                        .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToAboutFragment());
-                return true;
-            } else if (itemId == R.id.action_settings) {
+            if (itemId == R.id.action_settings) {
                 NavHostFragment
                         .findNavController(CharacterListFragment.this)
                         .navigate(CharacterListFragmentDirections.actionCharacterListFragmentToSettingsFragment());
