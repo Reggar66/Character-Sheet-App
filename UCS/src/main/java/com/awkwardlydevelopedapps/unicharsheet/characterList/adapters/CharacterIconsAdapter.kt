@@ -24,7 +24,7 @@ class CharacterIconsAdapter(
         }
 
         override fun onClick(p0: View?) {
-            val position = adapterPosition
+            val position = bindingAdapterPosition
             imageToSet.setImageResource(mIcons[position].iconId)
             imageToSet.contentDescription = mIcons[position].iconName
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN

@@ -45,17 +45,17 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
             if (showChecks) {
                 manageBackgroundSelection()
             } else {
-                onItemClickListener?.onItemClick(p0, adapterPosition)
+                onItemClickListener?.onItemClick(p0, bindingAdapterPosition)
             }
         }
 
         override fun onLongClick(p0: View?): Boolean {
-            onItemLongClickListener?.onItemLongClick(p0, adapterPosition)
+            onItemLongClickListener?.onItemLongClick(p0, bindingAdapterPosition)
             return true
         }
 
         private fun manageBackgroundSelection() {
-            val note = notes[adapterPosition]
+            val note = notes[bindingAdapterPosition]
             if (note.isChecked) {
                 note.isChecked = false
                 itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable)
@@ -66,7 +66,7 @@ class NotesListAdapter() : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
         }
 
         fun bindCheckBox() {
-            val note = notes[adapterPosition]
+            val note = notes[bindingAdapterPosition]
 
             if (note.isChecked) {
                 itemView.background = ContextCompat.getDrawable(context, R.drawable.note_background_drawable_selected)
