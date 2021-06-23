@@ -21,8 +21,24 @@
         <item name="colorTextDisabled">@color/colorTextDisabled_night</item>
     </style>
 
-    <!-- Splash screen theme -->
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/splash_screen_drawable</item>
+    <!-- Polar night theme. -->
+    <style name="AppThemePolarNight" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_polar_night</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_polar_night</item>
+        <item name="colorSecondary">@color/colorSecondary_polar_night</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDark_polar_night</item>
+        <item name="colorAccent">@color/colorAccent_polar_night</item>
+
+        <item name="android:alertDialogTheme">@style/AppDialogFragmentThemePolarNight</item>
+        <item name="android:colorControlHighlight">@color/colorPrimaryDark_polar_night</item>
+        <!-- Disabling elevation overlay -->
+        <item name="elevationOverlayEnabled">false</item>
+
+        <!-- My attrs -->
+        <item name="textOnPrimary">@color/textOnPrimary_polar_night</item>
+        <item name="textOnSecondary">@color/textOnSecondary_polar_night</item>
+        <item name="panelElevation">@dimen/panelElevation_4dp</item>
+        <item name="colorTextEnabled">@color/colorTextEnabled_polar_night</item>
+        <item name="colorTextDisabled">@color/colorTextDisabled_polar_night</item>
     </style>
 </resources>

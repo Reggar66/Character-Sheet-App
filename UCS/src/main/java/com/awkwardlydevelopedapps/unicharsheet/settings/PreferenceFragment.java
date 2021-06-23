@@ -37,7 +37,7 @@ public class PreferenceFragment
     public final static String KEY_APP_THEME = "APP_THEME";
     public final static String THEME_OPTION_LIGHT = "THEME_LIGHT";
     public final static String THEME_OPTION_DARK = "THEME_DARK";
-    public final static String THEME_OPTION_NIGHT = "THEME_NIGHT";
+    public final static String THEME_OPTION_POLAR_NIGHT = "THEME_POLAR_NIGHT";
     public final static String THEME_OPTION_DEVICE = "THEME_DEVICE";
 
     public final static String KEY_ORIENTATION_LOCK = "ORIENTATION_LOCK";
@@ -184,17 +184,9 @@ public class PreferenceFragment
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
-            switch ((String) newValue) {
-                case THEME_OPTION_LIGHT:
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    break;
-                case THEME_OPTION_DARK:
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    break;
-                case THEME_OPTION_DEVICE:
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    break;
-            }
+            // Just recreating whole activity here,
+            // since we check for theme in onCreate of MainActivity()
+            requireActivity().recreate();
             return true;
         }
     }

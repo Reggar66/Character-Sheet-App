@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        // Theme check (or setTheme) needs to be called before super.OnCreate() and setContentView()
+        // so we can transit to correct theme.
+        appThemeCheck();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         orientationCheck();
-        appThemeCheck();
 
         AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
@@ -75,11 +77,17 @@ public class MainActivity extends AppCompatActivity {
         String themeOption = sharedPreferences
                 .getString(PreferenceFragment.KEY_APP_THEME, PreferenceFragment.THEME_OPTION_DEVICE);
 
+        if (themeOption.equals(PreferenceFragment.THEME_OPTION_POLAR_NIGHT))
+            setTheme(R.style.AppThemePolarNight);
+        else
+            setTheme(R.style.AppTheme);
+
         switch (themeOption) {
             case PreferenceFragment.THEME_OPTION_LIGHT:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
             case PreferenceFragment.THEME_OPTION_DARK:
+            case PreferenceFragment.THEME_OPTION_POLAR_NIGHT:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
             case PreferenceFragment.THEME_OPTION_DEVICE:

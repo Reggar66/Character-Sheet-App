@@ -20,12 +20,14 @@
     <string-array name="app_theme_names">
         <item>Light</item>
         <item>Dark</item>
+        <item>Polar night</item>
         <item>Same as device</item>
         <!-- <item>Night</item> -->
     </string-array>
     <string-array name="app_theme_values">
         <item>THEME_LIGHT</item>
         <item>THEME_DARK</item>
+        <item>THEME_POLAR_NIGHT</item>
         <item>THEME_DEVICE</item>
         <!-- <item>THEME_NIGHT</item> -->
     </string-array>

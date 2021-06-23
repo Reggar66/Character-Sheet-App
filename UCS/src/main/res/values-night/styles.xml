@@ -9,6 +9,15 @@
         <item name="android:windowBackground">@color/colorSecondary_night</item>
     </style>
 
+    <style name="AppDialogFragmentThemePolarNight" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary_polar_night</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_polar_night</item>
+        <item name="colorAccent">@color/colorAccent_polar_night</item>
+
+        <item name="android:textColor">@color/textOnSecondary_polar_night</item>
+        <item name="android:windowBackground">@color/colorSecondary_polar_night</item>
+    </style>
+
     <!-- Bottom Sheet Dialog styles -->
     <style name="BottomSheetBase" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_background_drawable</item>
@@ -25,6 +34,22 @@
         <item name="colorSecondary">@color/colorSecondary_night</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryDark_night</item>
         <item name="colorAccent">@color/colorAccent_night</item>
+
+        <item name="elevationOverlayEnabled">false</item>
+
+        <item name="bottomSheetStyle">@style/BottomSheetBase</item>
+    </style>
+
+    <style name="BottomDialogStylePolarNight" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
+        <item name="colorPrimary">@color/colorPrimary_polar_night</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_polar_night</item>
+        <item name="colorSecondary">@color/colorSecondary_polar_night</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDark_polar_night</item>
+        <item name="colorAccent">@color/colorAccent_polar_night</item>
 
         <item name="elevationOverlayEnabled">false</item>
 

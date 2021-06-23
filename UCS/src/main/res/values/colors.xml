@@ -26,4 +26,16 @@
     <color name="colorTextEnabled_night">#FFFFFF</color>
     <color name="colorTextDisabled_night">#B3B6BD</color>
 
+    <!-- Polar night colors -->
+    <color name="colorPrimary_polar_night">#3B4252</color>
+    <color name="colorPrimaryDark_polar_night">#2E3440</color>
+
+    <color name="colorAccent_polar_night">#D33E43</color>
+    <color name="colorSecondary_polar_night">#4C566A</color>
+    <color name="colorSecondaryDark_polar_night">#434C5E</color>
+
+    <color name="textOnPrimary_polar_night">#FFFFFF</color>
+    <color name="textOnSecondary_polar_night">#FFFFFF</color>
+    <color name="colorTextEnabled_polar_night">#FFFFFF</color>
+    <color name="colorTextDisabled_polar_night">#B3B6BD</color>
 </resources>
