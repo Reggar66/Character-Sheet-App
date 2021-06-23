@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/spell_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:background="@drawable/ic_background_hex"
         android:elevation="?attr/panelElevation"
         android:padding="12dp"
