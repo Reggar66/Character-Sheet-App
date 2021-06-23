@@ -131,7 +131,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/character_creation_icon_selection_ripple"
-                    android:backgroundTint="?attr/colorPrimaryDark"
                     android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

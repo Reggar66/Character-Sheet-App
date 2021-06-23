@@ -13,23 +13,23 @@
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:background="@drawable/list_item_spell_background_drawable_ripple"
+        android:elevation="?attr/panelElevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/spell_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="?attr/panelElevation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/spell_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/ic_background_hex"
+        android:elevation="?attr/panelElevation"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_splashy_stream"
-        android:elevation="?attr/panelElevation" />
+        tools:srcCompat="@drawable/ic_splashy_stream" />
 
     <TextView
         android:id="@+id/spell_name"
@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="4dp"
+        android:elevation="?attr/panelElevation"
         android:ellipsize="end"
         android:fontFamily="@font/almendra"
         android:maxLines="1"
@@ -48,6 +49,5 @@
         app:layout_constraintEnd_toEndOf="@+id/spell_item_name_bar"
         app:layout_constraintStart_toEndOf="@+id/spell_icon"
         app:layout_constraintTop_toTopOf="@+id/spell_item_name_bar"
-        tools:text="Creative spell name"
-        android:elevation="?attr/panelElevation" />
+        tools:text="Creative spell name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

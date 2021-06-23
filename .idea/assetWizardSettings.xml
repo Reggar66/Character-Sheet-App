@@ -333,9 +333,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_subtitles_white_24" />
-                            <entry key="sourceFile" value="C:\Users\Student236095" />
+                            <entry key="outputName" value="ic_background_hex_pure" />
+                            <entry key="sourceFile" value="F:\Coding\2_Resources\Universal Character Sheet\background_hex_pure.svg" />
                           </map>
                         </option>
                       </PersistentState>

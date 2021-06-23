@@ -28,7 +28,6 @@
         android:layout_height="88dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/ic_background_hex"
-        android:backgroundTint="?attr/colorPrimaryDark"
         android:contentDescription="@string/char_select_icon_desc"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

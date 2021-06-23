@@ -28,7 +28,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="8dp"
             android:background="@drawable/ic_background_hex"
-            android:backgroundTint="?attr/colorPrimaryDark"
             tools:srcCompat="@drawable/ic_kenku_head" />
 
         <LinearLayout
