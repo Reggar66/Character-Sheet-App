@@ -90,8 +90,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1543" />
-                            <option name="y" value="861" />
+                            <option name="x" value="1391" />
+                            <option name="y" value="630" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -129,11 +129,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_characterListFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_characterListFragment_to_characterCreationFragment">
                               <value>
                                 <LayoutPositions />
@@ -185,11 +180,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_inventoryFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_inventoryFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />
@@ -211,11 +201,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_notesFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_notesFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />
@@ -232,8 +217,17 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="925" />
-                            <option name="y" value="387" />
+                            <option name="y" value="607" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_settingsFragment_to_aboutFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -249,11 +243,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_spellsFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_spellsFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />
@@ -275,11 +264,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_statsFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_statsFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />

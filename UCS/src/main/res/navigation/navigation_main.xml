@@ -56,9 +56,6 @@
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/characterListFragment" />
         <action
-            android:id="@+id/action_characterListFragment_to_notesFragment2"
-            app:destination="@id/notesFragment" />
-        <action
             android:id="@+id/action_characterListFragment_to_notesFragment"
             app:destination="@id/notesFragment" />
     </fragment>
@@ -72,8 +69,7 @@
         android:name="com.awkwardlydevelopedapps.unicharsheet.stats.StatsFragment">
         <action
             android:id="@+id/action_statsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/characterListFragment" />
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/inventoryFragment"
@@ -81,8 +77,7 @@
         android:name="com.awkwardlydevelopedapps.unicharsheet.inventory.InventoryFragment">
         <action
             android:id="@+id/action_inventoryFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/characterListFragment" />
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_spells"
@@ -90,8 +85,7 @@
         android:name="com.awkwardlydevelopedapps.unicharsheet.abilities.SpellsFragment">
         <action
             android:id="@+id/action_spellsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:popUpTo="@id/characterListFragment" />
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
