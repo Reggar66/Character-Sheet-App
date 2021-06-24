@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterCreationFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.fragments.CharacterCreationFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.CharacterCreationFragment"
         tools:layout="@layout/fragment_character_creation">
         <action
             android:id="@+id/action_characterCreationFragment_to_characterListFragment"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterListFragment"
-        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.fragments.CharacterListFragment"
+        android:name="com.awkwardlydevelopedapps.unicharsheet.characterList.CharacterListFragment"
         tools:layout="@layout/fragment_character_list">
         <action
             android:id="@+id/action_characterListFragment_to_characterCreationFragment"

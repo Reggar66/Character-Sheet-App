@@ -1,4 +1,4 @@
-package com.awkwardlydevelopedapps.unicharsheet.characterList.fragments;
+package com.awkwardlydevelopedapps.unicharsheet.characterList;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +31,6 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.common.model.Icon;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.ImageContract;
-import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dao.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -96,7 +95,7 @@ public class CharacterCreationFragment extends Fragment {
         textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
 
         RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
-        ArrayList<PresetList> presetList = PresetList.presetList(requireContext());
+        ArrayList<PresetList> presetList = PresetList.presetListBuiltinPresets(requireContext());
         PresetListAdapter presetListAdapter = new PresetListAdapter(presetList,
                 textViewPreset,
                 bottomSheetBehaviorPreset,

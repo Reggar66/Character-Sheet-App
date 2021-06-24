@@ -25,10 +25,17 @@ public class PresetList {
         return name;
     }
 
-    public static ArrayList<PresetList> presetList(Context context) {
+    public static ArrayList<PresetList> presetListBuiltinPresets(Context context) {
         ArrayList<PresetList> presetList = new ArrayList<>();
         presetList.add(new PresetList(context.getString(R.string.none)));
         presetList.add(new PresetList(context.getString(R.string.blade)));
+
+        return presetList;
+    }
+
+    public static ArrayList<PresetList> presetListNoBuiltinPresets(Context context) {
+        ArrayList<PresetList> presetList = new ArrayList<>();
+        presetList.add(new PresetList(context.getString(R.string.none)));
 
         return presetList;
     }

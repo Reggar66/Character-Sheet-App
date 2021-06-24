@@ -1,4 +1,4 @@
-package com.awkwardlydevelopedapps.unicharsheet.characterList.fragments;
+package com.awkwardlydevelopedapps.unicharsheet.characterList;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
