@@ -17,6 +17,8 @@ import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -44,7 +46,7 @@ public class AdSingleton {
     public void adInit(Context context) {
         MobileAds.initialize(context, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
 
             }
         });
@@ -78,7 +80,6 @@ public class AdSingleton {
     }
 
     public void consentInfoUpdate(Context context) {
-        ConsentInformation.getInstance(context).addTestDevice("AE5B3676F36A10E4DE9250343E2B2B70");
         //ConsentInformation.getInstance(context).setDebugGeography(DebugGeography.DEBUG_GEOGRAPHY_NOT_EEA);
         //ConsentInformation.getInstance(this).setDebugGeography(DebugGeography.DEBUG_GEOGRAPHY_EEA);
 
