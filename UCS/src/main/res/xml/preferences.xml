@@ -11,7 +11,7 @@
             app:title="Lock orientation" />
 
         <ListPreference
-            android:defaultValue="THEME_LIGHT"
+            android:defaultValue="THEME_DEVICE"
             android:entryValues="@array/app_theme_values"
             app:entries="@array/app_theme_names"
             app:key="APP_THEME"
