@@ -24,6 +24,13 @@ class PresetListAdapter(
     private val activity: Activity
 ) : RecyclerView.Adapter<PresetListAdapter.ViewHolder>() {
 
+
+    var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun passPresetListItem(presetListItem: PresetList, presetIndex: Int)
+    }
+
     companion object {
         private const val SEPARATOR_POSITION = 1
     }
@@ -44,6 +51,11 @@ class PresetListAdapter(
         }
 
         override fun onClick(p0: View?) {
+            onItemClickListener?.passPresetListItem(
+                mPresetList[bindingAdapterPosition],
+                bindingAdapterPosition
+            )
+
             textViewPresetToSet.text = textViewPresetName.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }

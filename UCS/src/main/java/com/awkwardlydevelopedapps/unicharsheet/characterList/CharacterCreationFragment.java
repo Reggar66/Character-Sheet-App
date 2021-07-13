@@ -31,6 +31,7 @@ import com.awkwardlydevelopedapps.unicharsheet.R;
 import com.awkwardlydevelopedapps.unicharsheet.common.model.Icon;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.DbSingleton;
 import com.awkwardlydevelopedapps.unicharsheet.common.data.ImageContract;
+import com.awkwardlydevelopedapps.unicharsheet.common.utils.LogWrapper;
 import com.awkwardlydevelopedapps.unicharsheet.stats.dao.StatDao;
 import com.awkwardlydevelopedapps.unicharsheet.stats.model.Stat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -38,10 +39,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterCreationFragment extends Fragment {
+public class CharacterCreationFragment extends Fragment
+        implements PresetListAdapter.OnItemClickListener {
 
     private View rootView;
 
@@ -49,13 +53,33 @@ public class CharacterCreationFragment extends Fragment {
     private BottomSheetBehavior<View> bottomSheetBehaviorIcons;
     TextView textViewPreset;
 
+    ArrayList<PresetList> presetList;
     private CharacterDao characterDao;
     private StatDao statDao;
     private PresetDao presetDao;
     private int charId;
 
+    private PresetList selectedPresetList;
+    private int selectedPresetListIndex = PRESET_LIST_INDEX_NONE;
+
+    private final static int PRESET_LIST_INDEX_NONE = 0;
+    private final static int PRESET_LIST_INDEX_BLADE = 1;
+
+    // Bundle keys
+    private final static String KEY_SELECTED_INDEX = "SELECTED_INDEX";
+
     public CharacterCreationFragment() {
 
+    }
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            selectedPresetListIndex = savedInstanceState.getInt(KEY_SELECTED_INDEX);
+        } else {
+            selectedPresetListIndex = PRESET_LIST_INDEX_NONE;
+        }
     }
 
     @Nullable
@@ -95,18 +119,25 @@ public class CharacterCreationFragment extends Fragment {
         textViewPreset = rootView.findViewById(R.id.textView_preset_characterCreation);
 
         RecyclerView recyclerViewPresetList = rootView.findViewById(R.id.recyclerView_presetList);
-        ArrayList<PresetList> presetList = PresetList.presetListBuiltinPresets(requireContext());
-        PresetListAdapter presetListAdapter = new PresetListAdapter(presetList,
+        presetList = PresetList.presetListBuiltinPresets(requireContext());
+        PresetListAdapter presetListAdapter = new PresetListAdapter(
+                presetList,
                 textViewPreset,
                 bottomSheetBehaviorPreset,
                 presetDao,
-                requireActivity());
+                requireActivity()
+        );
+        presetListAdapter.setOnItemClickListener(this);
         recyclerViewPresetList.setAdapter(presetListAdapter);
         recyclerViewPresetList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ExecSingleton.getInstance().execute(() -> {
             presetList.addAll(presetDao.getPresetListByNameAsc());
             presetListAdapter.notifyDataSetChanged();
+
+            // set currently selected preset based on selected index,
+            // which is restored during orientation change.
+            selectedPresetList = presetList.get(selectedPresetListIndex);
         });
 
         // Taking care of showing bottom sheets
@@ -121,8 +152,10 @@ public class CharacterCreationFragment extends Fragment {
         });
 
 
+        LogWrapper.Companion.v("INFO", "Preset index=" + selectedPresetListIndex);
         return rootView;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -134,6 +167,11 @@ public class CharacterCreationFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SELECTED_INDEX, selectedPresetListIndex);
+    }
 
     private Runnable taskCreateAndAddCharacter() {
         return this::createAndAddCharacter;
@@ -160,28 +198,42 @@ public class CharacterCreationFragment extends Fragment {
     }
 
     private void checkPresetToAdd() {
-        String preNone = getString(R.string.none);
-        String preBlade = getString(R.string.blade);
 
-        String presetName = textViewPreset.getText().toString();
-        if (!presetName.equals(preBlade) && !presetName.equals(preNone)) {
-            presetName = "Custom";
-        }
+        // TODO load custom preset based on preset ID, NOT name.
+        //  Add possible null check?
 
-        if (presetName.equals(preNone)) {
+        if (selectedPresetList == presetList.get(PRESET_LIST_INDEX_NONE)) {
             showToast("Character created without preset.");
-        } else if (presetName.equals(preBlade)) {
-            showToast("Character created with 'Blade' preset.");
+        } else if (selectedPresetList == presetList.get(PRESET_LIST_INDEX_BLADE)) {
+            showToast("Character created with '" + selectedPresetList.name + "' preset.");
             bladePreset();
-        } else if (presetName.equals("Custom")) {
-            // For some reason IDE shows warning that above statement is always true. It's not.
-            // We check preset name based on localization string,
-            // if it doesn't match 'None' && 'Blade' THEN we set it to 'Custom'.
-            showToast("Character created with custom preset.");
-            loadCustomPreset(textViewPreset.getText().toString());
         } else {
-            showToast("Something wrong with preset.");
+            showToast("Character created with '" + selectedPresetList.name + "' preset.");
+            loadCustomPreset(textViewPreset.getText().toString());
         }
+
+//        String preNone = getString(R.string.none);
+//        String preBlade = getString(R.string.blade);
+//
+//        String presetName = textViewPreset.getText().toString();
+//        if (!presetName.equals(preBlade) && !presetName.equals(preNone)) {
+//            presetName = "Custom";
+//        }
+//
+//        if (presetName.equals(preNone)) {
+//            showToast("Character created without preset.");
+//        } else if (presetName.equals(preBlade)) {
+//            showToast("Character created with 'Blade' preset.");
+//            bladePreset();
+//        } else if (presetName.equals("Custom")) {
+//            // For some reason IDE shows warning that above statement is always true. It's not.
+//            // We check preset name based on localization string,
+//            // if it doesn't match 'None' && 'Blade' THEN we set it to 'Custom'.
+//            showToast("Character created with custom preset.");
+//            loadCustomPreset(textViewPreset.getText().toString());
+//        } else {
+//            showToast("Something wrong with preset.");
+//        }
     }
 
     private void bladePreset() {
@@ -209,7 +261,6 @@ public class CharacterCreationFragment extends Fragment {
         for (Preset preset : presetStatList) {
             statDao.insert(new Stat(preset.getName(), "0", charId, preset.getPage()));
         }
-
     }
 
     private String imageResourceTag() {
@@ -222,6 +273,13 @@ public class CharacterCreationFragment extends Fragment {
 
     private void showSnackbar(String msg) {
         requireActivity().runOnUiThread(() -> Snackbar.make(rootView, msg, BaseTransientBottomBar.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public void passPresetListItem(@NotNull PresetList presetListItem, int presetIndex) {
+        this.selectedPresetList = presetListItem;
+        this.selectedPresetListIndex = presetIndex;
+        LogWrapper.Companion.v("INFO", "Index on Click=" + selectedPresetListIndex);
     }
 
     /**

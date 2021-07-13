@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         orientationCheck();
 
-        //AdSingleton.Instance().enableTestDevice();
+        AdSingleton.Instance().enableTestDevice();
         AdSingleton.Instance().consentInfoUpdate(this);
         AdSingleton.Instance().adInit(this);
         AdView adView = findViewById(R.id.adView);

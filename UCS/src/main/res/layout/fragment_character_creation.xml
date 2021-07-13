@@ -173,6 +173,7 @@
                     android:layout_weight="5"
                     android:background="@drawable/pocket_fragment_value_ripple"
                     android:fontFamily="sans-serif-medium"
+                    android:freezesText="true"
                     android:text="@string/none"
                     android:textAlignment="textStart"
                     android:textColor="?attr/textOnSecondary"
